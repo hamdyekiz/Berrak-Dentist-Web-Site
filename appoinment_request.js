@@ -44,6 +44,7 @@ app.post('/submit', (req, res) => {
     // Send a response or redirect to another page
     res.send('Form submitted successfully');
 
+    
     // Alınan verilerle e posta gönderme
     sendEmail(name, surname, telNo, email, availableHours);
 

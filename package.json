@@ -1,0 +1,27 @@
+{
+  "name": "berrak-dentist-web-site",
+  "version": "1.0.0",
+  "main": "appoinment_request.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamdyekiz/Berrak-Dentist-Web-Site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/issues"
+  },
+  "homepage": "https://github.com/hamdyekiz/Berrak-Dentist-Web-Site#readme",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  }
+}

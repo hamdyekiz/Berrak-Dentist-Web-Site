@@ -161,7 +161,3 @@ function sendEmail(name, surname, telNo, email, availableHours){
 }
 
 
-//// aaaaaabbbbbbb////
-
-
-// çözül yeğen

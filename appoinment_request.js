@@ -48,11 +48,8 @@ app.post('/submit', (req, res) => {
     // Send a response or redirect to another page
     res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours })
 
+    // Hastanın mailine onay kodu yollanır.
     sendVerificationCode(name, surname, email);
-
-
-    // Alınan verilerle e posta gönderme
-    //sendEmail(name, surname, telNo, email, availableHours);
 
 
 });
@@ -77,14 +74,11 @@ app.post('/verify', (req, res) => {
 
 function sendVerificationCode(name, surname, email){
 
-
-  // let randomNumber = Math.floor(Math.random() * 100000);
-
-  // verificationCode = randomNumber.toString().padStart(5, '0');  
-  
+ 
+  // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı  
   const min = 10000; // Smallest 5-digit number
   const max = 99999; // Largest 5-digit number
-  const verificationCode = Math.floor(Math.random() * (max - min + 1) + min).toString();  
+  verificationCode = Math.floor(Math.random() * (max - min + 1) + min).toString();  
   
   const transporter = nodemailer.createTransport({
       host: 'smtp.office365.com',  // Outlook SMTP server
@@ -98,7 +92,7 @@ function sendVerificationCode(name, surname, email){
 
     const emailContent = `
     <p>Sayın ${name} ${surname},</p>
-    <p>Berrak diş hekimliğinden aldığınız randevusu için onay kodunuz:</p>
+    <p>Berrak diş hekimliğinden almak istediğiniz randevu için onay kodunuz:</p>
     <p style="font-size: 30px; font-weight: bold;">${verificationCode}</p>
   `;
 
@@ -118,7 +112,6 @@ function sendVerificationCode(name, surname, email){
       }
    });
    
-   //return verificationCode;
 }
 
 

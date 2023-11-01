@@ -61,8 +61,10 @@ app.post('/submit', (req, res) => {
 //e mail'e gönderilen kod verify edilecek.
 app.post('/verify', (req, res) => {
 
-  let enteredCode = req.body;
+  let {enteredCode} = req.body;
+  console.log("girilen code: " + enteredCode);
   if(verificationCode == enteredCode){
+    console.log("True code");
     sendEmail(name, surname, telNo, email, availableHours);
   }
   else{
@@ -82,7 +84,7 @@ function sendVerificationCode(name, surname, email){
   
   const min = 10000; // Smallest 5-digit number
   const max = 99999; // Largest 5-digit number
-  const verificationCode = Math.floor(Math.random() * (max - min + 1) + min);  
+  const verificationCode = Math.floor(Math.random() * (max - min + 1) + min).toString();  
   
   const transporter = nodemailer.createTransport({
       host: 'smtp.office365.com',  // Outlook SMTP server
@@ -93,7 +95,6 @@ function sendVerificationCode(name, surname, email){
           pass: process.env.EMAIL_PASSWORD
       }
     });
-    // Burada kayıtlı eposta hesabı ve şifresinin admin'den sitede alınıp database'e güvenli bir şekilde kaydedilmesi gerekiyor. 
 
     const emailContent = `
     <p>Sayın ${name} ${surname},</p>
@@ -160,5 +161,5 @@ function sendEmail(name, surname, telNo, email, availableHours){
 }
 
 
-
+//// aaaaa////
 

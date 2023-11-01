@@ -17,10 +17,11 @@ dotenv.config();
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 // Routes
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 // Start server
@@ -42,7 +43,7 @@ app.post('/submit', (req, res) => {
     console.log("availableHours: " + availableHours)
   
     // Send a response or redirect to another page
-    res.send('Form submitted successfully');
+    res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours })
 
     
     // Alınan verilerle e posta gönderme

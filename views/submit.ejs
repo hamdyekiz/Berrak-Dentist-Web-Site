@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Submitted</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+        p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 20px 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Submitted Successfully</h1>
+        <p>Thank you for making an appointment, <%= name %> <%= surname %>.</p>
+        <p>We will contact you at <%= telNo %> or <%= email %> during your available hours: <%= availableHours %>.</p>
+        <p>We will contact you soon.</p>
+    </div>
+</body>
+</html>

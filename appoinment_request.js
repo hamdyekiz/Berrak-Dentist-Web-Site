@@ -161,5 +161,4 @@ function sendEmail(name, surname, telNo, email, availableHours){
 }
 
 
-//// aaaaaooooooo////
 

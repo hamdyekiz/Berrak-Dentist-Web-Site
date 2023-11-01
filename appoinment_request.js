@@ -162,3 +162,4 @@ function sendEmail(name, surname, telNo, email, availableHours){
 
 
 
+// çözül yeğen

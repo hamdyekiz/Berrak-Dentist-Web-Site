@@ -1,1 +1,0 @@
-1) Popüler birkaç email adreslerine email gönderilebilsin. Sadece outlook'a değil.

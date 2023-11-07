@@ -10,3 +10,5 @@ Temp mail tespit edilip mail gönderme iptal edilecek ve kullanıcıya uyarı ve
 ----Yapıldı-----
 
 Hasta doğrulama kodunu yanlış girse de doktora mail gidecek mi?
+
+qwdwqdwq

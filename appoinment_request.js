@@ -57,16 +57,19 @@ app.post('/submit', (req, res) => {
 
 //e mail'e gönderilen kod verify edilecek.
 app.post('/verify', (req, res) => {
-
-  let {enteredCode} = req.body;
-  console.log("girilen code: " + enteredCode);
-  if(verificationCode == enteredCode){
+  let isCodeCorrect = false;
+  console.log(req.body);
+  let {authCode} = req.body;
+  console.log("girilen code: " + authCode);
+  if(verificationCode == authCode){
+    isCodeCorrect = true;
     console.log("True code");
     sendEmail(name, surname, telNo, email, availableHours);
   }
   else{
     console.log("Wrong code");
   }
+  res.render("submit.ejs", {isCodeCorrect: isCodeCorrect});
 
 });
 

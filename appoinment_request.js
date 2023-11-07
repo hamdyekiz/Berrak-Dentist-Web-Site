@@ -61,15 +61,29 @@ app.post('/submit', (req, res) => {
 //e mail'e gönderilen kod verify edilecek.
 app.post('/verify', (req, res) => {
 
-  let {enteredCode} = req.body;
-  console.log("girilen code: " + enteredCode);
-  if(verificationCode == enteredCode){
+  let {authCode} = req.body;
+
+  let isCodeCorrect = false;
+
+  console.log("girilen code: " + authCode);
+  if(verificationCode == authCode){
     console.log("True code");
-    sendEmail(name, surname, telNo, email, availableHours);
+    isCodeCorrect = true;
+    let subject = "Yeni Randevu Talebi";
+    console.log("subject: " + subject);
+    let text = `Randevu talebiniz onaylanmıştır. Randevu talebinizle ilgili en kısa sürede size dönüş yapılacaktır. İyi günler dileriz.
+    \nAd: ${name}
+    \nSoyad: ${surname}
+    \nTelefon: ${telNo}
+    \nE-posta: ${email}
+    \nAranmasını istediği saatler: ${availableHours}`;
+    sendEmail(subject, text);
   }
   else{
-    console.log("Wrong code");
+    console.log("False code");
+    isCodeCorrect = false;
   }
+  res.render("submit.ejs", {isCodeCorrect: isCodeCorrect});
 
 });
 
@@ -86,6 +100,8 @@ function sendVerificationCode(name, surname, email){
   const max = 99999; // Largest 5-digit number
   const verificationCode = Math.floor(Math.random() * (max - min + 1) + min).toString();  
   
+  console.log("verificationCode: " + verificationCode);
+
   const transporter = nodemailer.createTransport({
       host: 'smtp.office365.com',  // Outlook SMTP server
       port: 587,                  // Port for TLS
@@ -93,7 +109,7 @@ function sendVerificationCode(name, surname, email){
       auth: {
           user: process.env.EMAIL_USER,     // Access email from environment variable
           pass: process.env.EMAIL_PASSWORD
-      }
+      },
     });
 
     const emailContent = `
@@ -124,7 +140,7 @@ function sendVerificationCode(name, surname, email){
 
 
 
-
+/*
 function sendEmail(name, surname, telNo, email, availableHours){
 
     const transporter = nodemailer.createTransport({
@@ -159,7 +175,37 @@ function sendEmail(name, surname, telNo, email, availableHours){
         }
      });    
 }
+*/
 
+function sendEmail(subject, text){
+
+  const transporter = nodemailer.createTransport({
+      host: 'smtp.office365.com',  // Outlook SMTP server
+      port: 587,                  // Port for TLS
+      secure: false,              // true for 465, false for other ports
+      auth: {
+          user: process.env.EMAIL_USER,     // Access email from environment variable
+          pass: process.env.EMAIL_PASSWORD
+      }
+    });
+    // Burada kayıtlı eposta hesabı ve şifresinin admin'den sitede alınıp database'e güvenli bir şekilde kaydedilmesi gerekiyor. 
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,   // Access sender email
+      to: process.env.EMAIL_USER,     // Access recipient email
+      subject: subject,
+      text: text
+    };
+
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log('Email could not be sent:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+   });    
+}
 
 //// aaaaaabbbbbbb////
 

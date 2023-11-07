@@ -2,6 +2,10 @@ Email gönderme test edilecek. Çoklu göndermede sıkıntı çıkıyor mu bakı
 
 Temp mail tespit edilip mail gönderme iptal edilecek ve kullanıcıya uyarı verilecek. Bir nevi sadece gmail yandex outlook, hotmail gibi popüler platformlara mail gönderme olacak. => Yasir
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 4d7cc38 (git wrestling2)
 
 
 ----Yapıldı-----

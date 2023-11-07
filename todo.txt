@@ -1,0 +1,12 @@
+1) Yanlış email girilirse ne oluyor kontrol edilecek. Yanlış email yazılırsa pop up ile onay maili gönderilemedi diye geri bildirim yapılacak. => Ömer, Yasir
+
+Email gönderme test edilecek. Çoklu göndermede sıkıntı çıkıyor mu bakılacak. => Ömer
+
+Temp mail tespit edilip mail gönderme iptal edilecek ve kullanıcıya uyarı verilecek. Bir nevi sadece gmail yandex outlook, hotmail gibi popüler platformlara mail gönderme olacak. => Yasir
+
+
+
+
+----Yapıldı-----
+
+Hasta doğrulama kodunu yanlış girse de doktora mail gidecek mi?

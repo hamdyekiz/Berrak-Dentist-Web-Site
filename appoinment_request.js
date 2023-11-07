@@ -44,6 +44,9 @@ app.post('/submit', (req, res) => {
     console.log("telNo: " + telNo)
     console.log("email: " + email)
     console.log("availableHours: " + availableHours)
+
+    // testing if it is temp_mail or not.
+    // if the email is 
   
     // Send a response or redirect to another page
     res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours })

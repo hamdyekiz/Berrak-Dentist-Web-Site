@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="home">
+        <!-- navbar -->
+        <nav id="nav">
+            <div class="nav-center">
+                <!-- nav header -->
+                <div class="nav-header">
+                    <a href="#home" class="scroll-link">
+                        <div style="display: flex;">
+                            <img src="../svg/dentist-svgrepo-com.svg" class="logo" alt="logo" />
+                            <h5 class="myh5"
+                                style="margin-left: 10px;font-family: Playpen Sans ;font-size: 17px;color: #222;">
+                                BERRAK AĞIZ VE DİŞ <br> SAĞLIĞI POLİKİNİĞİ
+                            </h5>
+                        </div>
+                    </a>
+
+
+                </div>
+                <!-- links -->
+                <div class="links-container">
+                    <ul class="links">
+
+                        <li>
+                            <a href="../main_page/index.html#home" class="scroll-link">ANASAYFA</a>
+                        </li>
+                        <li>
+                            <a href="../main_page/index.html#about" class="scroll-link">HAKKIMIZDA</a>
+                        </li>
+                        <li>
+                            <a href="../main_page/index.html#services" class="scroll-link">DOKTORLARIMIZ</a>
+                        </li>
+                        <li>
+                            <a href="../main_page/index.html#cures" class="scroll-link">TEDAVİLER</a>
+                        </li>
+                        <li>
+                            <a href="../main_page/index.html#contact" class="scroll-link">İLETİŞİM</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+                <ul class="social-icons" style="display:flex;gap:15px;margin-left:60px;">
+                    <li>
+                        <a href="https://www.instagram.com/berrakdis/" target="_blank">
+                            <img src="../svg/instagram.svg" style="width:25px;height:25px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                            href="https://www.facebook.com/p/%C3%96zel-Berrak-A%C4%9F%C4%B1z-ve-Di%C5%9F-Sa%C4%9Fl%C4%B1%C4%9F%C4%B1-Poliklini%C4%9Fi-100063785460407/?locale=tr_TR">
+                            <img src="../svg/facebook.svg" style="width:25px;height:25px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                            href="https://api.whatsapp.com/send/?phone=905071757186&text&type=phone_number&app_absent=0">
+                            <img src="../svg/whatsapp.svg" style="width:25px;height:25px;">
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+        <!-- banner -->
+    </header>
+
+    <div class="doctor_container">
+
+        <div id="form-main">
+            <div id="form-div">
+                <form class="form" id="form1">
+
+                    <p class="name">
+                        <input type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
+                            required placeholder="Ad Soyad" id="name" />
+                    </p>
+
+                    <p class="tel">
+                        <input type="tel" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
+                            required placeholder="Telefon Numarası" id="tel" />
+                    </p>
+
+                    <p class="email">
+                        <input type="text" class="validate[required,custom[email]] feedback-input" id="email" required
+                            placeholder="Email" />
+                    </p>
+
+
+                    <div class="kg">
+                        <input type="text" id="start-time" name="start-time" placeholder="e.g. 8am" required
+                            pattern="([1-9]|1[0-2])(:[0-5][0-9])?[apAP][mM]">
+                        <input type="text" id="end-time" name="end-time" placeholder="e.g. 11am" required
+                            pattern="([1-9]|1[0-2])(:[0-5][0-9])?[apAP][mM]">
+                    </div>
+
+
+
+                    <select name="state" class="form-control selectpicker">
+                        <option value=" ">Doktor Tercihi</option>
+                        <option>Alabama</option>
+                        <option>Alaska</option>
+                        <option>Arizona</option>
+                        <option>Arkansas</option>
+                    </select>
+
+                    <p class="text">
+                        <textarea class="validate[required,length[6,300]] feedback-input" id="comment" required
+                            placeholder="Not"></textarea>
+                    </p>
+
+
+                    <div class="submit">
+                        <input type="submit" value="Teslim Et" id="button-blue" />
+                        <div class="ease"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <script src="app.js"></script>
+
+</body>
+
+</html>

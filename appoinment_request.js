@@ -44,7 +44,20 @@ app.post('/submit', (req, res) => {
     console.log("telNo: " + telNo)
     console.log("email: " + email)
     console.log("availableHours: " + availableHours)
-  
+
+    // check if the email is a valid email
+    if(!isEmailValid(email)) {
+      console.log("email is not valid!");
+
+      res.render("index.ejs", {error: "error"}) // this index.ejs is a dynamic page 
+      //because it alerts the user about the email adress dynamically.
+      //if the mail is not valid it alerts else it works normally.
+      // {error: "error"} is just for placeholder to figure out if there is an error.
+      // it's value is not used in index.ejs file.
+
+      return; //finish the callback function.
+    }
+
     // Send a response or redirect to another page
     res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours })
 
@@ -157,5 +170,19 @@ function sendEmail(name, surname, telNo, email, availableHours){
         }
      });    
 }
+function isEmailValid(email) {
+  //check if the email is valid
+  let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let isTempMail = false;
+  // if email doesn't have popular domains, it is a temporary mail
+  let popularDomains = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "yandex.com", "protonmail.com", "edu.tr"];
+  
+  let domain = email.split("@")[1]; // get the domain part of the email
+  
+  if(!popularDomains.includes(domain)){ // if the domain is not in the popular domains, it is a temporary mail
+    isTempMail = true;
+  }
 
+  return emailRegex.test(email) && !isTempMail; // if the email is valid and not a temporary mail, return true
+}
 

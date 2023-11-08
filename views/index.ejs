@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Make Appointment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Make an Appointment</h1>
+
+    <%# If the email is not valid alert the user. %>
+    <% if(typeof error !== 'undefined') { %>
+        <script>alert("Invalid Email!");</script>
+    <% } %>
+
+    <form action="/submit" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="surname">Surname:</label><br>
+        <input type="text" id="surname" name="surname" required><br>
+        <label for="telNo">Telephone Number:</label><br>
+        <input type="tel" id="telNo" name="telNo" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="availableHours">Available Hours:</label><br>
+        <input type="text" id="availableHours" name="availableHours" required><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

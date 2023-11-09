@@ -23,7 +23,7 @@ This is a project from CSE343 course at Gebze Technical University, Computer Eng
   
 - We decided to use technologies such as HTML, CSS, and JS to make the front-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
  
-  ![Used Front-End Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/front-end%20development.png)
+  ![Used Front-End Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/front-end%20_development.png)
   
 - We decided to use technologies such as Node JS, Express JS, and JavaScript to make the back-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
   

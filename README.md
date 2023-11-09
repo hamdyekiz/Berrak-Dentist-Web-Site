@@ -21,10 +21,12 @@ This is a project from CSE343 course at Gebze Technical University, Computer Eng
 - As a team, we decided to use Jira in project management, written communication via WhatsApp, and voice communication on Discord.
   ![Used Softwares](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/used%20sofwares.PNG)
   
-- We decided to use technologies such as Node JS, Express JS, and JavaScript to make the front-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
+- We decided to use technologies such as HTML, CSS, and JS to make the front-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
+ 
   ![Used Front-End Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/front-end%20development.png)
   
-- We decided to use technologies such as L, CSS, and JS to make the back-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
+- We decided to use technologies such as Node JS, Express JS, and JavaScript to make the back-end part of our project. The main reasons why we choose these back-end technologies are that they are easy to learn and there are many resources on the internet.
+  
   ![Used Back-End Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/back-end%20development.PNG)
 
 - We planned daily scrum meetings for three days: Monday, Wednesday, and Saturday.

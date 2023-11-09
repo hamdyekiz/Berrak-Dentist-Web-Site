@@ -37,8 +37,3 @@ This is a project from CSE343 course at Gebze Technical University, Computer Eng
  
 
 
-
-**Diğer Notlar**:
-- Oyunun hareket mekaniği ve dünya tasarımıyla ilgili 1. sprint dosyasında birkaç tane video bulunmaktadır.
-  
-

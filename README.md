@@ -35,5 +35,7 @@ This is a project from CSE343 course at Gebze Technical University, Computer Eng
  
 **Mockups PDF File**: [Mockups](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/mockups.pdf)
  
+**Wiki Pages**: 
 
+[Sprints](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/wiki/Sprints)
 

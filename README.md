@@ -29,6 +29,10 @@ This is a project from CSE343 course at Gebze Technical University, Computer Eng
   
   ![Used Back-End Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/back-end%20development.PNG)
 
+- We decided to use technology such as MongoDB to make the database part of our project. The main reasons why we choose these database technology are that they are easy to learn and there are many resources on the internet.
+
+  ![Used Database Technologies](https://github.com/hamdyekiz/Berrak-Dentist-Web-Site/blob/main/Project%20Management/Project%20Files/database%20development.PNG)
+  
 - We planned daily scrum meetings for three days: Monday, Wednesday, and Saturday.
 - In the first meetings, we determined the most suitable time for the team by opening a survey. And after a few surveys, we decided to set our meeting times around 20:00.
   

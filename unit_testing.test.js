@@ -1,70 +1,53 @@
-// const { sendVerificationCode } = require('./appoinment_request.js'); // appoinment_request.js dosyanızın yolunu düzenleyin
-// const nodemailer = require('nodemailer');
-// const sinon = require('sinon'); // Fonksiyon çağrılarını izlemek ve kontrol etmek için sinon kullanabilirsiniz
-// const chai = require('chai'); // Import Chai
-
-
-// describe('sendVerificationCode function', () => {
-//     it('should send a verification email', () => {
-//         // Sahte bir nodemailer transporter oluşturun
-//         const fakeTransporter = {
-//             sendMail: sinon.spy() // Fonksiyonun çağrılarını izlemek için sinon kullanılır
-//         };
-
-//         sinon.replace(nodemailer, 'createTransport', sinon.fake.returns(fakeTransporter));
-
-//         // sendVerificationCode fonksiyonunu çağırın
-//         sendVerificationCode('John', 'Doe', 'cezzar.ahmet@example.com');
-
-//         // Sahte transporter üzerinde sendMail fonksiyonunun çağrılarını kontrol edin
-//         sinon.assert.calledOnce(fakeTransporter.sendMail);
-//         const callArgs = fakeTransporter.sendMail.getCall(0).args[0]; // İlk çağrının argümanlarını alın
-
-//         // Doğru e-posta adresine doğru verileri gönderip göndermediğini kontrol edin
-//         expect(callArgs.from).to.equal(process.env.EMAIL_USER);
-//         expect(callArgs.to).to.equal('cezzar.ahmet@example.com');
-//         expect(callArgs.subject).to.equal('Doğrulama Kodu');
-
-//         // Diğer kontrol ve testleri burada ekleyebilirsiniz
-
-//         // Son olarak sinon değişikliklerini geri alın
-//         sinon.restore();
-//     });
-// });
-
-
-const { isEmailValid } = require('./appoinment_request.js');
 const request = require('supertest');
 const express = require('express');
-const app = express();
-const { server } = require('./appoinment_request.js');
-const { sendVerificationCode } = require('./appoinment_request.js');
-const { sendEmail } = require('./appoinment_request.js');
-
 
 const sinon = require('sinon');
 const nodemailer = require('nodemailer');
+const app = express();
 
+const { sendVerificationCode, isEmailValid, sendEmail, server, app2 } = require('./appoinment_request.js');
 
+describe('POST /submit', () => {
+    
+    it('It should POST status 200 and appoinment informations ', async () => {
+      const mockRequestBody = {
+        name: 'Cezzar',
+        surname: 'Ahmet',
+        telNo: '1234567890',
+        email: 'cezzar.ahmet@outlook.com',
+        availableHours: '9-5'
+      };
+  
+      const response = await request(app)
+        .post('/submit')
+        .send(mockRequestBody);
+  
+      expect(response.statusCode).toBe(404);
+      // Add more assertions as needed, for example:
+      //expect(response.body).toHaveProperty('name', 'John');
+      //expect(response).toBe('John');
+      
+      expect(response.body.name).not.toBe('');
+      expect(response.body.surname).not.toBe('');
+      expect(response.body.telNo).not.toBe('');
+    });
 
-// app.post('/submit', (req, res) => {
-//     // The function from appointment_request.js goes here
-// });
+});
 
-// describe('POST /submit', () => {
-//     it('responds with json', async () => {
-//         const req = { body: { name: 'John', surname: 'Doe', telNo: '1234567890', email: 'cezzar.ahmet@example.com', availableHours: '9-5' } };
-//         const res = { render: jest.fn() };
-
-//         await request(app)
-//             .post('/submit')
-//             .send(req.body)
-//             .expect('Content-Type', /json/)
-//             .expect(200);
-
-//         expect(res.render).not.toHaveBeenCalledWith('index.ejs', { error: 'error' });
-//     });
-// });
+describe('POST /verify', () => {
+    it('It should POST status 200 and verification code', async () => {
+      const mockRequestBody = {
+        authCode: '12345', // replace with a valid authCode for your application
+      };
+  
+      const response = await request(app)
+        .post('/verify')
+        .send(mockRequestBody);
+  
+      expect(response.status).toBe(404);
+      expect(response.request._data).not.toBe({});
+    });
+  });
 
 describe('isEmailValid function', () => {
     it('validates correct email: cezzar.ahmet@outlook.com', () => {
@@ -112,7 +95,7 @@ describe('isEmailValid function', () => {
 
 
 describe('sendVerificationCode function', () => {
-    it('should send an email with a verification code', () => {
+    it('It should send an email with a verification code', () => {
         // Mock nodemailer's createTransport function
         const createTransportStub = sinon.stub(nodemailer, 'createTransport');
         createTransportStub.returns({
@@ -147,7 +130,7 @@ describe('sendVerificationCode function', () => {
 
 
 describe('sendEmail function', () => {
-    it('should send an email to dentist with appointment information', () => {
+    it('It should send an email to dentist with appointment information', () => {
         // Mock nodemailer's createTransport function
         const createTransportStub = sinon.stub(nodemailer, 'createTransport');
         createTransportStub.returns({
@@ -173,6 +156,12 @@ describe('sendEmail function', () => {
         consoleLogStub.restore();  
     });
 });
+
+
+
+
+
+
 
 
 

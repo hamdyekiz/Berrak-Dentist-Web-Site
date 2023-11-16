@@ -30,6 +30,7 @@ let server = app.listen(port, () => {
 let verificationCode;
 let name, surname, telNo, email, availableHours;
 
+
 app.post('/submit', (req, res) => {
     // Access form inputs using req.body
     ({ name, surname, telNo, email, availableHours } = req.body);
@@ -54,6 +55,7 @@ app.post('/submit', (req, res) => {
 
     // Hastanın mailine onay kodu yollanır.
     sendVerificationCode(name, surname, email);
+    res.status(200);
 });
 
 //e mail'e gönderilen kod verify edilecek.
@@ -71,6 +73,7 @@ app.post('/verify', (req, res) => {
     }
     res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
 });
+
 
 function sendVerificationCode(name, surname, email) {
     // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı
@@ -162,7 +165,8 @@ module.exports = {
   sendVerificationCode, 
   isEmailValid,
   sendEmail,
-  server
+  server, 
+  app
 };
 
 //module.exports = { server} ;

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-console.log("Girdim1!");
+//console.log("Girdim1!");
 
 
 const path = require("path");
@@ -10,21 +10,20 @@ const { URL } = require("url");
 const dirName = path.dirname(require.main.filename);
 
 //Form'un verilerini okumak için bu 3 satıra ihtiyaç var. req.body yapabilmek için gerekli. 
-//ANCAK BUNLARIN APP YERINE ROUTER OLMASI SIKINTI ÇIKARABİLİR
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
 
 
-let dentistName, dentistSurname, dentistPhoneNum, dentistEmail, dentistPassword;
+
 
 //this will create new dentist account. And will add it to database.
 
 router.post('/create_dentist_account', async (req, res) => {
-    
+    let dentistName, dentistSurname, dentistPhoneNum, dentistEmail, dentistPassword;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     ({dentistName, dentistSurname, dentistPhoneNum, dentistEmail, dentistPassword} = req.body);
-    console.log("Girdim2!");
+    //console.log("Girdim2!");
     if(isStrongPassword(dentistPassword) == false){
         console.log("password is not strong enough!");
         //BURAYA BİR EKRAN YA DA POP UP'IN GELMESİ GEREKİYOR.

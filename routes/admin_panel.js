@@ -16,9 +16,9 @@ router.use(express.static(dirName + '/public'));
 
 
 
+//localhost:3000/admin_panel/create_dentist_account'e post etmeli
 
 //this will create new dentist account. And will add it to database.
-
 router.post('/create_dentist_account', async (req, res) => {
     let dentistName, dentistSurname, dentistPhoneNum, dentistEmail, dentistPassword;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
@@ -38,9 +38,9 @@ router.post('/create_dentist_account', async (req, res) => {
     // there is no email verification. Because these datas will be added by admin.
     
     // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
-    await mongoose.connect("mongodb://localhost:27017/fruitsDB", {useNewUrlParser: true});
+    await mongoose.connect("mongodb://localhost:27017/clinicDB", {useNewUrlParser: true});
 
-    //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer dentistList collection'ı yoksa oluşturuyoruz.
+    //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer dentistList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
     try {
         DentistsList = mongoose.model('DentistList');
     } catch {

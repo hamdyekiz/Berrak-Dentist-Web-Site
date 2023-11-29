@@ -16,16 +16,6 @@ router.use(express.static(dirName + '/public'));
 
 
 
-//login'de eposta ve şifre alınacak. Farklı kullanıcı tipleri için farklı girişler mi olacak. Yoksa hepsi aynı girişten mi girecek.
-// router.post("/doctor_login", (req, res) => {
-//     let email = req.body.email;
-//     let password = req.body.password;
-
-    
-
-// });
-
-
 // Import the MongoDB driver for Node.js
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
@@ -44,7 +34,7 @@ async function checkLogin(email, password) {
       console.log('Connected to MongoDB');
   
       const db = client.db(dbName);
-      const collection = db.collection('dentistlists');
+      const collection = db.collection('personellists');
   
       // Use findOne to find a document that matches both email and password
       const user = await collection.findOne({ email: email, password: password });
@@ -59,8 +49,8 @@ async function checkLogin(email, password) {
   // login'de eposta ve şifre alınacak. Farklı kullanıcı tipleri için farklı girişler mi olacak.
   // Yoksa hepsi aynı girişten mi girecek. 
   //Hepsi aynı girişten giriyor diye kabul ediyorum.
-  // /login/doctor_login'e post etmek gerek.
-  router.post("/doctor_login", async (req, res) => {
+  // /login/general_login'e post etmek gerek.
+router.post("/general_login", async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
     console.log("Damn body");
@@ -82,7 +72,7 @@ async function checkLogin(email, password) {
       console.error('Error checking login:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  });
+});
 
 
 
@@ -93,30 +83,6 @@ async function checkLogin(email, password) {
 
 
 
-// const Dentist = require("../models/dentist"); // Make sure to adjust the path accordingly
-
-
-// // login'de eposta ve şifre alınacak.
-// router.post("/doctor_login", async (req, res) => {
-//     try {
-//       const email = req.body.email;
-//       const password = req.body.password;
-  
-//       // Find the user in the database
-//       const user = await Dentist.findOne({ email: email, password: password });
-  
-//       if (user) {
-//         // User found, send success response
-//         res.status(200).json({ message: "User found!" });
-//       } else {
-//         // User not found, send error response
-//         res.status(401).json({ message: "Wrong email or password" });
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ message: "Internal Server Error" });
-//     }
-//   });
 
 
 module.exports = router;

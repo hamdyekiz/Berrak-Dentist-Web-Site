@@ -127,6 +127,69 @@ router.post('/create_superadmin', async (req, res) => {
 });
 
 
+
+
+//this will create new personel account. And will add it to database.
+router.post('/create_patient', async (req, res) => {
+    let name, surname, phoneNum, email, doctor, clinic, date, time, more;
+    //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
+    //console.log("Girdim2!");
+
+    // there is no email verification. Because these datas will be added by person.
+    
+    // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
+    await mongoose.connect("mongodb://localhost:27017/clinicDB", {useNewUrlParser: true});
+
+    //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
+    try {
+        patientList = mongoose.model('patientList');
+    } catch {
+        const patientSchema = new mongoose.Schema({
+          name: String,
+          surname: String,
+          phoneNum: String,
+          email: String,
+          doctor: String,
+          clinic: String,
+          date: String,
+          time: String,
+          more: String
+        });
+      
+        patientList = mongoose.model('patientList', patientSchema);
+    }    
+    //Burada neden try catch yapısı kullandık? Neden direkt dentistSchema'yı tanımlayıp Dentistlit objesi oluşturmadık? Çünkü eğer PersonelList collection'ı yoksa oluşturuyoruz. Eğer PersonelList collection'ı varsa, direkt PersonelList objesini oluşturuyoruz. Bu yüzden try catch kullandık. Eğer PersonelList collection'ı yoksa, try bloğu çalışacak ve PersonelList objesini oluşturacak. Eğer PersonelList collection'ı varsa, catch bloğu çalışacak ve PersonelList objesini oluşturacak.
+    // Ayrıca try catch içinde yazmasaydım garip bir şekilde password invalid hatasından sonra yeni valid doktor eklemesi yapınca hata alıyordum.
+
+    
+    const personel = new patientList({
+        name: name,
+        surname: surname,
+        phoneNum: phoneNum,
+        email: email,
+        doctor: doctor,
+        clinic: clinic,
+        date: date,
+        time: time,
+        more: more
+        
+    });
+
+    await personel.save();
+    
+
+    console.log("\nDatabase'e eklendi!");
+
+
+});
+
+
+
+
+
+
+
 router.post("/delete_doctor", async (req, res) => {
     const { name, surname, email } = req.body;
   
@@ -180,6 +243,39 @@ router.post("/delete_superadmin", async (req, res) => {
     else{
         delete_account(name, surname, email, 'Superadmin');
     }
+
+});
+
+
+//Warn!!! Hasta ekle sil mantıksız geldi. O yüzden randevu ekle sil mantığıyla yapıyorum.
+router.post('/delete_patient', async (req, res) => {
+    let name, surname, phoneNum, email, doctor, clinic, date, time, more;
+    //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
+    ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
+
+
+    const dbName = 'clinicDB';
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  
+    try {
+      await client.connect();
+      console.log('Connected to MongoDB in delete_patient');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('patientlists');
+
+  
+      // Delete documents where name, surname, email, and title match the provided values
+      const result = await collection.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
+  
+      console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
+    } catch (error) {
+      console.error('Error deleting documents:', error);
+    } finally {
+      await client.close();
+      console.log('Disconnected from MongoDB in delete_patient');
+    }    
 
 });
 
@@ -273,7 +369,7 @@ async function delete_account(name, surname, email, title) {
       await client.close();
       console.log('Disconnected from MongoDB in delete_account');
     }
-  }
+}
 
 
 

@@ -195,12 +195,17 @@ router.post("/general_login", async (req, res) => {
 
 
 let verificationCode_forLockout;
+// Email to be removed
+//İlla kaldırılacak diye bir şey yok. Eğer doğrulama kodu doğru girildiyse buna atanan mail lockoutedPersons'dan kaldırılır.
+let email_to_be_removed_from_lockouted; 
 
 function sendVerificationCode_forLockout(email) {
     // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı
     const min = 10000; // Smallest 5-digit number
     const max = 99999; // Largest 5-digit number
     verificationCode_forLockout = Math.floor(Math.random() * (max - min + 1) + min).toString();
+
+    email_to_be_removed_from_lockouted = email;
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com',
@@ -239,23 +244,52 @@ function sendVerificationCode_forLockout(email) {
 
 
 
-// //e mail'e gönderilen kod verify edilecek.
-// router.post('/verify_lockout_code', (req, res) => {
-//   let isCodeCorrect = false;
-//   console.log(req.body);
-//   let { authCode } = req.body;
-//   console.log("girilen code: " + authCode);
-//   if (verificationCode_forLockout == authCode) {
-//       isCodeCorrect = true;
-//       console.log("True code");
-//       //sendEmail(name, surname, telNo, email, availableHours);
-//   } else {
-//       console.log("Wrong code");
-//   }
-//   //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
-// });
+//e mail'e gönderilen kod verify edilecek.
+router.post('/verify_lockout_code', (req, res) => {
+  let isCodeCorrect = false;
+  console.log(req.body);
+  let { authCode } = req.body;
+  console.log("girilen code: " + authCode);
+
+  //kod doğru girilmişse o mail adresindeki blokaj kaldırılacak. Yani o mail, lockoutedPersons collection'undan silinecek. Bu sayede o mail adresi ile yeni şifre denemeleri yapılabilecek.
+  if (verificationCode_forLockout == authCode) {
+      isCodeCorrect = true;
+      console.log("True code");
+      //sendEmail(name, surname, telNo, email, availableHours);
+
+      removeDocumentsByEmail();
+
+  } else {
+      console.log("Wrong code");
+  }
+  //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
+});
 
 
+// Function to remove documents based on email
+async function removeDocumentsByEmail() {
+
+  const dbName = 'clinicDB';
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+
+    const db = client.db(dbName);
+    const collection = db.collection('lockoutedPersons');
+
+    // Delete documents where email is equal to the specified value
+    const result = await collection.deleteMany({ email: email_to_be_removed_from_lockouted });
+
+    console.log(`Removed ${result.deletedCount} documents with email ${email_to_be_removed_from_lockouted}`);
+  } catch (error) {
+    console.error('Error removing documents:', error);
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB in removeDocumentsByEmail');
+  }
+}
 
 
 

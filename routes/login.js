@@ -145,6 +145,9 @@ async function wrong_entry_num(email){
       }
       return returnVal;
 }
+
+
+let email_to_be_removed_from_lockouted; 
   
   // login'de eposta ve şifre alınacak. Farklı kullanıcı tipleri için farklı girişler mi olacak.
   // Yoksa hepsi aynı girişten mi girecek. 
@@ -156,6 +159,8 @@ router.post("/general_login", async (req, res) => {
     let password = req.body.password;
     console.log("Damn body");
 
+    email_to_be_removed_from_lockouted = email;
+
     //Şifrenin kaç kere yanlış girildiği bilgisi alınır. 
     let can_take_entry = await wrong_entry_num(email);
 
@@ -163,7 +168,10 @@ router.post("/general_login", async (req, res) => {
 
     //Eğer aynı emaile 5 kere yanlış şifre girilmemişse tekrardan aynı emaille şifre deneme hakkı verilir.
     if(can_take_entry == 1){
-  
+      
+      //Eğer doğru giriş yapılmışsa, daha önce hiç yanlış giriş yapılmasa yani lockoutedPersons'ta bu maili barındıran bir document olmasa dahi bu mail var mı diye kontrol edilir ve database'den silinir. Bu fonksiyonu neden çağırdım? Çünkü adam 2 kere şifreyi yanlış girdi diyelim. 3. sefer doğru girerse onun lockoutedPersons'tan silinmesi gerekir. Bu yüzden koydum
+      removeDocumentsByEmail();
+
         try {
         // Check if user exists in the database
         const user = await checkLogin(email, password);
@@ -197,7 +205,9 @@ router.post("/general_login", async (req, res) => {
 let verificationCode_forLockout;
 // Email to be removed
 //İlla kaldırılacak diye bir şey yok. Eğer doğrulama kodu doğru girildiyse buna atanan mail lockoutedPersons'dan kaldırılır.
-let email_to_be_removed_from_lockouted; 
+//let email_to_be_removed_from_lockouted = "abdcd@gmail.com"; 
+
+
 
 function sendVerificationCode_forLockout(email) {
     // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı

@@ -15,8 +15,11 @@ router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
 
 
+// Import the MongoDB driver for Node.js
+const MongoClient = require('mongodb').MongoClient;
 
-
+//Mongodb'ye bağlanmak için url:
+const url = 'mongodb://localhost:27017';
 
 
 
@@ -103,7 +106,7 @@ router.post('/create_assistant', async (req, res) => {
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic} = req.body);
 
-    await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Asistant", personelClinic);
+    await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Assistant", personelClinic);
 });
 
 router.post('/create_admin', async (req, res) => {
@@ -124,9 +127,61 @@ router.post('/create_superadmin', async (req, res) => {
 });
 
 
+router.post("/delete_doctor", async (req, res) => {
+    const { name, surname, email } = req.body;
+  
+    if (!name || !surname || !email) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+
+    else{
+        delete_account(name, surname, email, 'Doctor');
+    }
+
+});
+
+
+router.post("/delete_assistant", async (req, res) => {
+    const { name, surname, email } = req.body;
+  
+    if (!name || !surname || !email) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+
+    else{
+        delete_account(name, surname, email, 'Assistant');
+    }
+
+});
+
+
+router.post("/delete_admin", async (req, res) => {
+    const { name, surname, email } = req.body;
+  
+    if (!name || !surname || !email) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+
+    else{
+        delete_account(name, surname, email, 'Admin');
+    }
+
+});
 
 
 
+router.post("/delete_superadmin", async (req, res) => {
+    const { name, surname, email } = req.body;
+  
+    if (!name || !surname || !email) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+
+    else{
+        delete_account(name, surname, email, 'Superadmin');
+    }
+
+});
 
 
 
@@ -189,6 +244,36 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
 
     console.log("\nDatabase'e eklendi!");   
 }
+
+
+
+
+
+// Function to delete doctor documents
+async function delete_account(name, surname, email, title) {
+
+    const dbName = 'clinicDB';
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  
+    try {
+      await client.connect();
+      console.log('Connected to MongoDB');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('personellists');
+
+  
+      // Delete documents where name, surname, email, and title match the provided values
+      const result = await collection.deleteMany({ name: name, surname: surname, email: email, title: title });
+  
+      console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+    } catch (error) {
+      console.error('Error deleting documents:', error);
+    } finally {
+      await client.close();
+      console.log('Disconnected from MongoDB in delete_account');
+    }
+  }
 
 
 

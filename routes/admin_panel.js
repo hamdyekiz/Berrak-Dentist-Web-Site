@@ -130,7 +130,7 @@ router.post('/create_superadmin', async (req, res) => {
 
 
 //this will create new personel account. And will add it to database.
-router.post('/create_patient', async (req, res) => {
+router.post('/create_patient_appoinment', async (req, res) => {
     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
@@ -248,7 +248,7 @@ router.post("/delete_superadmin", async (req, res) => {
 
 
 //Warn!!! Hasta ekle sil mantıksız geldi. O yüzden randevu ekle sil mantığıyla yapıyorum.
-router.post('/delete_patient', async (req, res) => {
+router.post('/delete_patient_appoinment', async (req, res) => {
     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
@@ -278,6 +278,117 @@ router.post('/delete_patient', async (req, res) => {
     }    
 
 });
+
+
+//Warn!!! Update'de title değiştirmeye dahi izin veriyorum. Sadece mail değiştirmeye izin vermiyorum. Kodda ona da izin veriyorum da front endde verilmemeli. Şifre değiştirmeye dahi izin veriyorum
+router.post('/update_doctor', async (req, res) => {
+
+    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+        update_account(name, surname, phoneNum, email, password, title, clinic)
+    }
+});
+
+
+router.post('/update_assistant', async (req, res) => {
+
+    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+        update_account(name, surname, phoneNum, email, password, title, clinic)
+    }
+});
+
+
+
+router.post('/update_admin', async (req, res) => {
+
+    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+        update_account(name, surname, phoneNum, email, password, title, clinic)
+    }
+});
+
+
+
+router.post('/update_superadmin', async (req, res) => {
+
+    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+        update_account(name, surname, phoneNum, email, password, title, clinic)
+    }
+});
+
+
+
+router.post('/update_patient_appoinment', async (req, res) => {
+
+    //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+    const { name, surname, phoneNum, email, doctor, clinic, date, time, more } = req.body;
+    if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+
+        const dbName = 'clinicDB';
+  
+        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+      
+        try {
+          await client.connect();
+          console.log('Connected to MongoDB in update_account');
+      
+          const db = client.db(dbName);
+          const collection = db.collection('patientlists');
+      
+          // Update documents where email matches the provided value
+          const result = await collection.updateMany(
+            { name: name, surname: surname },
+            {
+              $set: {
+                name: name,
+                surname: surname,
+                phoneNum: phoneNum,
+                email: email,
+                doctor : doctor,
+                clinic: clinic,
+                date: date,
+                time: time,
+                more: more
+                
+              }
+            }
+          );
+      
+          console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+          
+          res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+        } catch (error) {
+          console.error('Error updating documents:', error);
+        } finally {
+          await client.close();
+          console.log('Disconnected from MongoDB in update_account');
+        }        
+
+    }
+});
+
 
 
 
@@ -370,6 +481,53 @@ async function delete_account(name, surname, email, title) {
       console.log('Disconnected from MongoDB in delete_account');
     }
 }
+
+
+
+
+
+// Warn!!! Email'e göre update yapar. Bu yüzden update işleminde email değişemez. Email sabit kalmalı
+async function update_account(name, surname, phoneNum, email, password, title, clinic){    
+  
+
+    const dbName = 'clinicDB';
+  
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  
+    try {
+      await client.connect();
+      console.log('Connected to MongoDB in update_account');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('personellists');
+  
+      // Update documents where email matches the provided value
+      const result = await collection.updateMany(
+        { email: email },
+        {
+          $set: {
+            name: name,
+            surname: surname,
+            phoneNum: phoneNum,
+            password: password,
+            title: title,
+            clinic: clinic
+          }
+        }
+      );
+  
+      console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+      
+      res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+    } catch (error) {
+      console.error('Error updating documents:', error);
+    } finally {
+      await client.close();
+      console.log('Disconnected from MongoDB in update_account');
+    }
+}
+
+
 
 
 

@@ -13,7 +13,12 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());  
 router.use(express.static(dirName + '/public'));
 
+//mail gönderebilmek için
+const nodemailer = require("nodemailer");
 
+//.env dosyasından veri alabilmek için
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 // Import the MongoDB driver for Node.js
@@ -151,10 +156,12 @@ router.post("/general_login", async (req, res) => {
     let password = req.body.password;
     console.log("Damn body");
 
+    //Şifrenin kaç kere yanlış girildiği bilgisi alınır. 
     let can_take_entry = await wrong_entry_num(email);
 
     console.log("Wrong entry sayısı: ", can_take_entry)
 
+    //Eğer aynı emaile 5 kere yanlış şifre girilmemişse tekrardan aynı emaille şifre deneme hakkı verilir.
     if(can_take_entry == 1){
   
         try {
@@ -177,8 +184,9 @@ router.post("/general_login", async (req, res) => {
 
     }
 
+    //şifre 5 kere yanlış girilmişse tekrardan şifre yazmasına izin verilmez. Maile doğrulama kodu gönderilir. 
     else{
-        
+      sendVerificationCode_forLockout(email);
     }
 });
 
@@ -186,6 +194,66 @@ router.post("/general_login", async (req, res) => {
 
 
 
+let verificationCode_forLockout;
+
+function sendVerificationCode_forLockout(email) {
+    // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı
+    const min = 10000; // Smallest 5-digit number
+    const max = 99999; // Largest 5-digit number
+    verificationCode_forLockout = Math.floor(Math.random() * (max - min + 1) + min).toString();
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    const emailContent = `
+    <p>Değerli personelimiz,</p>
+    <p>Berrak diş hekimliği sistemine giriş şifrenizi 5 kere yanlış girdiniz. Tekrar şifre yazabilmek için aşağıdaki doğrulama kodunu giriniz:</p>
+    <p style="font-size: 30px; font-weight: bold;">${verificationCode_forLockout}</p>
+    <p> Bu kodu siz istemediyseniz lütfen yetkili birine danışınız. Birisi hesabınıza erişmeye çalışıyor olabilir.
+    </p>
+    <p> Teşekkür ederiz.</p>`;
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Doğrulama Kodu',
+        html: emailContent
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Email could not be sent:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+}
+
+
+
+
+// //e mail'e gönderilen kod verify edilecek.
+// router.post('/verify_lockout_code', (req, res) => {
+//   let isCodeCorrect = false;
+//   console.log(req.body);
+//   let { authCode } = req.body;
+//   console.log("girilen code: " + authCode);
+//   if (verificationCode_forLockout == authCode) {
+//       isCodeCorrect = true;
+//       console.log("True code");
+//       //sendEmail(name, surname, telNo, email, availableHours);
+//   } else {
+//       console.log("Wrong code");
+//   }
+//   //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
+// });
 
 
 

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Boostrap 4 responsive Sidebar template with slide in/out effect">
+    <meta name="author" content="Simran Singh">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+    <title>Responsive sidebar - Boostrap 4 - Light</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="side-bar side-bar-light">
+        <nav class="navbar navbar-inverse">
+
+            <div style="text-align: center; display:flex;flex-direction: column;">
+                <a style="color: black;" class="navbar-brand" >Admin</a>
+                <a style="color: gray;" class="navbar-brand" >adming@gmail.com</a>
+
+            </div>
+
+            <button class="logout-button">Log Out</button>
+            <hr />
+            <div class="list-container">
+                <ul>
+                    <li><a href="doctors.html"></span>Doktorlar</a></li>
+                    <li><a href="randevular.html" class="active">Gelecek Randevular</a></li>
+                    <li><a href="hastalar.html">Hastalar</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="bodyContent">
+        <div style="padding:2rem">
+            <div class="right-page">
+                <div style="display: flex;">
+                    <div style="flex:10;">
+                        <h2 id="randevuHeader">Randevular</h2>
+                    </div>
+                    <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Randevu
+                            Ekle</button></div>
+                    <div class="form-popup" id="myForm">
+                        <form class="form-container">
+                            <div style="display: flex; gap: 50px;">
+                                <h1>Randevu Ekle</h1>
+                                <a style="cursor: pointer;" onclick="closeForm()"><img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
+                            </div>
+
+                            <label for="Name"></label>
+                            <input type="text" placeholder="Hasta Adı Soyadı" name="name" required>
+
+                            <label for="email"></label>
+                            <input type="text" placeholder="Tedavi" name="tedavi" required>
+
+                            <label for="DoctorName"></label>
+                            <input type="text" placeholder="Doktor Adı Soyadı" name="doctorname" required>
+
+                            <label for="date"></label>
+                            <input type="date" placeholder="Tarih" name="date" required>
+
+                            <button type="submit" class="btn">Ekle</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <br />
+                <table id="randevuTable">
+                    <thead>
+                        <tr>
+                            <th>Hasta Adı</th>
+                            <th>Tedavi</th>
+                            <th>Doktor</th>
+                            <th>Randevu Tarihi Ve Saati</th>
+                            <th>Eylemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
+
+
+                        <tr>
+                            <td>Enes Patır</td>
+                            <td>Dolgu-diş çekimi</td>
+                            <td>Dr. İsim Soyisim</td>
+                            <td>12 Aralık 2023 15.30</td>
+                            <td class="event-buttons">
+                                <button class="edit-btn">Düzenle</button>
+
+                                <button class="remove-btn">Kaldır</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Enes Patır</td>
+                            <td>Dolgu-diş çekimi</td>
+                            <td>Dr. İsim Soyisim</td>
+                            <td>12 Aralık 2023 15.30</td>
+                            <td class="event-buttons">
+                                <button class="edit-btn">Düzenle</button>
+
+                                <button class="remove-btn">Kaldır</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Enes Patır</td>
+                            <td>Dolgu-diş çekimi</td>
+                            <td>Dr. İsim Soyisim</td>
+                            <td>12 Aralık 2023 15.30</td>
+                            <td class="event-buttons">
+                                <button class="edit-btn">Düzenle</button>
+
+                                <button class="remove-btn">Kaldır</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Enes Patır</td>
+                            <td>Dolgu-diş çekimi</td>
+                            <td>Dr. İsim Soyisim</td>
+                            <td>12 Aralık 2023 15.30</td>
+                            <td class="event-buttons">
+                                <button class="edit-btn">Düzenle</button>
+
+                                <button class="remove-btn">Kaldır</button>
+                            </td>
+                        </tr>
+                        <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var d_table = document.getElementById("randevuTable");
+
+        // Get the number of rows in the table
+        var d_rowCount = d_table.rows.length - 1;
+
+        // Update the heading dynamically
+        var d_header = document.getElementById("randevuHeader");
+        d_header.innerHTML = "Randevular (" + d_rowCount + ")";
+
+        function toggleForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+            if (form.style.display === "block") {
+                form.style.display = "none";
+                body.classList.remove("darken-bg");
+                d_table.style.opacity = "1"; // Reset opacity when form is closed
+                addDoctorBtn.disabled = false; // Enable the button when the form is closed
+                setInteractionsEnabled(true);
+            } else {
+                form.style.display = "block";
+                body.classList.add("darken-bg");
+                d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+            }
+        }
+
+        function closeForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+            form.style.display = "none";
+            body.classList.remove("darken-bg");
+            d_table.style.opacity = "1"; // Reset opacity when the form is closed
+            addDoctorBtn.disabled = false; // Enable the button when the form is closed
+            setInteractionsEnabled(true);
+        }
+
+        function toggleLink(event) {
+            var form = document.getElementById("myForm");
+            if (form.style.display === "block") {
+                event.preventDefault();
+            }
+        }
+
+        function setInteractionsEnabled(enabled) {
+            // Disable/enable anchor links
+            var links = document.querySelectorAll(".list-container a");
+            links.forEach(function (link) {
+                link.classList.toggle("disabled", !enabled); // Add or remove the disabled class
+            });
+
+            // Disable/enable buttons in the table
+            var buttons = document.querySelectorAll(".event-buttons button");
+            buttons.forEach(function (button) {
+                button.disabled = !enabled; // Set the disabled property
+            });
+
+            // Disable/enable the logout button
+            var logoutButton = document.querySelector(".logout-button");
+            logoutButton.disabled = !enabled;
+        }
+    </script>
+</body>
+
+</html>

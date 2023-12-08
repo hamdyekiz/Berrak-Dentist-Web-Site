@@ -1,0 +1,290 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Alfa+Slab+One&family=Amatic+SC:wght@700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&family=Dancing+Script:wght@700&family=Lobster+Two:ital@1&family=Luckiest+Guy&family=Monoton&family=Pacifico&family=Phudu&family=Playpen+Sans:wght@600&family=Raleway:wght@200&family=Ysabeau+Infant:wght@200&display=swap');
+
+
+html,
+body {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+}
+
+
+/* rules for desktop or bigger screens here */
+
+.side-bar {
+    position: fixed;
+    width: 15rem;
+    height: 100%;
+    background-color: #252525;
+    border-right: 0.2rem solid rgba(23, 216, 241, 0.5);
+    padding: 1.5rem;
+}
+
+.side-bar-light {
+    background-color: #eee;
+    border-right: none;
+}
+.list-container a.disabled,
+    .event-buttons button:disabled,
+    .logout-button:disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+.side-bar .list-container {
+    padding-top: 4rem;
+}
+
+.side-bar .list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+
+
+
+.side-bar .navbar {
+    margin-top: 1rem;
+    padding: 0;
+    border: none;
+}
+
+.side-bar .list-container ul li a {
+    display: block;
+    padding: 1rem;
+    width: 95%;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+
+.side-bar-light .list-container ul li a {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.logout-button {
+    background-color: #D8EBFA ;
+    border: none;
+    color: #1969AA;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    margin-top: 30px;
+    width: 85%;
+    border-radius: 10px;
+
+}
+
+.add-btn {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    width: 120px;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(23, 216, 241, 0.5);
+    border: none;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -4px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+
+
+
+.add-session{
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(23, 216, 241, 0.5);
+    border: none;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+.side-bar-light .list-container ul li .active {
+    border-left: 0.3rem solid rgba(23, 216, 241, 0.5);
+    color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+.side-bar .list-container ul li a:hover {
+    background: rgba(23, 216, 241, 0.5)
+}
+
+.side-bar-light .list-container ul li a:hover {
+    background: rgba(23, 216, 241, 0.5);
+    color: #fff;
+}
+
+.bodyContent {
+    /*same as side-bar width*/
+    margin-left: 18rem;
+}
+
+.right-page{
+
+    margin-top: 7rem;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(28, 28, 29, 0.5); /* Hafif gölge */
+    background-color: white;
+    border-radius: 8px; /* Yuvarlatılmış köşeler */
+    overflow: hidden;
+  }
+
+  th, td {
+    border: 1px solid #dee2e6; /* Gri tonlu beyaz */
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: white; /* Koyu gri tonlu siyah */
+    color: black;
+    position: relative;
+  }
+  
+  th:after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid rgba(23, 216, 241, 0.5); /* Turkuaz renkli alt çizgi */
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    left: 0;
+  }
+
+  .specialities{
+    width: 50rem;
+  }
+
+  .event-buttons {
+    display: flex;
+    justify-content: left;
+    
+  }
+
+  .edit-btn, .view-btn, .remove-btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    margin-right: 1rem;
+  }
+
+  .edit-btn {
+    background-color: rgba(23, 216, 241, 0.5); /* Yeşil renk */
+  }
+
+  .view-btn {
+    background-color: rgba(23, 216, 241, 0.5); /* Mavi renk */
+  }
+
+  .remove-btn {
+    background-color: rgba(23, 216, 241, 0.5); /* Kırmızı renk */
+  }
+
+  .open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 280px;
+  }
+
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+
+  /* Darken the background when the form is open */
+  .darken-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password],.form-container input[type=email], .form-container input[type=tel], .form-container input[type=date] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 10px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+
+
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color:rgba(23, 216, 241, 0.5);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color:gba(23, 216, 241, 0.5);
+  }
+
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }

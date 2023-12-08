@@ -25,6 +25,7 @@ Fonts
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     --max-width: 1170px;
     --fixed-width: 620px;
+   
 }
 
 /*
@@ -181,6 +182,7 @@ main {
 .doctor_container {
     margin-top: 90px;
     text-align: center;
+    height: 100%;
 }
 
 .doctor_container h1 {
@@ -235,7 +237,7 @@ nav {
     background: var(--clr-primary-6);
     box-shadow: var(--light-shadow);
     max-height: 100px;
-    /* z-index: 99; */
+     z-index: 99; 
 }
 
 
@@ -663,6 +665,7 @@ html {
     url(../img/group-of-doctors.jpg) center/cover no-repeat;
         background-size: cover;
     height: 100%;
+    background-attachment: fixed;
 }
 
 #feedback-page {
@@ -676,7 +679,7 @@ html {
 }
 
 #form-div {
-    background-color: rgba(72, 72, 72, 0.4);
+    background-color: #ffffff;
     padding-left: 35px;
     padding-right: 35px;
     padding-top: 35px;
@@ -685,66 +688,37 @@ html {
     float: left;
     left: 50%;
     position: absolute;
-    margin-top: 30px;
+    margin-top: 15px;
     margin-left: -260px;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
+    border-radius: 10px;
 }
 
 .selectpicker {
     color: #3c3c3c;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 1rem;
     border-radius: 0;
     line-height: 22px;
     background-color: #fbfbfb;
     padding: 13px 13px 13px 54px;
     margin-bottom: 35px;
     width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-radius: 30px;
+    border: 0.0625rem solid rgba(33, 50, 91, 0.1);
+    border-radius: 10px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-
-
-
-.feedback-input {
-    color: #3c3c3c;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    border-radius: 0;
-    line-height: 22px;
-    background-color: #fbfbfb;
-    padding: 13px 13px 13px 54px;
-    margin-bottom: 10px;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-radius: 30px;
-}
-
-.feedback-input:focus {
-    background: #fff;
-    box-shadow: 0;
-    border: 3px solid #3498db;
-    color: #3498db;
+.selectpicker:focus {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
     outline: none;
     padding: 13px 13px 13px 54px;
 }
 
-.focused {
-    color: #30aed6;
-    border: #30aed6 solid 3px;
-}
+
+
+
+
 
 /* Icons ---------------------------------- */
 #name {
@@ -801,70 +775,52 @@ textarea:focus {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     float: left;
     width: 100%;
-    border: #fbfbfb solid 4px;
     cursor: pointer;
-    background-color: #3498db;
-    color: white;
+    color: #fff;
+    background-color: #21325b;
+    border-color: #21325b;
+    border: none;
     font-size: 24px;
     padding-top: 10px;
     padding-bottom: 10px;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
     transition: all 0.3s;
     margin-top: -4px;
     font-weight: 700;
-    border-radius: 30px;
-    transition: 0.5s ease;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
 }
 
 #button-blue:hover {
-    background-color: #59a8de;
-    transform: scale(1.04);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    background-color: #1c2745;
+    border-color: #1c2745;
 }
 
 
-.kg {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-}
-
-#start-time {
+.feedback-input {
     color: #3c3c3c;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 1rem;
     border-radius: 0;
     line-height: 22px;
     background-color: #fbfbfb;
     padding: 13px 13px 13px 54px;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-radius: 30px;
+    border: 0.0625rem solid rgba(33, 50, 91, 0.1);
+    border-radius: 10px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#end-time {
-    color: #3c3c3c;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    border-radius: 0;
-    line-height: 22px;
-    background-color: #fbfbfb;
+.feedback-input:focus {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+    outline: none;
     padding: 13px 13px 13px 54px;
-    margin-bottom: 35px;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-radius: 30px;
 }
 
 

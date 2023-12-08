@@ -15,7 +15,7 @@
             <div class="nav-center">
                 <!-- nav header -->
                 <div class="nav-header">
-                    <a href="#home" class="scroll-link">
+                    <a href="../main_page/index.html#home" class="scroll-link">
                         <div style="display: flex;">
                             <img src="../svg/dentist-svgrepo-com.svg" class="logo" alt="logo" />
                             <h5 class="myh5"
@@ -86,40 +86,50 @@
 
                     <p class="name">
                         <input type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
-                            required placeholder="Ad Soyad" id="name" />
+                            required placeholder="Ad Soyad" id="name" pattern="[A-Za-zğüşıöçĞÜŞİÖÇ\s]+" />
                     </p>
+                    
 
                     <p class="tel">
-                        <input type="tel" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
-                            required placeholder="Telefon Numarası" id="tel" />
+                        <input type="tel" class="validate[required,custom[onlyNumber],length[10,10]] feedback-input"
+                            required placeholder="Telefon Numarası (5XX)" id="tel" pattern="[0-9]{10}" inputmode="numeric" />
                     </p>
+                    
 
                     <p class="email">
-                        <input type="text" class="validate[required,custom[email]] feedback-input" id="email" required
+                        <input type="email" class="validate[required,custom[email]] feedback-input" id="email" required
                             placeholder="Email" />
                     </p>
-
-
-                    <div class="kg">
-                        <input type="text" id="start-time" name="start-time" placeholder="e.g. 8am" required
-                            pattern="([1-9]|1[0-2])(:[0-5][0-9])?[apAP][mM]">
-                        <input type="text" id="end-time" name="end-time" placeholder="e.g. 11am" required
-                            pattern="([1-9]|1[0-2])(:[0-5][0-9])?[apAP][mM]">
-                    </div>
+                    
 
 
 
-                    <select name="state" class="form-control selectpicker">
-                        <option value=" ">Doktor Tercihi</option>
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>Arizona</option>
-                        <option>Arkansas</option>
+
+                    <select required name="state" class="form-control selectpicker">
+                        <option value="" disabled selected hidden>Saat Tercihi</option>
+                        <option>09:00 - 10:00</option>
+                        <option>10:00 - 11:00</option>
+                        <option>11:00 - 12:00</option>
+                        <option>13:00 - 14:00</option>
+                        <option>14:00 - 15:00</option>
+                        <option>15:00 - 16:00</option>
+                        <option>16:00 - 17:00</option>
+                        <option>17:00 - 18:00</option>
                     </select>
+                    
+                    <select required name="state" class="form-control selectpicker">
+                        <option value="" disabled selected hidden>Doktor Tercihi</option>
+                        <option>Doktor 1</option>
+                        <option>Doktor 2</option>
+                        <option>Doktor 3</option>
+                        <option>Doktor 4</option>
+                    </select>
+                    
+
 
                     <p class="text">
-                        <textarea class="validate[required,length[6,300]] feedback-input" id="comment" required
-                            placeholder="Not"></textarea>
+                        <textarea class="validate[required,length[6,300]] feedback-input" id="comment"  required
+                            placeholder="Şikayetinizi belirtiniz"></textarea>
                     </p>
 
 

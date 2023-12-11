@@ -123,6 +123,7 @@ async function wrong_entry_num(email){
         const collections = await db.listCollections({ name: collectionName }).toArray();
         if (collections.length === 0) {
             returnVal = 1;
+            //returnVal = 0;
         }
     
         // Check if there is a document with the given email
@@ -131,10 +132,12 @@ async function wrong_entry_num(email){
         if (!existingDoc) {
           // If no document found, return 1
           returnVal = 1;
+          //returnVal = 0;
         } else {
           // If a document with the email exists, increment wrong_entry if it's less than 5
             if (existingDoc.wrong_entry < 5) {
                 returnVal = 1;
+                //returnVal = existingDoc.wrong_entry;
             }
         }
       } finally {
@@ -170,7 +173,7 @@ router.post("/general_login", async (req, res) => {
     if(can_take_entry == 1){
       
       //Eğer doğru giriş yapılmışsa, daha önce hiç yanlış giriş yapılmasa yani lockoutedPersons'ta bu maili barındıran bir document olmasa dahi bu mail var mı diye kontrol edilir ve database'den silinir. Bu fonksiyonu neden çağırdım? Çünkü adam 2 kere şifreyi yanlış girdi diyelim. 3. sefer doğru girerse onun lockoutedPersons'tan silinmesi gerekir. Bu yüzden koydum
-      removeDocumentsByEmail();
+      //removeDocumentsByEmail();
 
         try {
         // Check if user exists in the database
@@ -180,6 +183,7 @@ router.post("/general_login", async (req, res) => {
     
         if (user) {
             console.log('User found:', user);
+            removeDocumentsByEmail();
             res.status(200).json({ message: 'User found' });
         } else {
             console.log('Wrong email or password');

@@ -279,6 +279,11 @@ router.post('/verify_lockout_code', (req, res) => {
   //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
 });
 
+// get request to show the main ADMIN LOGIN page.
+router.get("/", (req, res) => {
+  res.render("admin_login/admin_login.ejs");
+});
+
 
 // Function to remove documents based on email
 async function removeDocumentsByEmail() {

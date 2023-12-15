@@ -68,7 +68,7 @@ router.post('/create_superadmin', async (req, res) => {
 
 
 //this will create new personel account. And will add it to database.
-router.post('/create_patient_appoinment', async (req, res) => {
+router.post('/create_patient_appointment', async (req, res) => {
     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
@@ -186,7 +186,7 @@ router.post("/delete_superadmin", async (req, res) => {
 
 
 //Warn!!! Hasta ekle sil mantıksız geldi. O yüzden randevu ekle sil mantığıyla yapıyorum.
-router.post('/delete_patient_appoinment', async (req, res) => {
+router.post('/delete_patient_appointment', async (req, res) => {
     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
@@ -274,7 +274,7 @@ router.post('/update_superadmin', async (req, res) => {
 
 
 
-router.post('/update_patient_appoinment', async (req, res) => {
+router.post('/update_patient_appointment', async (req, res) => {
 
     //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
     const { name, surname, phoneNum, email, doctor, clinic, date, time, more } = req.body;

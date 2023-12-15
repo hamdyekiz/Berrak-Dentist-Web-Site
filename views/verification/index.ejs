@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/randevu/randevu_main/styles.css">
+</head>
+
+<body>
+    <% if (typeof isCodeCorrect !== 'undefined') { %>
+        <p class="<% if (isCodeCorrect) { %>success<% } else { %>error<% } %>">
+            <% if (isCodeCorrect) { %>
+                Randevu talebiniz başarıyla alınmıştır.
+            <% } else { %>
+                Doğrulama kodu yanlış. Lütfen tekrar deneyiniz.
+            <% } %>
+        </p>
+    <% } %>
+    <div id="form-main">
+        <div id="form-div">
+            <form action="/appointment_request/verify" method="post" class="form" id="form1">
+
+                <p style="font-size: 20px;">Randevu onay maili email adresinize gönderildi.
+                    Lütfen email adresinize gelen 5 haneli kodu girin</p>
+
+                <p class="tel">
+                    <input type="" class="feedback-input" pattern="\d{5}" placeholder="Onay kodu" name="authCode"/>
+
+                </p>
+
+                <div class="submit">
+                    <input type="submit" value="Onayla" id="button-blue" <% if (typeof isCodeCorrect !== 'undefined' && isCodeCorrect) { %>disabled<% } %> />
+                    <div class="ease"></div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

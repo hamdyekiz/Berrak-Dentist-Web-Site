@@ -8,6 +8,8 @@ const path = require("path");
 const { URL } = require("url");
 
 const dirName = path.dirname(require.main.filename);
+
+
 //const app = express();
 const port = 3000;
 
@@ -25,34 +27,38 @@ router.get("/", (req, res) => {
 
 
 let verificationCode;
-let name, surname, telNo, email, availableHours;
+// let name, surname, telNo, email, availableHours;
+let name, telNo, email, availableHours, doctor, complaint;
 
 
 router.post('/submit', (req, res) => {
     // Access form inputs using req.body
-    ({ name, surname, telNo, email, availableHours } = req.body);
+    ({ name, telNo, email, availableHours, doctor, complaint} = req.body);
 
     // alınan veriler doğru mu diye kontrol etme
     console.log("name: " + name);
-    console.log("surname: " + surname);
     console.log("telNo: " + telNo);
     console.log("email: " + email);
     console.log("availableHours: " + availableHours);
+    console.log("doctor: " + doctor);
+    console.log("complaint: " + complaint);
+
 
     // check if the email is a valid email
     if (!isEmailValid(email)) {
         console.log("email is not valid!");
 
-        res.render("index.ejs", { error: "error" });
+        // res.render("index.ejs", { error: "error" });
+        res.redirect("/randevu/randevu_main/randevu.html"); // !!!!!! test this.
         return;
     }
 
     // Send a response or redirect to another page
-    res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours });
-
+    // res.render("submit.ejs", { name: name, surname: surname, telNo: telNo, email: email, availableHours: availableHours });
+    // res.sendFile(dirName + "/public/randevu/verification/index.html");
+    res.render("verification/index.ejs");
     // Hastanın mailine onay kodu yollanır.
-    sendVerificationCode(name, surname, email);
-    res.status(200);
+    sendVerificationCode(name, email);
 });
 
 //e mail'e gönderilen kod verify edilecek.
@@ -64,15 +70,15 @@ router.post('/verify', (req, res) => {
     if (verificationCode == authCode) {
         isCodeCorrect = true;
         console.log("True code");
-        sendEmail(name, surname, telNo, email, availableHours);
+        sendEmail(name, telNo, email, availableHours);
     } else {
         console.log("Wrong code");
     }
-    res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
+    res.render("verification/index.ejs", { isCodeCorrect: isCodeCorrect });
 });
 
 
-function sendVerificationCode(name, surname, email) {
+function sendVerificationCode(name, email) {
     // onay kodu 10000 ile 99999 arasında 5 basamaklı bir sayı
     const min = 10000; // Smallest 5-digit number
     const max = 99999; // Largest 5-digit number
@@ -89,7 +95,7 @@ function sendVerificationCode(name, surname, email) {
     });
 
     const emailContent = `
-    <p>Sayın ${name} ${surname},</p>
+    <p>Sayın ${name},</p>
     <p>Berrak diş hekimliğinden almak istediğiniz randevu için onay kodunuz:</p>
     <p style="font-size: 30px; font-weight: bold;">${verificationCode}</p>
     <p> Bu kodu siz istemediyseniz bu e-postayı görmezden gelmenizde bir sakınca yoktur. Başka bir kullanıcı yanlışlıkla sizin e-posta adresinizi girmiş olabilir.
@@ -112,7 +118,7 @@ function sendVerificationCode(name, surname, email) {
     });
 }
 
-function sendEmail(name, surname, telNo, email, availableHours) {
+function sendEmail(name, telNo, email, availableHours) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com',
         port: 587,
@@ -128,8 +134,7 @@ function sendEmail(name, surname, telNo, email, availableHours) {
         to: process.env.EMAIL_USER,
         subject: 'Yeni Randevu Talebi',
         text: `Aşağıdaki bilgilere sahip hasta randevu talebinde bulunmuştur:
-        \nAd: ${name}
-        \nSoyad: ${surname}
+        \nAd Soyad: ${name}
         \nTelefon: ${telNo}
         \nE-posta: ${email}
         \nAranmasını istediği saatler: ${availableHours}`
@@ -159,10 +164,10 @@ function isEmailValid(email) {
 
 // //bunu neden koyduk? unit test'e fonksiyonu aktarabilelim diye
 // module.exports = {
-//   sendVerificationCode, 
+//   sendVerificationCode,
 //   isEmailValid,
 //   sendEmail,
-//   server, 
+//   server,
 //   app
 // };
 
@@ -336,10 +341,10 @@ function isEmailValid(email) {
 
 //bunu neden koyduk? unit test'e fonksiyonu aktarabilelim diye
 module.exports = {
-  sendVerificationCode, 
+  sendVerificationCode,
   isEmailValid,
   sendEmail,
-  server, 
+  server,
   app
 };
 

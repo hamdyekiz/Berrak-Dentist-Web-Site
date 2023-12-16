@@ -196,8 +196,8 @@ router.post("/general_login", async (req, res) => {
             //res.status(401).json({ message: 'Wrong email or password' });
         }
         } catch (error) {
-        console.error('Error checking login:', error);
-        res.status(500).json({ message: 'Internal server error' });
+          console.error('Error checking login:', error);
+          res.status(500).json({ message: 'Internal server error' });
         }
 
     }
@@ -205,6 +205,7 @@ router.post("/general_login", async (req, res) => {
     //şifre 5 kere yanlış girilmişse tekrardan şifre yazmasına izin verilmez. Maile doğrulama kodu gönderilir. 
     else{
       sendVerificationCode_forLockout(email);
+      res.render("admin_login/verification.ejs");
     }
 });
 
@@ -224,6 +225,7 @@ function sendVerificationCode_forLockout(email) {
     const min = 10000; // Smallest 5-digit number
     const max = 99999; // Largest 5-digit number
     verificationCode_forLockout = Math.floor(Math.random() * (max - min + 1) + min).toString();
+    console.log("senddeki verificationCode_forLockout: " + verificationCode_forLockout);
 
     email_to_be_removed_from_lockouted = email;
 
@@ -270,6 +272,7 @@ router.post('/verify_lockout_code', (req, res) => {
   console.log(req.body);
   let { authCode } = req.body;
   console.log("girilen code: " + authCode);
+  console.log("girilen verificationCode_forLockout: " + verificationCode_forLockout);
 
   //kod doğru girilmişse o mail adresindeki blokaj kaldırılacak. Yani o mail, lockoutedPersons collection'undan silinecek. Bu sayede o mail adresi ile yeni şifre denemeleri yapılabilecek.
   if (verificationCode_forLockout == authCode) {
@@ -278,6 +281,7 @@ router.post('/verify_lockout_code', (req, res) => {
       //sendEmail(name, surname, telNo, email, availableHours);
 
       removeDocumentsByEmail();
+      res.render("admin_login/admin_login.ejs");
 
   } else {
       console.log("Wrong code");

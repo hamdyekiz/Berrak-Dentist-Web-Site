@@ -58,7 +58,7 @@ async function checkLogin(email, password) {
       return user;
     } finally {
       await client.close();
-      console.log('Disconnected from MongoDB');
+      console.log('Disconnected from MongoDB in checkLogin');
     }
 }
 
@@ -184,9 +184,11 @@ router.post("/general_login", async (req, res) => {
         if (user) {
             console.log('User found:', user);
             removeDocumentsByEmail();
-            res.status(200).json({ message: 'User found' });
+            res.redirect("/admin_panel/doctors.html");
+            //res.status(200).json({ message: 'User found' });
         } else {
             console.log('Wrong email or password');
+            //res.redirect("/admin_panel/doctors.html");
             res.status(401).json({ message: 'Wrong email or password' });
         }
         } catch (error) {

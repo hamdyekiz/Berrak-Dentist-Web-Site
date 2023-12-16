@@ -69,67 +69,11 @@
         </div>
 
         <br />
-        <table id="doctorsTable">
-          <thead>
-            <tr>
-              <th>Doktor Adı</th>
-              <th>Mail Adresi</th>
-              <th>Özellikleri</th>
-              <th>Eylemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Dr. İsim Soyisimasdasdasdasdads</td>
-              <td>isimsoyisim@example.com</td>
-              <td>Uzmanlık Alanı: ...</td>
-              <td class="event-buttons">
-                <button class="edit-btn">Düzenle</button>
-                <button class="remove-btn">Kaldır</button>
-              </td>
-            </tr>
-            <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
+        <button onclick="showDoctors()">Show Doctors</button>
 
-
-            <tr>
-              <td>Dr. İsim Soyisim</td>
-              <td>isimsoyisim@example.com</td>
-              <td>Uzmanlık Alanı: ...asdnaksaasdadsasdlsdk</td>
-              <td class="event-buttons">
-                <button class="edit-btn">Düzenle</button>
-                <button class="remove-btn">Kaldır</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Dr. İsim Soyisim</td>
-              <td>isimsoyisim@example.com</td>
-              <td>Uzmanlık Alanı: ...</td>
-              <td class="event-buttons">
-                <button class="edit-btn">Düzenle</button>
-                <button class="remove-btn">Kaldır</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Dr. İsim Soyisim</td>
-              <td>isimsoyisim@example.com</td>
-              <td>Uzmanlık Alanı: ...</td>
-              <td class="event-buttons">
-                <button class="edit-btn">Düzenle</button>
-                <button class="remove-btn">Kaldır</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Dr. İsim Soyisim</td>
-              <td>isimsoyisim@example.com</td>
-              <td>Uzmanlık Alanı: ...</td>
-              <td class="event-buttons">
-                <button class="edit-btn">Düzenle</button>
-                <button class="remove-btn">Kaldır</button>
-              </td>
-            </tr>
-            <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
-          </tbody>
-        </table>
+        <div id="doctorsContainer">
+          <!-- Doctors information will be displayed here -->
+        </div>
       </div>
     </div>
   </div>
@@ -205,6 +149,36 @@
       var logoutButton = document.querySelector(".logout-button");
       logoutButton.disabled = !enabled;
     }
+
+
+      function showDoctors() {
+        // Make a GET request to fetch doctors
+        fetch('/admin_panel/read_doctors')
+          .then(response => response.json()) // Parse response as JSON
+          .then(doctors => {
+            // Update the HTML to display doctors' information
+            const doctorsContainer = document.getElementById('doctorsContainer');
+            doctorsContainer.innerHTML = ''; // Clear previous content
+  
+            // Iterate through the doctors and display each one
+            doctors.forEach(doctor => {
+              const doctorInfo = `
+                <div>
+                  <p>Name: ${doctor.name}</p>
+                  <p>Surname: ${doctor.surname}</p>
+                  <p>Email: ${doctor.email}</p>
+                  <p>Phone Number: ${doctor.phoneNum}</p>
+                  <p>Title: ${doctor.title}</p>
+                  <p>Clinic: ${doctor.clinic}</p>
+                </div>
+                <hr>
+              `;
+  
+              doctorsContainer.innerHTML += doctorInfo;
+            });
+          })
+          .catch(error => console.error('Error fetching doctors:', error));
+      }
 
   </script>
 </body>

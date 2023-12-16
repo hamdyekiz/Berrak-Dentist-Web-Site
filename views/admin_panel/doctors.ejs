@@ -54,14 +54,23 @@
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
               </div>
 
-              <label for="Name"><b></b></label>
-              <input type="text" placeholder="Doktor Adı Soyadı" name="name" required>
+              <label for="name"><b></b></label>
+              <input type="text" placeholder="Doktor Adı" name="name" required>
+
+              <label for="surname"><b></b></label>
+              <input type="text" placeholder="Doktor Soyadı" name="surname" required>
+
+              <label for="phoneNum"><b></b></label>
+              <input type="text" placeholder="Telefon Numarası (5XX)" name="phoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
 
               <label for="email"><b></b></label>
               <input type="email" placeholder="Email adresi" name="email" required>
 
-              <label for="features"><b></b></label>
-              <input type="text" placeholder="Doktor Özellikleri" name="psw" required>
+              <label for="password"><b></b></label>
+              <input type="text" placeholder="Şifre" name="password" required>
+
+              <!-- <label for="features"><b></b></label>
+              <input type="text" placeholder="Doktor Özellikleri" name="features" required> -->
 
               <button type="submit" class="btn">Ekle</button>
             </form>

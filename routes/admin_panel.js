@@ -15,15 +15,23 @@ router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
 
 
-// Import the MongoDB driver for Node.js
-const MongoClient = require('mongodb').MongoClient;
-
 //Mongodb'ye bağlanmak için url:
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://127.0.0.1:27017';
 
 
+// admin paneldeki sayfalara erişmek için get methodları.
+router.get("/doktorlar/", (req, res) => {
+    res.render("admin_panel/doctors.ejs");
+});
 
-//localhost:3000/admin_panel/create_doctor'a post etmeli
+router.get("/gelecek_randevular/", (req,res) => {
+    res.render("admin_panel/randevular.ejs");
+});
+
+router.get("/hastalar/", (req, res) => {
+    res.render("admin_panel/hastalar.ejs");
+});
+
 
 
 //this will create new doctor account.
@@ -77,7 +85,7 @@ router.post('/create_patient_appointment', async (req, res) => {
     // there is no email verification. Because these datas will be added by person.
     
     // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
-    await mongoose.connect("mongodb://localhost:27017/clinicDB", {useNewUrlParser: true});
+    await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
 
     //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
     try {
@@ -405,7 +413,7 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
     // there is no email verification. Because these datas will be added by admin.
     
     // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
-    await mongoose.connect("mongodb://localhost:27017/clinicDB", {useNewUrlParser: true});
+    await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
 
     //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
     try {

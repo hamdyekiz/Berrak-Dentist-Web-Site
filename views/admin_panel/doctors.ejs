@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/admin_panel/style.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
@@ -29,8 +29,9 @@
       <div class="list-container">
         <ul>
           <li><a href="#" class="active" onclick="toggleLink(event)">Doktorlar</a></li>
-          <li><a href="randevular.html" onclick="toggleLink(event)">Gelecek Randevular</a></li>
-          <li><a href="hastalar.html" onclick="toggleLink(event)">Hastalar</a></li>
+          <!-- redirect to these url's of the website like berrakdis.com/admin_panel/gelecel_randevular/ -->
+          <li><a href="/admin_panel/gelecek_randevular/" onclick="toggleLink(event)">Gelecek Randevular</a></li>
+          <li><a href="/admin_panel/hastalar/" onclick="toggleLink(event)">Hastalar</a></li>
         </ul>
       </div>
     </nav>
@@ -134,6 +135,11 @@
   </div>
 
   <script>
+    // added this now to redirect the user to the homepage when the logout button is pressed.
+    document.querySelector('.logout-button').addEventListener('click', function() {
+      window.location.href = "/";
+    });
+
     var d_table = document.getElementById("doctorsTable");
 
     // Get the number of rows in the table

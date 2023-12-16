@@ -38,10 +38,13 @@ router.get("/hastalar/", (req, res) => {
 //Warn!!! Burada yetki meselesini de halletmek gerekir. Neticede doktoru herkes ekleyemiyor.
 router.post('/create_doctor', async (req, res) => {
     let personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic;
+    personelClinic = 1; // there's only 1 clinic that's why it is 1.
+    let addDoctorSuccessful;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
-    ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic} = req.body);
-
-    await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
+    ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword} = req.body);
+    // await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
+    addDoctorSuccessful = await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
+    res.render("admin_panel/doctors.ejs", {addDoctorSuccessful: addDoctorSuccessful});
 });
 
 
@@ -399,6 +402,7 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     //({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelTitle, personelClinic} = req.body);
     //console.log("Girdim2!");
+    let addDoctorSuccessfull;
     if(isStrongPassword(personelPassword) == false){
         console.log("password is not strong enough!");
         //BURAYA BİR EKRAN YA DA POP UP'IN GELMESİ GEREKİYOR.
@@ -406,8 +410,7 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
 
         //BELKI STATUSCODE 404 DE VERILMELİ BİLEMİYORUM
         //res.status(404);
-
-        return;
+        return addDoctorSuccessfull = false;
     }
 
     // there is no email verification. Because these datas will be added by admin.
@@ -449,7 +452,8 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
     await personel.save();
     
 
-    console.log("\nDatabase'e eklendi!");   
+    console.log("\nDatabase'e eklendi!");
+    return addDoctorSuccessfull = true;   
 }
 
 
@@ -575,7 +579,7 @@ async function update_account(name, surname, phoneNum, email, password, title, c
 
 function isStrongPassword(password) {
     // Define a regular expression pattern for a strong password
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
+    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*.,?])[A-Za-z0-9!@#$%^&*.,?]{8,}$/;
   
     // Test the password against the pattern
     return strongPasswordRegex.test(password);

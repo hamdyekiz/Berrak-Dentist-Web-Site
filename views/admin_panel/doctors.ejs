@@ -36,7 +36,14 @@
       </div>
     </nav>
   </div>
-
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof addDoctorSuccessful !== 'undefined') { %>
+    <% if (addDoctorSuccessful) { %>
+      <script>alert("Doktor başarıyla eklendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor eklenemedi!");</script>
+    <% } %>
+  <% } %>
   <div class="bodyContent">
     <div style="padding:2rem">
       <div class="right-page">
@@ -47,7 +54,7 @@
           <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Doktor Ekle</button>
           </div>
           <div class="form-popup" id="myForm">
-            <form class="form-container">
+            <form action="/admin_panel/create_doctor/" method="post" class="form-container">
               <div style="display: flex; gap: 50px;">
                 <h1>Doktor Ekle</h1>
                 <a style="cursor: pointer;" onclick="closeForm()"><img
@@ -55,19 +62,19 @@
               </div>
 
               <label for="name"><b></b></label>
-              <input type="text" placeholder="Doktor Adı" name="name" required>
+              <input type="text" placeholder="Doktor Adı" name="personelName" required>
 
               <label for="surname"><b></b></label>
-              <input type="text" placeholder="Doktor Soyadı" name="surname" required>
+              <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
 
               <label for="phoneNum"><b></b></label>
-              <input type="text" placeholder="Telefon Numarası (5XX)" name="phoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
+              <input type="text" placeholder="Telefon Numarası (5XX)" name="personelPhoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
 
               <label for="email"><b></b></label>
-              <input type="email" placeholder="Email adresi" name="email" required>
+              <input type="email" placeholder="Email adresi" name="personelEmail" required>
 
               <label for="password"><b></b></label>
-              <input type="text" placeholder="Şifre" name="password" required>
+              <input type="text" placeholder="Şifre" name="personelPassword" required>
 
               <!-- <label for="features"><b></b></label>
               <input type="text" placeholder="Doktor Özellikleri" name="features" required> -->

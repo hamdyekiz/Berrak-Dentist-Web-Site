@@ -184,7 +184,8 @@ router.post("/general_login", async (req, res) => {
         if (user) {
             console.log('User found:', user);
             removeDocumentsByEmail();
-            res.redirect("/admin_panel/doctors.html");
+            //res.redirect("/admin_panel/doctors.html");
+            res.render("admin_panel/doctors.ejs");
             //res.status(200).json({ message: 'User found' });
         } else {
             console.log('Wrong email or password');

@@ -447,6 +447,7 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
     });
 
     await personel.save();
+    await mongoose.connection.close();
     
 
     console.log("\nDatabase'e eklendi!");   
@@ -580,6 +581,48 @@ function isStrongPassword(password) {
     // Test the password against the pattern
     return strongPasswordRegex.test(password);
 } 
+
+
+const Personellist = mongoose.model('PersonelLists', {
+    name: String,
+    surname: String,
+    phoneNum: String,
+    email: String,
+    password: String,
+    title: String,
+    clinic: String
+});
+
+
+
+
+//Warn!!! Burada hata çıkabilir. get read_doctor idi böyle yaptık.
+router.get('/read_doctors', async (req, res) => {
+    console.log("Doctosdayım");
+
+    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+    //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+    try {
+      // Fetch doctors from the database
+      const doctors = await Personellist.find({ title: 'Doctor' });
+  
+      // Render the doctors.ejs template with the fetched data
+      //console.log("Okundu");
+      //console.log(doctors);
+      //res.render('admin_panel/dumen.ejs', { doctors });
+      res.json(doctors);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+    finally {
+        await mongoose.connection.close();
+        console.log('Disconnected from MongoDB in doctors');
+    }
+  });
 
 
 module.exports = router;

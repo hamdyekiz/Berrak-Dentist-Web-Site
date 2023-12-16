@@ -51,6 +51,16 @@ app.post("/randevu_al", (req, res) => {
 });
 
 
+//Warn!!! Bunun işlevini tam bilmiyorum. Kaldırılabilir.
+app.set('view engine', 'ejs');
+
+
+app.get("/dumen",(req, res) => {
+  // send the file from the public/landing_page/index.html
+  res.render('admin_panel/dumen');
+
+});
+
 
 const PORT = 3000;
 

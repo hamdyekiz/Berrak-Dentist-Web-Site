@@ -189,7 +189,11 @@ router.post("/general_login", async (req, res) => {
         } else {
             console.log('Wrong email or password');
             //res.redirect("/admin_panel/doctors.html");
-            res.status(401).json({ message: 'Wrong email or password' });
+            //res.status(401).send('The password is wrong');
+            res.render("admin_login/admin_login_wrong_password.ejs");
+            //alert("Password is wrong");
+            
+            //res.status(401).json({ message: 'Wrong email or password' });
         }
         } catch (error) {
         console.error('Error checking login:', error);

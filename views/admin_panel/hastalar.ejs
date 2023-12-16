@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/admin_panel/style.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
@@ -31,9 +31,9 @@
       <hr />
       <div class="list-container">
         <ul>
-          <li><a href="doctors.html"></span>Doktorlar</a></li>
-          <li><a href="randevular.html">Gelecek Randevular</a></li>
-          <li><a href="hastalar.html" class="active">Hastalar</a></li>
+          <li><a href="/admin_panel/doktorlar/"></span>Doktorlar</a></li>
+          <li><a href="/admin_panel/gelecek_randevular/">Gelecek Randevular</a></li>
+          <li><a href="/admin_panel/hastalar/" class="active">Hastalar</a></li>
         </ul>
       </div>
     </nav>
@@ -146,7 +146,10 @@
 
 
   <script>
-
+    // added this now to redirect the user to the homepage when the logout button is pressed.
+    document.querySelector('.logout-button').addEventListener('click', function() {
+      window.location.href = "/";
+    });
 
     var d_table = document.getElementById("hastaTable");
 

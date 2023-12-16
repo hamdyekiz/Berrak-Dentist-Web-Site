@@ -25,7 +25,7 @@ dotenv.config();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 // Connection URL
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://127.0.0.1:27017';
 
 
 // Parametre olarak girilen email ve şifreye ait kullanıcı database'de var mı diye kontrol ediyor
@@ -66,7 +66,7 @@ async function checkLogin(email, password) {
 //Şifre yanlış girilmiş ise çağrılır. 
 async function increment_wrong_entry_num(email) {
     console.log("Hatalı şifre girildi gereken işlemler yapılacak")
-    //const url = 'mongodb://localhost:27017';
+    //const url = 'mongodb://127.0.0.1:27017';
     const dbName = 'clinicDB'; // Replace with your actual database name
     const collectionName = 'lockoutedPersons';
   
@@ -289,7 +289,7 @@ router.post('/verify_lockout_code', (req, res) => {
   //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
 });
 
-// get request to show the main ADMIN LOGIN page.
+// get request to show the main ADMIN LOGIN page. 
 router.get("/", (req, res) => {
   res.render("admin_login/admin_login.ejs");
 });

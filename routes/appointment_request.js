@@ -128,7 +128,9 @@ function sendEmail(name, telNo, email, availableHours) {
             pass: process.env.EMAIL_PASSWORD
         }
     });
-
+    console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
+    console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
+    console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,

@@ -110,71 +110,23 @@
                 <br />
                 <table id="randevuTable">
                     <thead>
-                        <tr>
-                            <th>Hasta Adı</th>
-                            <th>Tedavi</th>
-                            <th>Doktor</th>
-                            <th>Randevu Tarihi Ve Saati</th>
-                            <th>Ücret</th>
-                            <th>Eylemler</th>
-                        </tr>
+                      <tr>
+                        <th>Hasta Adı</th>
+                        <th>Hasta Soyadı</th>
+                        <th>Telefon</th>
+                        <th>E-posta</th>
+                        <th>Doktor</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>Ücret</th>
+                        <th>Daha Fazla</th>
+                        <th>Eylemler</th>
+                      </tr>
                     </thead>
-                    <tbody>
-
-                        <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
-
-
-                        <tr>
-                            <td>Enes Patır</td>
-                            <td>Dolgu-diş çekimi</td>
-                            <td>Dr. İsim Soyisim</td>
-                            <td>12 Aralık 2023 15.30</td>
-                            <td>750tl</td>
-                            <td class="event-buttons">
-                                <button class="edit-btn">Düzenle</button>
-
-                                <button class="remove-btn">Kaldır</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Enes Patır</td>
-                            <td>Dolgu-diş çekimi</td>
-                            <td>Dr. İsim Soyisim</td>
-                            <td>12 Aralık 2023 15.30</td>
-                            <td>750tl</td>
-                            <td class="event-buttons">
-                                <button class="edit-btn">Düzenle</button>
-
-                                <button class="remove-btn">Kaldır</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Enes Patır</td>
-                            <td>Dolgu-diş çekimi</td>
-                            <td>Dr. İsim Soyisim</td>
-                            <td>12 Aralık 2023 15.30</td>
-                            <td>750tl</td>
-                            <td class="event-buttons">
-                                <button class="edit-btn">Düzenle</button>
-
-                                <button class="remove-btn">Kaldır</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Enes Patır</td>
-                            <td>Dolgu-diş çekimi</td>
-                            <td>Dr. İsim Soyisim</td>
-                            <td>12 Aralık 2023 15.30</td>
-                            <td>750tl</td>
-                            <td class="event-buttons">
-                                <button class="edit-btn">Düzenle</button>
-
-                                <button class="remove-btn">Kaldır</button>
-                            </td>
-                        </tr>
-                        <!-- Diğer doktorlar için aynı formatta satırları ekleyebilirsiniz -->
+                    <tbody id="appointmentsContainer">
+                      <!-- Doctors information will be displayed here -->
                     </tbody>
-                </table>
+                  </table>
 
             </div>
         </div>
@@ -182,6 +134,11 @@
 
 
     <script>
+
+        window.addEventListener("DOMContentLoaded", function(){
+            showAppointments();
+        });
+
         var d_table = document.getElementById("randevuTable");
 
         // Get the number of rows in the table
@@ -247,6 +204,39 @@
             var logoutButton = document.querySelector(".logout-button");
             logoutButton.disabled = !enabled;
         }
+
+
+        function showAppointments() {
+            fetch('/admin_panel/read_appointments')
+              .then(response => response.json())
+              .then(doctors => {
+                const appointmentsContainer = document.getElementById('appointmentsContainer');
+                appointmentsContainer.innerHTML = ''; // Clear previous content
+        
+                doctors.forEach(patient => {
+                  const patientInfo = `
+                    <tr>
+                      <td>${patient.name}</td>
+                      <td>${patient.surname}</td>
+                      <td>${patient.phoneNum}</td>
+                      <td>${patient.email}</td>
+                      <td>${patient.doctor}</td>
+                      <td>${patient.date}</td>
+                      <td>${patient.time}</td>
+                      <td>${patient.price}</td>
+                      <td>${patient.more}</td>
+                      
+                    </tr>
+                  `;
+        
+                  appointmentsContainer.innerHTML += patientInfo;
+                });
+              })
+              .catch(error => console.error('Error fetching patients:', error));
+        }
+
+
+
     </script>
 </body>
 

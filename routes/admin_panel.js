@@ -135,6 +135,8 @@ router.post('/create_patient_appointment', async (req, res) => {
 
     console.log("\nDatabase'e eklendi!");
 
+    await mongoose.connection.close();
+
 
 });
 
@@ -655,6 +657,49 @@ router.get('/read_doctors', async (req, res) => {
       //console.log(doctors);
       //res.render('admin_panel/dumen.ejs', { doctors });
       res.json(doctors);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+    finally {
+        await mongoose.connection.close();
+        console.log('Disconnected from MongoDB in doctors');
+    }
+  });
+
+
+
+  const Patientlist = mongoose.model('patientLists', {
+    name: String,
+    surname: String,
+    phoneNum: String,
+    email: String,
+    doctor: String,
+    clinic: String,
+    date: String,
+    time: String,
+    price: String,
+    more: String
+    });
+
+
+  router.get('/read_appointments', async (req, res) => {
+    console.log("Doctosdayım");
+
+    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+    //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+    try {
+      // Fetch doctors from the database
+      const patients = await Patientlist.find();
+  
+      // Render the doctors.ejs template with the fetched data
+      //console.log("Okundu");
+      //console.log(doctors);
+      //res.render('admin_panel/dumen.ejs', { doctors });
+      res.json(patients);
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');

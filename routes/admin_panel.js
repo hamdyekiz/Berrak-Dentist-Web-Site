@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const { MongoClient } = require('mongodb');
+
 //console.log("Girdim1!");
 
 
@@ -249,14 +251,25 @@ router.post('/delete_patient_appointment', async (req, res) => {
 //Warn!!! Update'de title değiştirmeye dahi izin veriyorum. Sadece mail değiştirmeye izin vermiyorum. Kodda ona da izin veriyorum da front endde verilmemeli. Şifre değiştirmeye dahi izin veriyorum
 router.post('/update_doctor', async (req, res) => {
 
-    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
-    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+    // const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    // if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+    //     return res.status(400).json({ error: "Missing required parameters" });
+    // }    
+
+    // else{
+    //     update_account(name, surname, phoneNum, email, password, title, clinic)
+    // }
+
+    const { name, surname, phoneNum, email, password } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, title, clinic)
+        update_account(name, surname, phoneNum, email, password, "Doctor", "Klinik1")
     }
+
+
 });
 
 
@@ -508,74 +521,90 @@ async function delete_account(name, surname, email, title) {
 
 
 // commented out because it is not using mongoose
-// async function update_account(name, surname, phoneNum, email, password, title, clinic){    
+async function update_account(name, surname, phoneNum, email, password, title, clinic){    
   
 
-//     const dbName = 'clinicDB';
+    const dbName = 'clinicDB';
   
-//     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
   
-//     try {
-//       await client.connect();
-//       console.log('Connected to MongoDB in update_account');
-  
-//       const db = client.db(dbName);
-//       const collection = db.collection('personellists');
-  
-//       // Update documents where email matches the provided value
-//       const result = await collection.updateMany(
-//         { email: email },
-//         {
-//           $set: {
-//             name: name,
-//             surname: surname,
-//             phoneNum: phoneNum,
-//             password: password,
-//             title: title,
-//             clinic: clinic
-//           }
-//         }
-//       );
-  
-//       console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
-      
-//       res.status(200).json({ message: `${result.modifiedCount} documents updated` });
-//     } catch (error) {
-//       console.error('Error updating documents:', error);
-//     } finally {
-//       await client.close();
-//       console.log('Disconnected from MongoDB in update_account');
-//     }
-// }
-// // Warn!!! Email'e göre update yapar. Bu yüzden update işleminde email değişemez. Email sabit kalmalı
-async function update_account(name, surname, phoneNum, email, password, title, clinic) {
     try {
-        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('Connected to MongoDB in update_account');
-
-        // Update documents where email matches the provided value
-        const result = await Personnel.updateMany(
-            { email: email },
-            {
-                $set: {
-                    name: name,
-                    surname: surname,
-                    phoneNum: phoneNum,
-                    password: password,
-                    title: title,
-                    clinic: clinic
-                }
-            }
-        );
-
-        console.log(`Updated ${result.nModified} documents with email ${email}`);
+      await client.connect();
+      console.log('Connected to MongoDB in update_account');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('personellists');
+  
+      // Update documents where email matches the provided value
+      const result = await collection.updateMany(
+        { email: email },
+        {
+          $set: {
+            name: name,
+            surname: surname,
+            phoneNum: phoneNum,
+            password: password,
+            title: title,
+            clinic: clinic
+          }
+        }
+      );
+  
+      console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+      
+      //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
     } catch (error) {
-        console.error('Error updating documents:', error);
+      console.error('Error updating documents:', error);
     } finally {
-        await mongoose.connection.close();
-        console.log('Disconnected from MongoDB in update_account');
+      await client.close();
+      console.log('Disconnected from MongoDB in update_account');
     }
 }
+// // Warn!!! Email'e göre update yapar. Bu yüzden update işleminde email değişemez. Email sabit kalmalı
+// async function update_account(name, surname, phoneNum, email, password, title, clinic) {
+    
+//     const PersonelListSchema = new mongoose.Schema({
+//         name: String,
+//         surname: String,
+//         phoneNum: String,
+//         email: String,
+//         password: String,
+//         title: String,
+//         clinic: String
+//       });
+
+//     const PersonelList = mongoose.model('PersonelList', PersonelListSchema);
+
+    
+    
+//     try {
+       
+//         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+//         console.log('Connected to MongoDB in update_account');
+
+//         // Update documents where email matches the provided value
+//         const result = await PersonelList.updateMany(
+//             { email: email },
+//             {
+//                 $set: {
+//                     name: name,
+//                     surname: surname,
+//                     phoneNum: phoneNum,
+//                     password: password,
+//                     title: title,
+//                     clinic: clinic
+//                 }
+//             }
+//         );
+
+//         console.log(`Updated ${result.nModified} documents with email ${email}`);
+//     } catch (error) {
+//         console.error('Error updating documents:', error);
+//     } finally {
+//         await mongoose.connection.close();
+//         console.log('Disconnected from MongoDB in update_account');
+//     }
+// }
 
 
 function isStrongPassword(password) {

@@ -102,19 +102,21 @@
             </div>
       
             <label for="name"><b></b></label>
-            <input type="text" placeholder="Doktor Adı" name="personelName" required>
+            <input type="text" placeholder="Doktor Adı" name="name" required>
       
             <label for="surname"><b></b></label>
-            <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
+            <input type="text" placeholder="Doktor Soyadı" name="surname" required>
       
             <label for="phoneNum"><b></b></label>
-            <input type="text" placeholder="Telefon Numarası (5XX)" name="personelPhoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
+            <input type="text" placeholder="Telefon Numarası (5XX)" name="phoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
       
             <label for="email"><b></b></label>
-            <input type="email" placeholder="Email adresi" name="personelEmail" required readonly>
+            <input type="email" placeholder="Email adresi" name="email" required readonly>
       
             <label for="password"><b></b></label>
-            <input type="text" placeholder="Şifre" name="personelPassword" required>
+            <input type="text" placeholder="Şifre" name="password" required>
+
+            
       
             <button type="submit" class="btn">Güncelle</button>
           </form>
@@ -234,7 +236,7 @@
         form.style.display = 'block';
   
         // Populate the form with the selected doctor's email
-        const emailInput = form.querySelector('input[name="personelEmail"]');
+        const emailInput = form.querySelector('input[name="email"]');
         emailInput.value = email;
       }
   

@@ -25,7 +25,8 @@ dotenv.config();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 // Connection URL
-const url = 'mongodb://127.0.0.1:27017';
+// const url = 'mongodb://127.0.0.1:27017';
+const url = process.env.URL;
 
 
 // Parametre olarak girilen email ve şifreye ait kullanıcı database'de var mı diye kontrol ediyor

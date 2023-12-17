@@ -89,8 +89,8 @@ function sendVerificationCode(name, email) {
         port: 587,
         secure: false,
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
+            user: "denemeforberrakdentist@outlook.com",
+            pass: "123456789abcde",
         }
     });
 
@@ -103,7 +103,7 @@ function sendVerificationCode(name, email) {
     <p> Teşekkür ederiz.</p>`;
 
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: "denemeforberrakdentist@outlook.com",
         to: email,
         subject: 'Doğrulama Kodu',
         html: emailContent
@@ -132,8 +132,8 @@ function sendEmail(name, telNo, email, availableHours) {
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
+        from: "denemeforberrakdentist@outlook.com",
+        to: "denemeforberrakdentist@outlook.com",
         subject: 'Yeni Randevu Talebi',
         text: `Aşağıdaki bilgilere sahip hasta randevu talebinde bulunmuştur:
         \nAd Soyad: ${name}

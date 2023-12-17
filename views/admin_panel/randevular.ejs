@@ -43,11 +43,30 @@
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
   <% if (typeof addAppointmentSuccessful !== 'undefined') { %>
     <% if (addAppointmentSuccessful) { %>
-      <script>alert("Doktor başarıyla eklendi!");</script>
+      <script>alert("Hasta randevusu başarıyla eklendi!");</script>
     <% } else { %>
-      <script>alert("Doktor eklenemedi!");</script>
+      <script>alert("Hasta randevusu eklenemedi!");</script>
     <% } %>
   <% } %>    
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof updateAppointmentSuccessful !== 'undefined') { %>
+    <% if (updateAppointmentSuccessful) { %>
+      <script>alert("Hasta randevusu başarıyla güncellendi!");</script>
+    <% } else { %>
+      <script>alert("Hasta randevusu güncellenemedi!!");</script>
+    <% } %>
+  <% } %> 
+
+
+  <!-- delete olduğu zaman uyarı çıkar. -->
+  <% if (typeof deleteAppointmentSuccessful !== 'undefined') { %>
+    <% if (deleteAppointmentSuccessful) { %>
+      <script>alert("Hasta randevusu silindi!");</script>
+    <% } else { %>
+      <script>alert("Hasta randevusu silinemedi!");</script>
+    <% } %>
+  <% } %>
 
 
     <div class="bodyContent">
@@ -274,7 +293,8 @@
                       <td>${patient.price}</td>
                       <td>${patient.more}</td>
                       <td>
-                        <button onclick="openUpdateForm('${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}',)">Update</button>
+                        <button onclick="openUpdateForm('${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Update</button>
+                        <button onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.phoneNum}','${patient.doctor}','${patient.date}','${patient.time}','${patient.more}')">Delete patient</button>
                       </td>
                       
                     </tr>
@@ -326,6 +346,42 @@
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
           }
+
+
+          async function deletePatient(name, surname, phoneNum, doctor, date, time, more) {
+            try {
+                const response = await fetch('/admin_panel/delete_patient_appointment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        surname: surname,
+                        phoneNum: phoneNum,
+                        doctor: doctor,
+                        date: date,
+                        time: time,
+                        more: more,
+                    }),
+                });
+        
+                if (response.ok) {
+                    // Alert göster
+                    alert('Hasta randevusu başarıyla silindi!');
+                    // '/admin_panel/doktorlar' sayfasına yönlendir
+                    window.location.href = '/admin_panel/gelecek_randevular/';
+                } else {
+                    console.error('Error deleting patient appointment:', response.statusText);
+                    // Hata işleme
+                    alert('Randevu silinemedi: ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error deleting patient appointment:', error.message);
+                // Hata işleme
+                alert('Randevu silinemedi: ' + error.message);
+            }
+        }
 
 
 

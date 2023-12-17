@@ -212,7 +212,7 @@ router.post('/delete_patient_appointment', async (req, res) => {
     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
     //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
-    ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
+    ({name, surname, phoneNum, doctor, date, time, more} = req.body);
 
 
     const dbName = 'clinicDB';
@@ -230,6 +230,8 @@ router.post('/delete_patient_appointment', async (req, res) => {
       const result = await collection.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
   
       console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
+
+      res.render("admin_panel/randevular.ejs", {deleteAppointmentSuccessful: 1});
     } catch (error) {
       console.error('Error deleting documents:', error);
     } finally {
@@ -367,12 +369,14 @@ router.post('/update_patient_appointment', async (req, res) => {
           );
       
           console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+          res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1});
           
-          res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+          //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
         } catch (error) {
           console.error('Error updating documents:', error);
         } finally {
           await client.close();
+          
           console.log('Disconnected from MongoDB in update_account');
         }        
 

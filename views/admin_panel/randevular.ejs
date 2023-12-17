@@ -22,8 +22,8 @@
         <nav class="navbar navbar-inverse">
 
             <div style="text-align: center; display:flex;flex-direction: column;">
-                <a style="color: black;" class="navbar-brand" >Admin</a>
-                <a style="color: gray;" class="navbar-brand" >adming@gmail.com</a>
+                <a style="color: black;" class="navbar-brand">Admin</a>
+                <a style="color: gray;" class="navbar-brand">adming@gmail.com</a>
 
             </div>
 
@@ -31,13 +31,24 @@
             <hr />
             <div class="list-container">
                 <ul>
-                    <li><a href="/admin_panel/doktorlar/"></span>Doktorlar</a></li>
-                    <li><a href="/admin_panel/gelecek_randevular/" class="active">Gelecek Randevular</a></li>
-                    <li><a href="/admin_panel/hastalar/">Hastalar</a></li>
+                    <li><a href="/admin_panel/doktorlar"></span>Personel</a></li>
+                    <li><a href="/admin_panel/gelecek_randevular" class="active">Gelecek Randevular</a></li>
+                    <li><a href="/admin_panel/hastalar">Hastalar</a></li>
                 </ul>
             </div>
         </nav>
     </div>
+
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof addAppointmentSuccessful !== 'undefined') { %>
+    <% if (addAppointmentSuccessful) { %>
+      <script>alert("Doktor başarıyla eklendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor eklenemedi!");</script>
+    <% } %>
+  <% } %>    
+
 
     <div class="bodyContent">
         <div style="padding:2rem">
@@ -46,10 +57,13 @@
                     <div style="flex:10;">
                         <h2 id="randevuHeader">Randevular</h2>
                     </div>
-                    <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Randevu
-                            Ekle</button></div>
-                    <div class="form-popup" id="myForm">
-                        <form class="form-container">
+                    <div style="flex:1;">
+                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Randevu Ekle</button>
+                    </div>
+                    <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
+                
+                       <form action="/admin_panel/create_patient_appointment/" method="post" class="form-container">
+                        
                             <div style="display: flex; gap: 50px;">
                                 <h1>Randevu Ekle</h1>
                                 <a style="cursor: pointer;" onclick="closeForm()"><img
@@ -57,16 +71,34 @@
                             </div>
 
                             <label for="Name"></label>
-                            <input type="text" placeholder="Hasta Adı Soyadı" name="name" required>
+                            <input type="text" placeholder="Hasta Adı" name="name" required>
+
+                            <label for="surname"></label>
+                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
+
+                            <label for="phoneNum"></label>
+                            <input type="text" placeholder="Telefon" name="phoneNum" required>
 
                             <label for="email"></label>
-                            <input type="text" placeholder="Tedavi" name="tedavi" required>
+                            <input type="text" placeholder="Email" name="email">
 
-                            <label for="DoctorName"></label>
-                            <input type="text" placeholder="Doktor Adı Soyadı" name="doctorname" required>
+                            <label for="Doctor"></label>
+                            <input type="text" placeholder="Doktor" name="doctor" required>
 
-                            <label for="date"></label>
-                            <input type="date" placeholder="Tarih" name="date" required>
+                            <label for="Clinic"></label>
+                            <input type="text" placeholder="Klinik" name="clinic">
+
+                            <label for="Date"></label>
+                            <input type="text" placeholder="Tarih" name="date" required>
+
+                            <label for="Time"></label>
+                            <input type="text" placeholder="Saat" name="time" required>
+
+                            <label for="Price"></label>
+                            <input type="text" placeholder="Fiyat" name="price">
+
+                            <label for="More"></label>
+                            <input type="text" placeholder="Daha fazla" name="more">
 
                             <button type="submit" class="btn">Ekle</button>
                         </form>
@@ -83,6 +115,7 @@
                             <th>Tedavi</th>
                             <th>Doktor</th>
                             <th>Randevu Tarihi Ve Saati</th>
+                            <th>Ücret</th>
                             <th>Eylemler</th>
                         </tr>
                     </thead>
@@ -96,6 +129,7 @@
                             <td>Dolgu-diş çekimi</td>
                             <td>Dr. İsim Soyisim</td>
                             <td>12 Aralık 2023 15.30</td>
+                            <td>750tl</td>
                             <td class="event-buttons">
                                 <button class="edit-btn">Düzenle</button>
 
@@ -107,6 +141,7 @@
                             <td>Dolgu-diş çekimi</td>
                             <td>Dr. İsim Soyisim</td>
                             <td>12 Aralık 2023 15.30</td>
+                            <td>750tl</td>
                             <td class="event-buttons">
                                 <button class="edit-btn">Düzenle</button>
 
@@ -118,6 +153,7 @@
                             <td>Dolgu-diş çekimi</td>
                             <td>Dr. İsim Soyisim</td>
                             <td>12 Aralık 2023 15.30</td>
+                            <td>750tl</td>
                             <td class="event-buttons">
                                 <button class="edit-btn">Düzenle</button>
 
@@ -129,6 +165,7 @@
                             <td>Dolgu-diş çekimi</td>
                             <td>Dr. İsim Soyisim</td>
                             <td>12 Aralık 2023 15.30</td>
+                            <td>750tl</td>
                             <td class="event-buttons">
                                 <button class="edit-btn">Düzenle</button>
 
@@ -145,10 +182,6 @@
 
 
     <script>
-        // added this now to redirect the user to the homepage when the logout button is pressed.
-        document.querySelector('.logout-button').addEventListener('click', function() {
-            window.location.href = "/";
-        });
         var d_table = document.getElementById("randevuTable");
 
         // Get the number of rows in the table

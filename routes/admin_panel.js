@@ -82,10 +82,10 @@ router.post('/create_superadmin', async (req, res) => {
 
 //this will create new personel account. And will add it to database.
 router.post('/create_patient_appointment', async (req, res) => {
-    let name, surname, phoneNum, email, doctor, clinic, date, time, more;
+    let name, surname, phoneNum, email, doctor, clinic, date, time, price, more;
     //Buradaki verilerin boş olmadığını kabul ediyoruz.
-    ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
-    //console.log("Girdim2!");
+    ({name, surname, phoneNum, email, doctor, clinic, date, time, price, more} = req.body);
+    //console.log("LAAAAAANNNN!");
 
     // there is no email verification. Because these datas will be added by person.
     
@@ -105,6 +105,7 @@ router.post('/create_patient_appointment', async (req, res) => {
           clinic: String,
           date: String,
           time: String,
+          price: String,
           more: String
         });
       
@@ -123,12 +124,14 @@ router.post('/create_patient_appointment', async (req, res) => {
         clinic: clinic,
         date: date,
         time: time,
+        price: price,
         more: more
         
     });
 
     await personel.save();
     
+    res.render("admin_panel/randevular.ejs", {addAppointmentSuccessful: 1});
 
     console.log("\nDatabase'e eklendi!");
 
@@ -203,54 +206,54 @@ router.post("/delete_superadmin", async (req, res) => {
 
 // commented out because it is not using mongoose
 // //Warn!!! Hasta ekle sil mantıksız geldi. O yüzden randevu ekle sil mantığıyla yapıyorum.
-// router.post('/delete_patient_appointment', async (req, res) => {
-//     let name, surname, phoneNum, email, doctor, clinic, date, time, more;
-//     //Buradaki verilerin boş olmadığını kabul ediyoruz.
-//     //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
-//     ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
-
-
-//     const dbName = 'clinicDB';
-//     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-  
-//     try {
-//       await client.connect();
-//       console.log('Connected to MongoDB in delete_patient');
-  
-//       const db = client.db(dbName);
-//       const collection = db.collection('patientlists');
-
-  
-//       // Delete documents where name, surname, email, and title match the provided values
-//       const result = await collection.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
-  
-//       console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
-//     } catch (error) {
-//       console.error('Error deleting documents:', error);
-//     } finally {
-//       await client.close();
-//       console.log('Disconnected from MongoDB in delete_patient');
-//     }    
-
-// });
 router.post('/delete_patient_appointment', async (req, res) => {
-    const { name, surname, phoneNum, date, time } = req.body;
+    let name, surname, phoneNum, email, doctor, clinic, date, time, more;
+    //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
+    ({name, surname, phoneNum, email, doctor, clinic, date, time, more} = req.body);
 
+
+    const dbName = 'clinicDB';
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  
     try {
-        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('Connected to MongoDB in delete_patient');
+      await client.connect();
+      console.log('Connected to MongoDB in delete_patient');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('patientlists');
 
-        // Delete documents where name, surname, phoneNum, date, and time match the provided values
-        const result = await Patient.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
-
-        console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
+  
+      // Delete documents where name, surname, email, and title match the provided values
+      const result = await collection.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
+  
+      console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
     } catch (error) {
-        console.error('Error deleting documents:', error);
+      console.error('Error deleting documents:', error);
     } finally {
-        await mongoose.connection.close();
-        console.log('Disconnected from MongoDB in delete_patient');
+      await client.close();
+      console.log('Disconnected from MongoDB in delete_patient');
     }    
+
 });
+// router.post('/delete_patient_appointment', async (req, res) => {
+//     const { name, surname, phoneNum, date, time } = req.body;
+
+//     try {
+//         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+//         console.log('Connected to MongoDB in delete_patient');
+
+//         // Delete documents where name, surname, phoneNum, date, and time match the provided values
+//         const result = await Patient.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
+
+//         console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
+//     } catch (error) {
+//         console.error('Error deleting documents:', error);
+//     } finally {
+//         await mongoose.connection.close();
+//         console.log('Disconnected from MongoDB in delete_patient');
+//     }    
+// });
 
 //Warn!!! Update'de title değiştirmeye dahi izin veriyorum. Sadece mail değiştirmeye izin vermiyorum. Kodda ona da izin veriyorum da front endde verilmemeli. Şifre değiştirmeye dahi izin veriyorum
 router.post('/update_doctor', async (req, res) => {
@@ -319,96 +322,97 @@ router.post('/update_superadmin', async (req, res) => {
 
 
 // commented because it is not using mongoose.
-// router.post('/update_patient_appointment', async (req, res) => {
+router.post('/update_patient_appointment', async (req, res) => {
 
-//     //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+    //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+    const { name, surname, phoneNum, email, doctor, clinic, date, time, price, more } = req.body;
+    if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }    
+
+    else{
+
+        const dbName = 'clinicDB';
+  
+        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+      
+        try {
+          await client.connect();
+          console.log('Connected to MongoDB in update_account');
+      
+          const db = client.db(dbName);
+          const collection = db.collection('patientlists');
+      
+          // Update documents where email matches the provided value
+          const result = await collection.updateMany(
+            { name: name, surname: surname },
+            {
+              $set: {
+                name: name,
+                surname: surname,
+                phoneNum: phoneNum,
+                email: email,
+                doctor : doctor,
+                clinic: clinic,
+                date: date,
+                time: time,
+                price : price,
+                more: more
+                
+              }
+            }
+          );
+      
+          console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+          
+          res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+        } catch (error) {
+          console.error('Error updating documents:', error);
+        } finally {
+          await client.close();
+          console.log('Disconnected from MongoDB in update_account');
+        }        
+
+    }
+});
+
+// router.post('/update_patient_appointment', async (req, res) => {
 //     const { name, surname, phoneNum, email, doctor, clinic, date, time, more } = req.body;
 //     if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
 //         return res.status(400).json({ error: "Missing required parameters" });
-//     }    
-
-//     else{
-
-//         const dbName = 'clinicDB';
-  
-//         const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-      
+//     } else {
 //         try {
-//           await client.connect();
-//           console.log('Connected to MongoDB in update_account');
-      
-//           const db = client.db(dbName);
-//           const collection = db.collection('patientlists');
-      
-//           // Update documents where email matches the provided value
-//           const result = await collection.updateMany(
-//             { name: name, surname: surname },
-//             {
-//               $set: {
-//                 name: name,
-//                 surname: surname,
-//                 phoneNum: phoneNum,
-//                 email: email,
-//                 doctor : doctor,
-//                 clinic: clinic,
-//                 date: date,
-//                 time: time,
-//                 more: more
-                
-//               }
-//             }
-//           );
-      
-//           console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
-          
-//           res.status(200).json({ message: `${result.modifiedCount} documents updated` });
-//         } catch (error) {
-//           console.error('Error updating documents:', error);
-//         } finally {
-//           await client.close();
-//           console.log('Disconnected from MongoDB in update_account');
-//         }        
+//             await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+//             console.log('Connected to MongoDB in update_account');
 
+//             // Update documents where name and surname match the provided values
+//             const result = await Patient.updateMany(
+//                 { name: name, surname: surname },
+//                 {
+//                     $set: {
+//                         name: name,
+//                         surname: surname,
+//                         phoneNum: phoneNum,
+//                         email: email,
+//                         doctor : doctor,
+//                         clinic: clinic,
+//                         date: date,
+//                         time: time,
+//                         more: more
+//                     }
+//                 }
+//             );
+
+//             console.log(`Updated ${result.nModified} documents with email ${email}`);
+//             res.status(200).json({ message: `${result.nModified} documents updated` });
+//         } catch (error) {
+//             console.error('Error updating documents:', error);
+//         } finally {
+//             await mongoose.connection.close();
+//             console.log('Disconnected from MongoDB in update_account');
+//         }
 //     }
 // });
-
-router.post('/update_patient_appointment', async (req, res) => {
-    const { name, surname, phoneNum, email, doctor, clinic, date, time, more } = req.body;
-    if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
-        return res.status(400).json({ error: "Missing required parameters" });
-    } else {
-        try {
-            await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-            console.log('Connected to MongoDB in update_account');
-
-            // Update documents where name and surname match the provided values
-            const result = await Patient.updateMany(
-                { name: name, surname: surname },
-                {
-                    $set: {
-                        name: name,
-                        surname: surname,
-                        phoneNum: phoneNum,
-                        email: email,
-                        doctor : doctor,
-                        clinic: clinic,
-                        date: date,
-                        time: time,
-                        more: more
-                    }
-                }
-            );
-
-            console.log(`Updated ${result.nModified} documents with email ${email}`);
-            res.status(200).json({ message: `${result.nModified} documents updated` });
-        } catch (error) {
-            console.error('Error updating documents:', error);
-        } finally {
-            await mongoose.connection.close();
-            console.log('Disconnected from MongoDB in update_account');
-        }
-    }
-});
 
 
 

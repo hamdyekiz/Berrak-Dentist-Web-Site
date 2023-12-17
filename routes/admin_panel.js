@@ -693,7 +693,7 @@ router.get('/read_doctors', async (req, res) => {
   router.get('/read_appointments', async (req, res) => {
     console.log("Doctosdayım");
 
-    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(url + 'clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
     //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
 

@@ -31,7 +31,7 @@
             <hr />
             <div class="list-container">
                 <ul>
-                    <li><a href="/admin_panel/doktorlar"></span>Personel</a></li>
+                    <li><a href="/admin_panel/doktorlar"></span>Doktorlar</a></li>
                     <li><a href="/admin_panel/gelecek_randevular" class="active">Gelecek Randevular</a></li>
                     <li><a href="/admin_panel/hastalar">Hastalar</a></li>
                 </ul>
@@ -302,9 +302,17 @@
         
                   appointmentsContainer.innerHTML += patientInfo;
                 });
+
+                updateAppointmentsCount(doctors.length);
+
               })
               .catch(error => console.error('Error fetching patients:', error));
         }
+
+        function updateAppointmentsCount(count) {
+            var d_header = document.getElementById("randevuHeader");
+            d_header.innerHTML = "Randevular (" + count + ")";
+          }
 
 
         function openUpdateForm(name, surname, phoneNum, email, doctor, date, time, price, more) {
@@ -346,6 +354,7 @@
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
           }
+
 
 
           async function deletePatient(name, surname, phoneNum, doctor, date, time, more) {

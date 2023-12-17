@@ -328,7 +328,8 @@ router.post('/update_patient_appointment', async (req, res) => {
 
     //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
     const { name, surname, phoneNum, email, doctor, clinic, date, time, price, more } = req.body;
-    if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+    //if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+    if (!name || !surname || !phoneNum || !doctor || !date  || !time) {    
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 

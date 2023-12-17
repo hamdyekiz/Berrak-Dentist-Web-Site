@@ -106,14 +106,16 @@
         </div>
 
         <br />
-        <button onclick="showDoctors()">Show Doctors</button>
 
         <table id="doctorsTable">
           <thead>
             <tr>
               <th>Doktor Adı</th>
-              <th>Mail Adresi</th>
-              <th>Özellikleri</th>
+              <th>Doktor Soyadı</th>
+              <th>E-posta</th>
+              <th>Telefon Numarası</th>
+              <th>Ünvan</th>
+              <th>Klinik</th>
               <th>Eylemler</th>
             </tr>
           </thead>
@@ -162,11 +164,11 @@
   </div>
 
   <script>
-    /*
+    
     window.addEventListener("DOMContentLoaded", function(){
       showDoctors();
     });
-    */
+    
     // added this now to redirect the user to the homepage when the logout button is pressed.
     document.querySelector('.logout-button').addEventListener('click', function() {
       window.location.href = "/";

@@ -124,8 +124,8 @@ function sendEmail(name, telNo, email, availableHours) {
         port: 587,
         secure: false,
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
+            user: "denemeforberrakdentist@outlook.com",
+            pass: "123456789abcde",
         }
     });
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);

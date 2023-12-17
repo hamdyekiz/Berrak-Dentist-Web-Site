@@ -508,7 +508,6 @@ async function delete_account(name, surname, email, title) {
 
 
 // commented out because it is not using mongoose
-// // Warn!!! Email'e göre update yapar. Bu yüzden update işleminde email değişemez. Email sabit kalmalı
 // async function update_account(name, surname, phoneNum, email, password, title, clinic){    
   
 
@@ -548,6 +547,7 @@ async function delete_account(name, surname, email, title) {
 //       console.log('Disconnected from MongoDB in update_account');
 //     }
 // }
+// // Warn!!! Email'e göre update yapar. Bu yüzden update işleminde email değişemez. Email sabit kalmalı
 async function update_account(name, surname, phoneNum, email, password, title, clinic) {
     try {
         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });

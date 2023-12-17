@@ -90,6 +90,38 @@
         <div id="doctorsContainer">
           <!-- Doctors information will be displayed here -->
         </div>
+
+
+        <div class="form-popup" id="myUpdateForm">
+          <form action="/admin_panel/update_doctor/" method="post" class="form-container">
+            <div style="display: flex; gap: 50px;">
+              <h1>Doktor Güncelle</h1>
+              <a style="cursor: pointer;" onclick="closeUpdateForm()">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+              </a>
+            </div>
+      
+            <label for="name"><b></b></label>
+            <input type="text" placeholder="Doktor Adı" name="personelName" required>
+      
+            <label for="surname"><b></b></label>
+            <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
+      
+            <label for="phoneNum"><b></b></label>
+            <input type="text" placeholder="Telefon Numarası (5XX)" name="personelPhoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
+      
+            <label for="email"><b></b></label>
+            <input type="email" placeholder="Email adresi" name="personelEmail" required readonly>
+      
+            <label for="password"><b></b></label>
+            <input type="text" placeholder="Şifre" name="personelPassword" required>
+      
+            <button type="submit" class="btn">Güncelle</button>
+          </form>
+        </div>
+
+
+
       </div>
     </div>
   </div>
@@ -186,6 +218,7 @@
                   <p>Phone Number: ${doctor.phoneNum}</p>
                   <p>Title: ${doctor.title}</p>
                   <p>Clinic: ${doctor.clinic}</p>
+                  <button onclick="openUpdateForm('${doctor.email}')">Update</button>
                 </div>
                 <hr>
               `;
@@ -195,6 +228,22 @@
           })
           .catch(error => console.error('Error fetching doctors:', error));
       }
+
+      function openUpdateForm(email) {
+        const form = document.getElementById('myUpdateForm');
+        form.style.display = 'block';
+  
+        // Populate the form with the selected doctor's email
+        const emailInput = form.querySelector('input[name="personelEmail"]');
+        emailInput.value = email;
+      }
+  
+      function closeUpdateForm() {
+        const form = document.getElementById('myUpdateForm');
+        form.style.display = 'none';
+      }
+
+
 
   </script>
 </body>

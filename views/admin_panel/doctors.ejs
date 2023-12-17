@@ -221,6 +221,7 @@
                   <p>Title: ${doctor.title}</p>
                   <p>Clinic: ${doctor.clinic}</p>
                   <button onclick="openUpdateForm('${doctor.email}')">Update</button>
+                  <button onclick="deleteDoctor('${doctor.name}', '${doctor.surname}', '${doctor.email}')">Delete Doctor</button>
                 </div>
                 <hr>
               `;
@@ -243,6 +244,35 @@
       function closeUpdateForm() {
         const form = document.getElementById('myUpdateForm');
         form.style.display = 'none';
+      }
+
+
+
+      async function deleteDoctor(name, surname, email) {
+        try {
+          const response = await fetch('/admin_panel/delete_doctor', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: name,
+              surname: surname,
+              email: email,
+            }),
+          });
+  
+          if (response.ok) {
+            console.log('Doctor deleted successfully');
+            // Handle success as needed
+          } else {
+            console.error('Error deleting doctor:', response.statusText);
+            // Handle errors
+          }
+        } catch (error) {
+          console.error('Error deleting doctor:', error.message);
+          // Handle errors
+        }
       }
 
 

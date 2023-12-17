@@ -475,47 +475,47 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
 
 // commented out because it is not using mongoose
 // // Function to delete doctor documents
-// async function delete_account(name, surname, email, title) {
-
-//     const dbName = 'clinicDB';
-//     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-  
-//     try {
-//       await client.connect();
-//       console.log('Connected to MongoDB');
-  
-//       const db = client.db(dbName);
-//       const collection = db.collection('personellists');
-
-  
-//       // Delete documents where name, surname, email, and title match the provided values
-//       const result = await collection.deleteMany({ name: name, surname: surname, email: email, title: title });
-  
-//       console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
-//     } catch (error) {
-//       console.error('Error deleting documents:', error);
-//     } finally {
-//       await client.close();
-//       console.log('Disconnected from MongoDB in delete_account');
-//     }
-// }
-
 async function delete_account(name, surname, email, title) {
+
+    const dbName = 'clinicDB';
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  
     try {
-        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('Connected to MongoDB');
+      await client.connect();
+      console.log('Connected to MongoDB');
+  
+      const db = client.db(dbName);
+      const collection = db.collection('personellists');
 
-        // Delete documents where name, surname, email, and title match the provided values
-        const result = await Personnel.deleteMany({ name: name, surname: surname, email: email, title: title });
-
-        console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+  
+      // Delete documents where name, surname, email, and title match the provided values
+      const result = await collection.deleteMany({ name: name, surname: surname, email: email, title: title });
+  
+      console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
     } catch (error) {
-        console.error('Error deleting documents:', error);
+      console.error('Error deleting documents:', error);
     } finally {
-        await mongoose.connection.close();
-        console.log('Disconnected from MongoDB in delete_account');
+      await client.close();
+      console.log('Disconnected from MongoDB in delete_account');
     }
 }
+
+// async function delete_account(name, surname, email, title) {
+//     try {
+//         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+//         console.log('Connected to MongoDB');
+
+//         // Delete documents where name, surname, email, and title match the provided values
+//         const result = await Personnel.deleteMany({ name: name, surname: surname, email: email, title: title });
+
+//         console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+//     } catch (error) {
+//         console.error('Error deleting documents:', error);
+//     } finally {
+//         await mongoose.connection.close();
+//         console.log('Disconnected from MongoDB in delete_account');
+//     }
+// }
 
 
 

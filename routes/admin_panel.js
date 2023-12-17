@@ -151,6 +151,10 @@ router.post("/delete_doctor", async (req, res) => {
     else{
         delete_account(name, surname, email, 'Doctor');
     }
+    
+    console.log("GİRDİM2");
+
+    res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
 
 });
 
@@ -268,7 +272,7 @@ router.post('/update_doctor', async (req, res) => {
     else{
         update_account(name, surname, phoneNum, email, password, "Doctor", "Klinik1")
     }
-
+    res.render("admin_panel/doctors.ejs", {isDoctorUpdated: 1});
 
 });
 

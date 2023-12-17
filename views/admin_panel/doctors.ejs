@@ -44,6 +44,27 @@
       <script>alert("Doktor eklenemedi!");</script>
     <% } %>
   <% } %>
+
+  <!-- update olduğu zaman uyarı çıkar. -->
+  <% if (typeof isDoctorUpdated !== 'undefined') { %>
+    <% if (isDoctorUpdated) { %>
+      <script>alert("Doktor başarıyla güncellendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor güncellenemedi!");</script>
+    <% } %>
+  <% } %>
+
+
+  <!-- delete olduğu zaman uyarı çıkar. -->
+  <% if (typeof isDoctorDeleted !== 'undefined') { %>
+    <% if (isDoctorDeleted) { %>
+      <script>alert("Doktor başarıyla silindi!");</script>
+    <% } else { %>
+      <script>alert("Doktor silinemedi!");</script>
+    <% } %>
+  <% } %>
+  
+  
   <div class="bodyContent">
     <div style="padding:2rem">
       <div class="right-page">
@@ -141,6 +162,11 @@
   </div>
 
   <script>
+    /*
+    window.addEventListener("DOMContentLoaded", function(){
+      showDoctors();
+    });
+    */
     // added this now to redirect the user to the homepage when the logout button is pressed.
     document.querySelector('.logout-button').addEventListener('click', function() {
       window.location.href = "/";
@@ -260,30 +286,35 @@
 
       async function deleteDoctor(name, surname, email) {
         try {
-          const response = await fetch('/admin_panel/delete_doctor', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name: name,
-              surname: surname,
-              email: email,
-            }),
-          });
-  
-          if (response.ok) {
-            console.log('Doctor deleted successfully');
-            // Handle success as needed
-          } else {
-            console.error('Error deleting doctor:', response.statusText);
-            // Handle errors
-          }
+            const response = await fetch('/admin_panel/delete_doctor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    surname: surname,
+                    email: email,
+                }),
+            });
+    
+            if (response.ok) {
+                // Alert göster
+                alert('Doktor başarıyla silindi!');
+                // '/admin_panel/doktorlar' sayfasına yönlendir
+                window.location.href = '/admin_panel/doktorlar/';
+            } else {
+                console.error('Error deleting doctor:', response.statusText);
+                // Hata işleme
+                alert('Doktor silinemedi: ' + response.statusText);
+            }
         } catch (error) {
-          console.error('Error deleting doctor:', error.message);
-          // Handle errors
+            console.error('Error deleting doctor:', error.message);
+            // Hata işleme
+            alert('Doktor silinemedi: ' + error.message);
         }
-      }
+    }
+    
 
 
 

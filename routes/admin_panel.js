@@ -18,8 +18,8 @@ router.use(express.static(dirName + '/public'));
 
 
 //Mongodb'ye bağlanmak için url:
-const url = 'mongodb://127.0.0.1:27017';
-
+// const url = 'mongodb://127.0.0.1:27017';
+const url = process.env.URL;
 
 // admin paneldeki sayfalara erişmek için get methodları.
 router.get("/doktorlar/", (req, res) => {
@@ -90,7 +90,8 @@ router.post('/create_patient_appointment', async (req, res) => {
     // there is no email verification. Because these datas will be added by person.
     
     // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
-    await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+    // await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+    await mongoose.connect(url + "clinicDB");
 
     //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
     try {
@@ -237,7 +238,7 @@ router.post('/delete_patient_appointment', async (req, res) => {
     const { name, surname, phoneNum, date, time } = req.body;
 
     try {
-        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(url + "clinicDB", { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('Connected to MongoDB in delete_patient');
 
         // Delete documents where name, surname, phoneNum, date, and time match the provided values
@@ -378,7 +379,7 @@ router.post('/update_patient_appointment', async (req, res) => {
         return res.status(400).json({ error: "Missing required parameters" });
     } else {
         try {
-            await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+            await mongoose.connect(url + "clinicDB", { useNewUrlParser: true, useUnifiedTopology: true });
             console.log('Connected to MongoDB in update_account');
 
             // Update documents where name and surname match the provided values
@@ -433,7 +434,8 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
     // there is no email verification. Because these datas will be added by admin.
     
     // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
-    await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+    // await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+    await mongoose.connect(url + "clinicDB");
 
     //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
     try {
@@ -637,7 +639,7 @@ const Personellist = mongoose.model('PersonelLists', {
 router.get('/read_doctors', async (req, res) => {
     console.log("Doctosdayım");
 
-    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.URL + "clinicDB", { useNewUrlParser: true, useUnifiedTopology: true });
 
     //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
 

@@ -45,14 +45,7 @@ app.get("/",(req, res) => {
   res.sendFile(__dirname + "/public/landing_page/index.html");
 });
 
-// randevu al
-app.post("/randevu_al", (req, res) => {
-  
-});
-
-
-
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

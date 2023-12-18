@@ -232,14 +232,14 @@ function sendVerificationCode_forLockout(email) {
     email_to_be_removed_from_lockouted = email;
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com',
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
-        }
-    });
+      host: 'smtp.zoho.eu',
+      port: 465,
+      secure: true, //ssl
+      auth: {
+          user:process.env.EMAIL_USER,
+          pass:process.env.EMAIL_PASSWORD
+      }
+  });
 
     const emailContent = `
     <p>Değerli personelimiz,</p>

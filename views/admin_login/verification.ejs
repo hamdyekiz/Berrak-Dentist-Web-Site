@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Verification</title>
     <link rel="stylesheet" href="/randevu/randevu_main/styles.css">
 </head>
 
@@ -12,7 +12,7 @@
     <% if (typeof isCodeCorrect !== 'undefined') { %>
         <p class="<% if (isCodeCorrect) { %>success<% } else { %>error<% } %>">
             <% if (isCodeCorrect) { %>
-                Randevu talebiniz başarıyla alınmıştır.
+                Doğrulama kodu doğru girildi. Tekrar giriş kısmına yönlendiriliyorsunuz.
             <% } else { %>
                 Doğrulama kodu yanlış. Lütfen tekrar deneyiniz.
             <% } %>

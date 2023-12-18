@@ -283,10 +283,11 @@ router.post('/verify_lockout_code', (req, res) => {
       //sendEmail(name, surname, telNo, email, availableHours);
 
       removeDocumentsByEmail();
-      res.render("admin_login/admin_login.ejs");
+      res.redirect("/login");
 
   } else {
       console.log("Wrong code");
+      res.render("admin_login/verification.ejs", {isCodeCorrect});
   }
   //res.render("submit.ejs", { isCodeCorrect: isCodeCorrect });
 });

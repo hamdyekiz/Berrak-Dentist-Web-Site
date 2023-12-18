@@ -84,16 +84,22 @@ function sendVerificationCode(name, email) {
     const max = 99999; // Largest 5-digit number
     verificationCode = Math.floor(Math.random() * (max - min + 1) + min).toString();
 
+    // const transporter = nodemailer.createTransport({
+    //     host: 'smtp.office365.com',
+    //     port: 587,
+    //     secure: false,
+    //     auth: {
+    //         user: process.env.EMAIL_USER,
+    //         pass: process.env.EMAIL_PASSWORD
+    //     }
+    // });
     const transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com',
-        port: 587,
-        secure: false,
+        host: 'smtp.zoho.eu',
+        port: 465,
+        secure: true, //ssl
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
-        },
-        tls: {
-            ciphers: 'SSLv3'
+            user:process.env.EMAIL_USER,
+            pass:process.env.EMAIL_PASSWORD
         }
     });
     
@@ -122,15 +128,25 @@ function sendVerificationCode(name, email) {
 }
 
 function sendEmail(name, telNo, email, availableHours) {
+    // const transporter = nodemailer.createTransport({
+    //     host: 'smtp.office365.com',
+    //     port: 587,
+    //     secure: false,
+    //     auth: {
+    //         user: process.env.EMAIL_USER,
+    //         pass: process.env.EMAIL_PASSWORD
+    //     }
+    // });
     const transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com',
-        port: 587,
-        secure: false,
+        host: 'smtp.zoho.eu',
+        port: 465,
+        secure: true, //ssl
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
+            user:process.env.EMAIL_USER,
+            pass:process.env.EMAIL_PASSWORD
         }
     });
+    
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);

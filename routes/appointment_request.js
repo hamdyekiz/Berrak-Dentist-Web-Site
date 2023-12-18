@@ -91,9 +91,12 @@ function sendVerificationCode(name, email) {
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASSWORD
+        },
+        tls: {
+            ciphers: 'SSLv3'
         }
     });
-
+    
     const emailContent = `
     <p>Sayın ${name},</p>
     <p>Berrak diş hekimliğinden almak istediğiniz randevu için onay kodunuz:</p>

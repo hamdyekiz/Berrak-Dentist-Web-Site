@@ -28,7 +28,7 @@
       <hr />
       <div class="list-container">
         <ul>
-          <li><a href="#" class="active" onclick="toggleLink(event)">Doktorlar</a></li>
+          <li><a href="#" class="active" onclick="toggleLink(event)">Personel</a></li>
           <li><a href="randevular.html" onclick="toggleLink(event)">Gelecek Randevular</a></li>
           <li><a href="hastalar.html" onclick="toggleLink(event)">Hastalar</a></li>
         </ul>
@@ -41,37 +41,44 @@
       <div class="right-page">
         <div style="display: flex;">
           <div style="flex:10;">
-            <h2 id="doctorsHeader">Doktorlar</h2>
+            <h2 id="doctorsHeader">Personel</h2>
           </div>
-          <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Doktor Ekle</button>
+          <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Personel
+              Ekle</button>
           </div>
           <div class="form-popup" id="myForm">
-            <form class="form-container">
+            <form class="form-container" enctype="multipart/form-data">
               <div style="display: flex; gap: 50px;">
-                <h1>Doktor Ekle</h1>
-                <a style="cursor: pointer;" onclick="closeForm()"><img
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
+                <h1>Personel Ekle</h1>
+                <a style="cursor: pointer;" onclick="closeForm()">
+                  <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                </a>
               </div>
 
-              <label for="Name"><b></b></label>
-              <input type="text" placeholder="Doktor Adı Soyadı" name="name" required>
+              <label for="name"><b>Personel Adı Soyadı:</b></label>
+              <input type="text" placeholder="Personel Adı Soyadı" name="name" required>
 
-              <label for="email"><b></b></label>
+              <label for="email"><b>Email adresi:</b></label>
               <input type="email" placeholder="Email adresi" name="email" required>
 
-              <label for="features"><b></b></label>
-              <input type="text" placeholder="Doktor Özellikleri" name="psw" required>
+              <label for="psw"><b>Personel Özellikleri:</b></label>
+              <input type="text" placeholder="Personel Özellikleri" name="psw" required>
+
+              <label for="profilePicture"><b>Profil Resmi:</b></label>
+              <input type="file" accept="image/*" name="profilePicture" id="profilePicture" required>
 
               <button type="submit" class="btn">Ekle</button>
             </form>
           </div>
+
         </div>
 
         <br />
         <table id="doctorsTable">
           <thead>
             <tr>
-              <th>Doktor Adı</th>
+              <th>Personel Adı</th>
               <th>Mail Adresi</th>
               <th>Özellikleri</th>
               <th>Eylemler</th>
@@ -79,7 +86,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>Dr. İsim Soyisimasdasdasdasdads</td>
+              <td>Personel İsim Soyisimasdasdasdasdads</td>
               <td>isimsoyisim@example.com</td>
               <td>Uzmanlık Alanı: ...</td>
               <td class="event-buttons">
@@ -141,7 +148,7 @@
 
     // Update the heading dynamically
     var d_header = document.getElementById("doctorsHeader");
-    d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
+    d_header.innerHTML = "Personel (" + d_rowCount + ")";
 
     function toggleForm() {
       var form = document.getElementById("myForm");

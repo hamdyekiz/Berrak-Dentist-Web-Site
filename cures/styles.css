@@ -121,7 +121,7 @@ main {
   text-align: left;
 }
 
-.doctor_container h2 {
+.doctor_container h1 {
   padding-top: 10rem;
   margin-left: 40.3%;
 
@@ -141,13 +141,12 @@ main {
   gap: 100px;
   margin-bottom: 10rem;
   margin-top: 1rem;
-  align-items: flex-start;
+  /* İçeriği dikey olarak ortala */
 }
 
 .doctorimg {
-  
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 5%;
   transition: var(--transition);
   height: 250px;
   width: 250px;
@@ -302,6 +301,12 @@ header {
   text-align: left;
 }
 
+ /* * {
+  outline: 1px solid red !important;
+  opacity: 1 !important;
+  visibility: visible !important
+}  */
+
 .img-container {
   display: flex;
   gap: 100px;
@@ -310,17 +315,25 @@ header {
 
 @media (max-width: 767px) {
 
+  .myh5{font-size: 0.5rem;}
 
 
     .mydiv {
         display: flex;
         flex-direction: row;
-        /* gap: 20%; */
+       
       }
 
-  .nav-toggle{
-    margin-left: auto;
-  }
+      .nav-toggle{
+        margin-left: auto;
+      }
+      .doctor_subcontainer p{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+
+      
   .nav-header {
     gap: 15px;
   }
@@ -343,15 +356,15 @@ header {
 
   }
 
-  .doctor_container h2 {
+  .doctor_container h1 {
     margin-left: 25%;
     margin-bottom: 2rem;
 
+
   }
 
-  .doctor_container p{
-    margin-left: 15px;
-    margin-right: 15px;
+  h1 {
+    font-size: 2rem;
   }
 
 }

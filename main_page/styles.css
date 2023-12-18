@@ -1,35 +1,8 @@
-/*
-=============== 
-Fonts
-===============
-*/
+/*Fonts*/
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Alfa+Slab+One&family=Amatic+SC:wght@700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&family=Dancing+Script:wght@700&family=Lobster+Two:ital@1&family=Luckiest+Guy&family=Monoton&family=Pacifico&family=Phudu&family=Playpen+Sans:wght@600&family=Raleway:wght@200&family=Ysabeau+Infant:wght@200&display=swap');
 
-:root {
-  --clr-primary-5: #49a6e9;
-  --clr-primary-6: hsl(205, 89%, 70%);
-  --clr-primary-7: hsl(205, 90%, 76%);
-  --clr-grey-1: hsl(209, 61%, 16%);
-  --clr-grey-5: hsl(210, 22%, 49%);
-  --clr-grey-10: hsl(210, 36%, 96%);
-  --clr-white: #fff;
-  --clr-secondary: hsla(182, 63%, 54%);
-  --clr-black: #222;
-  --ff-primary: "Roboto", sans-serif;
-  --ff-secondary: "Open Sans", sans-serif;
-  --transition: all 0.3s linear;
-  --spacing: 0.25rem;
-  --radius: 0.5rem;
-  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  --max-width: 1170px;
-  --fixed-width: 620px;
-}
-
-/*
-Global Styles
-*/
+/*Global Styles */
 html {
   scroll-behavior: smooth;
 }
@@ -43,9 +16,9 @@ html {
 }
 
 body {
-  font-family: var(--ff-secondary);
-  background: var(--clr-grey-10);
-  color: var(--clr-grey-1);
+  font-family: "Open Sans", sans-serif;
+  background-color: hsl(210, 36%, 96%);
+  color: hsl(209, 61%, 16%);
   line-height: 1.5;
   font-size: 0.875rem;
 }
@@ -69,10 +42,10 @@ h1,
 h2,
 h3,
 h4 {
-  letter-spacing: var(--spacing);
+  letter-spacing: 0.25rem;
   line-height: 1.25;
   margin-bottom: 0.75rem;
-  font-family: var(--ff-primary);
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
@@ -92,8 +65,8 @@ h4 {
 }
 
 p {
-  margin-bottom: 1.25rem;
-  color: var(--clr-grey-5);
+  margin-bottom: 2rem;
+  color: hsl(210, 22%, 49%);
 }
 
 
@@ -135,65 +108,67 @@ main {
 
 /*  global styles */
 
+
+
+
+
 /* section */
 .section {
   padding-bottom: 5rem;
 }
 
 
-
-@media screen and (min-width: 992px) {
-  .section-center {
-    width: 95vw;
-  }
-}
-
-
-
-
+/*CONTACT**/
 .info {
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius);
-  box-shadow: var(--light-shadow);
-  background: var(--clr-white);
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   padding: 1.5rem 2rem;
-
-  transition: var(--transition);
-
+  transition: all 0.3s linear;
 }
 
 .info:hover {
-  box-shadow: var(--dark-shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .map {
-  border-radius: var(--radius);
-  box-shadow: var(--light-shadow);
-  background: var(--clr-white);
-  transition: var(--transition);
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s linear;
   padding: 5px;
 }
 
 .map.map:hover {
-  box-shadow: var(--dark-shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
 }
 
+/*CONTACT**/
+
+
+
+/*DOCTORS*/
 .doctorimg {
   object-fit: cover;
   border-radius: 50%;
   margin-top: 125px;
-  transition: var(--transition);
+  transition: all 0.3s linear;
   height: 250px;
   width: 250px;
 }
 
 .doctorimg:hover {
-  box-shadow: var(--dark-shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+/*DOCTORS*/
 
+
+
+/*GRID*/
 .grid-container {
   justify-content: center;
   display: grid;
@@ -205,7 +180,6 @@ main {
   /* Only set row-gap to 10px */
 }
 
-
 .grid-item {
   height: 150px;
   width: 270px;
@@ -216,8 +190,6 @@ main {
   text-align: center;
   object-fit: cover;
 }
-
-
 
 #coure-1 {
   background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/implant.jpeg)center/cover no-repeat;
@@ -268,44 +240,21 @@ main {
 }
 
 
-
-
-.btn {
-  background: transparent;
-  padding: 0.375rem 0.75rem;
-  letter-spacing: var(--spacing);
-  display: inline-block;
-  transition: var(--transition);
-  font-size: 0.875rem;
-  cursor: pointer;
-  border-radius: var(--radius);
-}
+/*GRID*/
 
 
 
-#appointment:hover {
-  transform: scale(1.02);
-  background-color: #67b5ec;
-  box-shadow: var(--dark-shadow);
 
-}
-
-
-
-/*
-=============== 
-Scroll
-===============
-*/
-/* navbar */
+/* NAVBAR*/
 nav {
   padding: 1rem 1.5rem;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--clr-primary-6);
-  box-shadow: var(--light-shadow);
+  background-color: hsl(205, 89%, 70%);
+  ;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   z-index: 99;
 }
 
@@ -327,10 +276,10 @@ nav {
 
 .nav-toggle {
   font-size: 1.5rem;
-  color: var(--clr-grey-1);
+  color: hsl(209, 61%, 16%);
   background: transparent;
   border-color: transparent;
-  transition: var(--transition);
+  transition: all 0.3s linear;
   cursor: pointer;
 }
 
@@ -345,11 +294,11 @@ nav {
 .links-container {
   height: 0;
   overflow: hidden;
-  transition: var(--transition);
+  transition: all 0.3s linear;
 }
 
 .show-links {
-  height: 200px;
+  height: 250px;
 }
 
 
@@ -358,24 +307,31 @@ nav {
 }
 
 .links a {
-  background: var(--clr-primary-6);
-  color: var(--clr-grey-5);
+  background-color: hsl(205, 89%, 70%);
+  ;
+  color: hsl(210, 22%, 49%);
   font-size: 1.1rem;
   text-transform: capitalize;
-  letter-spacing: var(--spacing);
+  letter-spacing: 0.25rem;
   display: block;
-  transition: var(--transition);
+  transition: all 0.3s linear;
   font-weight: bold;
   padding: 0.75rem 0;
 }
 
 .links a:hover {
-  color: var(--clr-grey-1);
+  color: hsl(209, 61%, 16%);
+}
+
+@media screen and (max-width: 800px) {
+  .social-icons-container {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 800px) {
   nav {
-    background: var(--clr-primary-6);
+    background-color: hsl(205, 89%, 70%);
   }
 
   .nav-center {
@@ -405,29 +361,36 @@ nav {
 
   .links a {
     background: transparent;
-    color: var(--clr-white);
+    color: #fff;
     font-size: 0.75rem;
     text-transform: capitalize;
-    letter-spacing: var(--spacing);
+    letter-spacing: 0.25rem;
     display: block;
-    transition: var(--transition);
+    transition: all 0.3s linear;
     margin: 0 1rem;
     font-weight: bold;
     padding: 0;
   }
 
   .links a:hover {
-    color: var(--clr-white);
+    color: #fff;
   }
 }
 
-/* hero */
+/* NAVBAR*/
+
+
+/* HEADER */
 header {
   max-height: 100vh;
   background: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7)),
     url(../img/group-of-doctors.jpg) center/cover no-repeat;
 }
 
+/* HEADER */
+
+
+/* BANNER */
 .banner {
   min-height: 100vh;
   display: grid;
@@ -436,29 +399,53 @@ header {
 }
 
 .container h1 {
-  color: var(--clr-white);
+  color: #fff;
   text-transform: uppercase;
 }
 
 .container p {
-  color: var(--clr-white);
+  color: #fff;
   max-width: 25rem;
   margin: 0 auto;
   margin-bottom: 1.25rem;
 }
 
+/* BANNER */
+
+
 .img-container {
-  display: flex;
-  gap: 100px;
-  justify-content: center;
+  text-align: center;
 }
 
+.doctor-container {
+  display: inline-block;
+  margin: 0 100px;
+  text-align: center;
+}
+
+
+
 @media (max-width: 767px) {
+  .review__headerDescription {
+
+    width: 100%;
+  }
+
   .img-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     /* Adjust the gap as needed */
+  }
+
+  .mydiv {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
   }
 
   .img-container>div {
@@ -473,6 +460,28 @@ header {
 
   .grid-container {
     grid-template-columns: auto auto;
+  }
+
+  .grid-item {
+    height: 150px;
+    width: 135px;
+    padding: 20px;
+    border-radius: 5%;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    object-fit: cover;
+  }
+
+  .review {
+    flex-direction: column;
+
+  }
+
+  .review__ {
+    width: 350px;
+
+
   }
 
   .abc {
@@ -504,12 +513,70 @@ header {
     gap: 15px;
   }
 
-  .social-icons{
-    display:none;
+  .social-icons {
+    display: none;
+  }
+
+  #services {
+    width: 100%;
   }
 
 
 }
+
+
+
+
+@media (max-width: 430px) {
+  html {
+    width: 100%;
+  }
+
+
+  .review__avatar {
+    /* Ensure the container is a flex container */
+    display: flex;
+    /* Center the content horizontally */
+    justify-content: center;
+    /* Center the content vertically */
+    align-items: center;
+  }
+
+  .review__text,
+  .review__ {
+    text-align: center;
+  }
+
+  .review {
+    width: 80%;
+  }
+
+  .stars {
+    display: flex;
+    /* Center the content horizontally */
+    justify-content: center;
+    /* Center the content vertically */
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+
+  .review__ {
+    width: 100%;
+  }
+
+
+  .review-footer {
+    margin-left: 10%;
+  }
+}
+
+
+
+
+
+
+
 
 
 @media screen and (min-width: 768px) {
@@ -530,8 +597,8 @@ header {
 
 .social-icons img {
   transition: 0.5s ease;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
 }
 
 
@@ -554,26 +621,35 @@ header {
 
 
 #services {
-  background: var(--clr-white);
+  background-color: #fff;
+  ;
 }
 
 #contact {
-  background: var(--clr-grey-10);
+  background-color: hsl(210, 36%, 96%);
 
 
 }
 
 #reviews {
-  background-color: var(--clr-white);
+  background-color: #fff;
 }
 
 #appointment {
   background-color: #49a6e9;
   border-radius: 20px;
-  color: var(--clr-white);
+  color: #fff;
   border: none;
   padding: 0.5rem 1rem;
-  box-shadow: var(--light-shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s linear;
+
+}
+
+#appointment:hover {
+  transform: scale(1.02);
+  background-color: #67b5ec;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
 }
 
@@ -588,39 +664,16 @@ header {
 
 
 footer {
-  background: var(--clr-grey-1);
+  background-color: hsl(209, 61%, 16%);
   padding: 5rem 1rem;
 }
 
 footer p {
-  color: var(--clr-white);
+  color: #fff;
   text-align: center;
-  letter-spacing: var(--spacing);
+  letter-spacing: 0.25rem;
   margin-bottom: 0;
 }
-
-.top-link {
-  font-size: 1.25rem;
-  position: fixed;
-  bottom: 3rem;
-  right: 3rem;
-  background: var(--clr-secondary);
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius);
-  color: var(--clr-white);
-  animation: bounce 2s ease-in-out infinite;
-  visibility: hidden;
-  z-index: -100;
-}
-
-.show-link {
-  visibility: visible;
-  z-index: 100;
-}
-
 
 .mainHeading {
   color: #1f2023;
@@ -630,7 +683,7 @@ footer p {
 }
 
 hr {
-  border: 1px solid var(--clr-primary-5);
+  border: 1px solid #49a6e9;
   margin-top: 8px;
   margin-bottom: 10px;
 }
@@ -643,16 +696,28 @@ hr {
 }
 
 .review {
-  /* height: auto; */
+  width: 40%;
   min-height: 365px;
   margin: 20px;
   display: flex;
   padding-bottom: 10px;
-  border-radius: var(--radius);
-  box-shadow: var(--light-shadow);
-  background: var(--clr-white);
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   position: relative;
+}
 
+@media (max-width: 430px) {
+  .review {
+    width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  .review {
+    width: 100%;
+    flex-direction: column;
+  }
 }
 
 
@@ -662,20 +727,19 @@ hr {
   justify-content: space-between;
   margin-top: 10px;
   position: absolute !important;
-  bottom: 10px !important;
-  left: 30% !important;
-
+  bottom: 3%;
+  left: 30%;
 }
 
 
 .prev-btn,
 .next-btn {
-  color: var(--clr-primary-7);
+  color: hsl(205, 90%, 76%);
   font-size: 1.25rem;
   background: transparent;
   border-color: transparent;
   margin: 0 0.5rem;
-  transition: var(--transition);
+  transition: all 0.3s linear;
   cursor: pointer;
 }
 
@@ -693,7 +757,6 @@ hr {
 .review__headerDescription {
   margin-bottom: 10px;
   font-size: 17px;
-  width: 420px;
 }
 
 .review__body {
@@ -708,18 +771,4 @@ hr {
 
 .checked {
   color: orange;
-}
-
-@keyframes bounce {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }

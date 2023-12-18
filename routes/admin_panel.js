@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 //console.log("Girdim1!");
 
@@ -329,60 +329,126 @@ router.post('/update_superadmin', async (req, res) => {
 // commented because it is not using mongoose.
 router.post('/update_patient_appointment', async (req, res) => {
 
-    //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
-    const { name, surname, phoneNum, email, doctor, clinic, date, time, price, more } = req.body;
-    //if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
-    if (!name || !surname || !phoneNum || !doctor || !date  || !time) {    
-        return res.status(400).json({ error: "Missing required parameters" });
-    }    
+  //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+  const {_id, name, surname, phoneNum, email, doctor, clinic, date, time, price, more } = req.body;
+  //if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
 
-    else{
+  // console.log("----------UPDATE POST REQUESTTEYİM-----------");
+  // console.log("ID İn update patient appo post: " + _id);
+  // console.log("Veri tipi: " + typeof _id);
+  const objectId = new ObjectId(_id);
 
-        const dbName = 'clinicDB';
-  
-        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-      
-        try {
-          await client.connect();
-          console.log('Connected to MongoDB in update_account');
-      
-          const db = client.db(dbName);
-          const collection = db.collection('patientlists');
-      
-          // Update documents where email matches the provided value
-          const result = await collection.updateMany(
-            { name: name, surname: surname },
-            {
-              $set: {
-                name: name,
-                surname: surname,
-                phoneNum: phoneNum,
-                email: email,
-                doctor : doctor,
-                clinic: clinic,
-                date: date,
-                time: time,
-                price : price,
-                more: more
-                
-              }
+  if (!name || !surname || !phoneNum || !doctor || !date  || !time) {    
+      return res.status(400).json({ error: "Missing required parameters" });
+  }    
+
+  else{
+
+      const dbName = 'clinicDB';
+
+      const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    
+      try {
+        await client.connect();
+        console.log('Connected to MongoDB in update_account');
+    
+        const db = client.db(dbName);
+        const collection = db.collection('patientlists');
+    
+        // Update documents where email matches the provided value
+        const result = await collection.updateMany(
+          {_id: objectId },
+          {
+            $set: {
+              name: name,
+              surname: surname,
+              phoneNum: phoneNum,
+              email: email,
+              doctor : doctor,
+              clinic: clinic,
+              date: date,
+              time: time,
+              price : price,
+              more: more
+              
             }
-          );
-      
-          console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
-          res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1});
-          
-          //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
-        } catch (error) {
-          console.error('Error updating documents:', error);
-        } finally {
-          await client.close();
-          
-          console.log('Disconnected from MongoDB in update_account');
-        }        
+          }
+        );
+    
+        console.log(`Updated ${result.modifiedCount} appointments documents with email ${email}`);
+        res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1});
+        
+        //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+      } catch (error) {
+        console.error('Error updating documents:', error);
+      } finally {
+        await client.close();
+        
+        console.log('Disconnected from MongoDB in update_account');
+      }        
 
-    }
+  }
 });
+
+// router.post('/update_patient_appointment', async (req, res) => {
+
+//     //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+//     const {id, name, surname, phoneNum, email, doctor, clinic, date, time, price, more } = req.body;
+//     //if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+//     console.log("LAAAAAN");
+//     console.log("ID in update post: " + id);
+
+//     if (!name || !surname || !phoneNum || !doctor || !date  || !time) {    
+//         return res.status(400).json({ error: "Missing required parameters" });
+//     }    
+
+//     else{
+
+//         const dbName = 'clinicDB';
+  
+//         const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+      
+//         try {
+//           await client.connect();
+//           console.log('Connected to MongoDB in update_patient_appo');
+      
+//           const db = client.db(dbName);
+//           const collection = db.collection('patientlists');
+      
+//           // Update documents where email matches the provided value
+//           const result = await collection.updateMany(
+//             {_id: id, name: name, surname: surname },
+//             {
+//               $set: {
+//                 name: name,
+//                 surname: surname,
+//                 phoneNum: phoneNum,
+//                 email: email,
+//                 doctor : doctor,
+//                 clinic: clinic,
+//                 date: date,
+//                 time: time,
+//                 price : price,
+//                 more: more
+                
+//               }
+//             }
+//           );
+      
+//           console.log(`Updated ${result.modifiedCount} documents with email ${email}`);
+//           res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1});
+          
+//           //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+//         } catch (error) {
+//           console.error('Error updating documents:', error);
+//         } finally {
+//           await client.close();
+          
+//           console.log('Disconnected from MongoDB in update_patient_appo');
+//         }        
+
+//     }
+// });
 
 // router.post('/update_patient_appointment', async (req, res) => {
 //     const { name, surname, phoneNum, email, doctor, clinic, date, time, more } = req.body;
@@ -691,7 +757,7 @@ router.get('/read_doctors', async (req, res) => {
 
 
   router.get('/read_appointments', async (req, res) => {
-    console.log("Doctosdayım");
+    //console.log("Doctosdayım");
 
     await mongoose.connect(url + 'clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -713,7 +779,7 @@ router.get('/read_doctors', async (req, res) => {
     }
     finally {
         await mongoose.connection.close();
-        console.log('Disconnected from MongoDB in doctors');
+        console.log('Disconnected from MongoDB in read_appointments');
     }
   });
 

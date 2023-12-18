@@ -155,12 +155,18 @@
                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
                         </a>
                       </div>
-                
+
+                            
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly>
+
+
                             <label for="Name"></label>
-                            <input type="text" placeholder="Hasta Adı" name="name" required readonly>
+                            <input type="text" placeholder="Hasta Adı" name="name" required>
 
                             <label for="surname"></label>
-                            <input type="text" placeholder="Hasta Soyadı" name="surname" required readonly>
+                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
 
                             <label for="phoneNum"></label>
                             <input type="text" placeholder="Telefon" name="phoneNum" required>
@@ -293,7 +299,7 @@
                       <td>${patient.price}</td>
                       <td>${patient.more}</td>
                       <td>
-                        <button onclick="openUpdateForm('${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Update</button>
+                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Update</button>
                         <button onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.phoneNum}','${patient.doctor}','${patient.date}','${patient.time}','${patient.more}')">Delete patient</button>
                       </td>
                       
@@ -301,6 +307,7 @@
                   `;
         
                   appointmentsContainer.innerHTML += patientInfo;
+                  //console.log("ID in showDoctors(): " + patient._id);
                 });
 
                 updateAppointmentsCount(doctors.length);
@@ -315,40 +322,29 @@
           }
 
 
-        function openUpdateForm(name, surname, phoneNum, email, doctor, date, time, price, more) {
+          function openUpdateForm(id, name, surname, phoneNum, email, doctor, date, time, price, more) {
+            //console.log("open Update'deyim!!!!!!!");
+            //console.log("ID İn openUpdateform: " + id);
+          
+            // Formu seç
             const form = document.getElementById('myUpdateForm');
+          
+            // Form alanlarını doldur
+            form.querySelector('input[name="_id"]').value = id;
+            form.querySelector('input[name="name"]').value = name;
+            form.querySelector('input[name="surname"]').value = surname;
+            form.querySelector('input[name="phoneNum"]').value = phoneNum;
+            form.querySelector('input[name="email"]').value = email;
+            form.querySelector('input[name="doctor"]').value = doctor;
+            form.querySelector('input[name="date"]').value = date;
+            form.querySelector('input[name="time"]').value = time;
+            form.querySelector('input[name="price"]').value = price;
+            form.querySelector('input[name="more"]').value = more;
+          
+            // Formu görünür hale getir
             form.style.display = 'block';
-      
-            // Populate the form with the selected doctor's email
-            const nameInput = form.querySelector('input[name="name"]');
-            nameInput.value = name;
-
-            const surnameInput = form.querySelector('input[name="surname"]');
-            surnameInput.value = surname;
-
-            const phoneNumInput = form.querySelector('input[name="phoneNum"]');
-            phoneNumInput.value = phoneNum;
-
-            const emailInput = form.querySelector('input[name="email"]');
-            emailInput.value = email;
-
-            const doctorInput = form.querySelector('input[name="doctor"]');
-            doctorInput.value = doctor;
-
-            const dateInput = form.querySelector('input[name="date"]');
-            dateInput.value = date;
-
-            const timeInput = form.querySelector('input[name="time"]');
-            timeInput.value = time;
-
-            const priceInput = form.querySelector('input[name="price"]');
-            priceInput.value = price;
-
-            const moreInput = form.querySelector('input[name="more"]');
-            moreInput.value = more;
-
-            
           }
+          
       
           function closeUpdateForm() {
             const form = document.getElementById('myUpdateForm');

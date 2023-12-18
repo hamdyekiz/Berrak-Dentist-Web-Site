@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scroll</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+  <title>Ana Sayfa</title>
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
   <!-- styles -->
@@ -18,6 +18,7 @@
     <nav id="nav">
       <div class="nav-center">
         <!-- nav header -->
+        <div class="mydiv">
         <div class="nav-header">
           <a href="#home" class="scroll-link">
             <div style="display: flex;">
@@ -27,9 +28,10 @@
               </h5>
             </div>
           </a>
-
-
-
+        </div>
+        <button class="nav-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
 
 
         </div>
@@ -44,10 +46,12 @@
               <a href="#about" class="scroll-link">HAKKIMIZDA</a>
             </li>
             <li>
-              <a href="#services" class="scroll-link">DOKTORLARIMIZ</a>
+              <!-- <a href="#services" class="scroll-link">DOKTORLARIMIZ</a> -->
+              <a href="../doktorlar/doctor1.html">DOKTORLARIMIZ</a>
             </li>
             <li>
-              <a href="#cures" class="scroll-link">TEDAVİLER</a>
+              <!-- <a href="#cures" class="scroll-link">TEDAVİLER</a> -->
+              <a href="../tedaviler/implant.html">TEDAVİLER</a>
             </li>
             <li>
               <a href="#contact" class="scroll-link">İLETİŞİM</a>
@@ -55,6 +59,7 @@
           </ul>
 
         </div>
+        <div class="social-icons-container">
         <ul class="social-icons" style="display:flex;gap:15px;margin-left:60px;">
           <li>
             <a href="https://www.instagram.com/berrakdis/" target="_blank">
@@ -83,19 +88,18 @@
           </li>
 
         </ul>
-        <button class="nav-toggle">
-          <i class="fas fa-bars"></i>
-        </button>
+      </div>
       </div>
     </nav>
     <!-- banner -->
     <div class="banner">
       <div class="container">
-        <h1>scroll project</h1>
+        <h1>BERRAK AĞIZ VE DİŞ SAĞLIĞI</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas eos
-          neque sunt in? Id, necessitatibus quos quisquam distinctio
-          laudantium fugiat?
+          <br>Berrak Ağız ve Diş Sağlığı Polikliniği'ne Hoş Geldiniz! <br>
+          Sağlıklı gülüşlerin adresi olan kliniğimiz, alanında uzman doktorlarımız ve son teknoloji ekipmanlarımızla siz değerli hastalarımıza hizmet vermektedir.
+          <br>Siz de sağlıklı ve doğal bir gülüşe sahip olmak için randevunuzu hemen alabilirsiniz
+          <br><br>
         </p>
         <a id="appointment" href="../randevu/randevu_main/randevu.html">RANDEVU AL</a>
       </div>
@@ -112,23 +116,20 @@
     <div class="title">
       <h2>DOKTORLAR</h2>
       <div class="img-container">
-        <div style="text-align:center;">
-          <a href="../doctors/doctor1.html">
-            <img class="doctorimg" src="https://www.course-api.com/images/people/person-1.jpeg" alt="">
-            <h3>Doctor 1</h3>
+        <div class="doctor-container">
+          <a href="../doktorlar/doctor1.html#doc1">
+            <img class="doctorimg" src="../img/doctor1.jpg" alt="">
           </a>
+          <p style="margin-top: 15px; color: black;">ÇETİN ÖZGÜR KALDIRIMOĞLU
+          </p>
         </div>
-        <div style="text-align:center;">
-          <img class="doctorimg" src="https://www.course-api.com/images/people/person-2.jpeg" alt="">
-          <h3>Doctor 2</h3>
-        </div>
-        <div style="text-align:center;">
-          <img class="doctorimg" src="https://www.course-api.com/images/people/person-3.jpeg" alt="">
-          <h3>Doctor 3</h3>
-        </div>
-        <div style="text-align:center;">
-          <img class="doctorimg" src="https://www.course-api.com/images/people/person-4.jpeg" alt="">
-          <h3>Doctor 4</h3>
+        <div class="doctor-container">
+          <a href="../doktorlar/doctor1.html#doc2">
+            <img class="doctorimg" src="../img/doctor2.jpg" alt="">
+
+          </a>
+          <p style="margin-top: 15px; color: black;">ÖZLEM AYDIN GÜLER
+          </p>
         </div>
       </div>
     </div>
@@ -139,18 +140,42 @@
       <h2>TEDAVİLER</h2>
 
       <div class="grid-container">
+        <a href="../tedaviler/implant.html#c1">
         <div id="coure-1" class="grid-item">Implant</div>
+      </a>
+        <a href="../tedaviler/implant.html#c2">
         <div id="coure-2" class="grid-item">Estetik Diş</div>
+      </a>
+        <a href="../tedaviler/implant.html#c3">
         <div id="coure-3" class="grid-item">Diş Protezi</div>
+      </a>
+        <a href="../tedaviler/implant.html#c4">
         <div id="coure-4" class="grid-item">Endodontik Tedaviler</div>
+      </a>
+        <a href="../tedaviler/implant.html#c5">
         <div id="coure-5" class="grid-item">Ortodonti</div>
+      </a>
+        <a href="../tedaviler/implant.html#c6">
         <div id="coure-6" class="grid-item">Kanal Tedavisi</div>
+      </a>
+        <a href="../tedaviler/implant.html#c7">
         <div id="coure-7" class="grid-item">Ağız Çene Diş Cerrahisi</div>
+      </a>
+        <a href="../tedaviler/implant.html#c8">
         <div id="coure-8" class="grid-item">Dolgu</div>
+      </a>
+        <a href="../tedaviler/implant.html#c9">
         <div id="coure-9" class="grid-item">Diş Eti Hastalıkları</div>
+      </a>
+        <a href="../tedaviler/implant.html#c10">
         <div id="coure-10" class="grid-item">Çocuk Diş Hekimliği</div>
+      </a>
+        <a href="../tedaviler/implant.html#c11">
         <div id="coure-11" class="grid-item">Dental Radyoloji</div>
+      </a>
+        <a href="../tedaviler/implant.html#c12">
         <div id="coure-12" class="grid-item">Diş tedavi Yöntemleri</div>
+      </a>
       </div>
 
     </div>
@@ -166,8 +191,6 @@
         </div>
 
         <div class="review__body">
-          <div class="review__header">
-            <div class="review__headerText">
               <h3 class="review__text">
                 Somanath Goudar
               </h3>
@@ -177,11 +200,9 @@
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
-              </div>
             </div>
             <div class="review__headerDescription">
               <p class="review__">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
           </div>
           <div class="review-footer" style="display: flex;justify-content: center;margin-right: 85px;">
             <button class="prev-btn">
@@ -195,7 +216,6 @@
       </div>
     </div>
 
-    </div>
 
   </section>
   <!-- contact -->
@@ -244,9 +264,7 @@
       <span id="date"></span>. all rights reserved
     </p>
   </footer>
-  <a class="scroll-link top-link" href="#home">
-    <i class="fas fa-arrow-up"></i>
-  </a>
+
   <!-- javascript -->
   <script src="/landing_page/app.js"></script>
 </body>

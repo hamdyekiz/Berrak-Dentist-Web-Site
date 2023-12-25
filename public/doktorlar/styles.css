@@ -310,6 +310,17 @@ header {
 
 @media (max-width: 767px) {
 
+
+
+    .mydiv {
+        display: flex;
+        flex-direction: row;
+        /* gap: 20%; */
+      }
+
+  .nav-toggle{
+    margin-left: auto;
+  }
   .nav-header {
     gap: 15px;
   }

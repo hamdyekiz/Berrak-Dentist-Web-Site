@@ -441,7 +441,11 @@ header {
   .mydiv {
     display: flex;
     flex-direction: row;
-    gap: 50%;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
   }
 
   .img-container>div {

@@ -301,6 +301,12 @@ header {
   text-align: left;
 }
 
+ /* * {
+  outline: 1px solid red !important;
+  opacity: 1 !important;
+  visibility: visible !important
+}  */
+
 .img-container {
   display: flex;
   gap: 100px;
@@ -309,6 +315,25 @@ header {
 
 @media (max-width: 767px) {
 
+  .myh5{font-size: 0.5rem;}
+
+
+    .mydiv {
+        display: flex;
+        flex-direction: row;
+       
+      }
+
+      .nav-toggle{
+        margin-left: auto;
+      }
+      .doctor_subcontainer p{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+
+      
   .nav-header {
     gap: 15px;
   }
@@ -336,6 +361,10 @@ header {
     margin-bottom: 2rem;
 
 
+  }
+
+  h1 {
+    font-size: 2rem;
   }
 
 }

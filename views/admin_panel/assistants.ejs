@@ -28,9 +28,10 @@
       <hr />
       <div class="list-container">
         <ul>
-          <li><a href="#" class="active" onclick="toggleLink(event)">Doktorlar</a></li>
+          <!-- <li><a href="#" class="active" onclick="toggleLink(event)">Asistanlar</a></li> -->
           <!-- redirect to these url's of the website like berrakdis.com/admin_panel/gelecel_randevular/ -->
-          <li><a href="/admin_panel/asistanlar/" onclick="toggleLink(event)">Asistanlar</a></li>
+          <li><a href="/admin_panel/doktorlar/" onclick="toggleLink(event)">Doktorlar</a></li>
+          <li><a href="/admin_panel/asistanlar/" class="active" onclick="toggleLink(event)">Asistanlar</a></li>
           <li><a href="/admin_panel/gelecek_randevular/" onclick="toggleLink(event)">Gelecek Randevular</a></li>
           <li><a href="/admin_panel/hastalar/" onclick="toggleLink(event)">Hastalar</a></li>
         </ul>
@@ -38,30 +39,30 @@
     </nav>
   </div>
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
-  <% if (typeof addDoctorSuccessful !== 'undefined') { %>
-    <% if (addDoctorSuccessful) { %>
-      <script>alert("Doktor başarıyla eklendi!");</script>
+  <% if (typeof addAssistantSuccessful !== 'undefined') { %>
+    <% if (addAssistantSuccessful) { %>
+      <script>alert("Asistan başarıyla eklendi!");</script>
     <% } else { %>
-      <script>alert("Doktor eklenemedi!");</script>
+      <script>alert("Asistan eklenemedi!");</script>
     <% } %>
   <% } %>
 
   <!-- update olduğu zaman uyarı çıkar. -->
-  <% if (typeof isDoctorUpdated !== 'undefined') { %>
-    <% if (isDoctorUpdated) { %>
-      <script>alert("Doktor başarıyla güncellendi!");</script>
+  <% if (typeof isAssistantUpdated !== 'undefined') { %>
+    <% if (isAssistantUpdated) { %>
+      <script>alert("Asistan başarıyla güncellendi!");</script>
     <% } else { %>
-      <script>alert("Doktor güncellenemedi!");</script>
+      <script>alert("Asistan güncellenemedi!");</script>
     <% } %>
   <% } %>
 
 
   <!-- delete olduğu zaman uyarı çıkar. -->
-  <% if (typeof isDoctorDeleted !== 'undefined') { %>
-    <% if (isDoctorDeleted) { %>
-      <script>alert("Doktor başarıyla silindi!");</script>
+  <% if (typeof isAssistantDeleted !== 'undefined') { %>
+    <% if (isAssistantDeleted) { %>
+      <script>alert("Asistan başarıyla silindi!");</script>
     <% } else { %>
-      <script>alert("Doktor silinemedi!");</script>
+      <script>alert("Asistan silinemedi!");</script>
     <% } %>
   <% } %>
   
@@ -71,23 +72,23 @@
       <div class="right-page">
         <div style="display: flex;">
           <div style="flex:10;">
-            <h2 id="doctorsHeader">Doktorlar</h2>
+            <h2 id="assistantsHeader">Asistanlar</h2>
           </div>
-          <div style="flex:1;"> <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Doktor Ekle</button>
+          <div style="flex:1;"> <button class="add-btn" id="addAssistantBtn" onclick="toggleForm()">+ Asistan Ekle</button>
           </div>
           <div class="form-popup" id="myForm">
-            <form action="/admin_panel/create_doctor/" method="post" class="form-container">
+            <form action="/admin_panel/create_assistant/" method="post" class="form-container">
               <div style="display: flex; gap: 50px;">
-                <h1>Doktor Ekle</h1>
+                <h1>Asistan Ekle</h1>
                 <a style="cursor: pointer;" onclick="closeForm()"><img
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
               </div>
 
               <label for="name"><b></b></label>
-              <input type="text" placeholder="Doktor Adı" name="personelName" required>
+              <input type="text" placeholder="Asistan Adı" name="personelName" required>
 
               <label for="surname"><b></b></label>
-              <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
+              <input type="text" placeholder="Asistan Soyadı" name="personelSurname" required>
 
               <label for="phoneNum"><b></b></label>
               <input type="text" placeholder="Telefon Numarası (5XX)" name="personelPhoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
@@ -108,11 +109,11 @@
 
         <br />
 
-        <table id="doctorsTable">
+        <table id="assistantsTable">
           <thead>
             <tr>
-              <th>Doktor Adı</th>
-              <th>Doktor Soyadı</th>
+              <th>Asistan Adı</th>
+              <th>Asistan Soyadı</th>
               <th>E-posta</th>
               <th>Telefon Numarası</th>
               <th>Ünvan</th>
@@ -120,7 +121,7 @@
               <th>Eylemler</th>
             </tr>
           </thead>
-          <tbody id="doctorsContainer">
+          <tbody id="assistantsContainer">
             <!-- Doctors information will be displayed here -->
           </tbody>
         </table>
@@ -129,19 +130,19 @@
 
 
         <div class="form-popup" id="myUpdateForm">
-          <form action="/admin_panel/update_doctor/" method="post" class="form-container">
+          <form action="/admin_panel/update_assistant/" method="post" class="form-container">
             <div style="display: flex; gap: 50px;">
-              <h1>Doktor Güncelle</h1>
+              <h1>Asistan Güncelle</h1>
               <a style="cursor: pointer;" onclick="closeUpdateForm()">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
               </a>
             </div>
       
             <label for="name"><b></b></label>
-            <input type="text" placeholder="Doktor Adı" name="name" required>
+            <input type="text" placeholder="Asistan Adı" name="name" required>
       
             <label for="surname"><b></b></label>
-            <input type="text" placeholder="Doktor Soyadı" name="surname" required>
+            <input type="text" placeholder="Asistan Soyadı" name="surname" required>
       
             <label for="phoneNum"><b></b></label>
             <input type="text" placeholder="Telefon Numarası (5XX)" name="phoneNum" pattern="[0-9]{10}" inputmode="numeric" required>
@@ -167,7 +168,7 @@
   <script>
     
     window.addEventListener("DOMContentLoaded", function(){
-      showDoctors();
+      showAssistants();
     });
     
     // added this now to redirect the user to the homepage when the logout button is pressed.
@@ -175,31 +176,31 @@
       window.location.href = "/";
     });
 
-    var d_table = document.getElementById("doctorsTable");
+    var d_table = document.getElementById("assistantsTable");
 
     // Get the number of rows in the table
     var d_rowCount = d_table.rows.length - 1;
 
     // Update the heading dynamically
-    var d_header = document.getElementById("doctorsHeader");
-    d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
+    var d_header = document.getElementById("assistantsHeader");
+    d_header.innerHTML = "Asistanlar (" + d_rowCount + ")";
 
     function toggleForm() {
       var form = document.getElementById("myForm");
       var body = document.body;
-      var addDoctorBtn = document.getElementById("addDoctorBtn");
+      var addAssistantBtn = document.getElementById("addAssistantBtn");
 
       if (form.style.display === "block") {
         form.style.display = "none";
         body.classList.remove("darken-bg");
         d_table.style.opacity = "1"; // Reset opacity when form is closed
-        addDoctorBtn.disabled = false; // Enable the button when the form is closed
+        addAssistantBtn.disabled = false; // Enable the button when the form is closed
         setInteractionsEnabled(true);
       } else {
         form.style.display = "block";
         body.classList.add("darken-bg");
         d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
-        addDoctorBtn.disabled = true; // Disable the button when the form is open
+        addAssistantBtn.disabled = true; // Disable the button when the form is open
         setInteractionsEnabled(false);
       }
     }
@@ -207,12 +208,12 @@
     function closeForm() {
       var form = document.getElementById("myForm");
       var body = document.body;
-      var addDoctorBtn = document.getElementById("addDoctorBtn");
+      var addAssistantBtn = document.getElementById("addAssistantBtn");
 
       form.style.display = "none";
       body.classList.remove("darken-bg");
       d_table.style.opacity = "1"; // Reset opacity when the form is closed
-      addDoctorBtn.disabled = false; // Enable the button when the form is closed
+      addAssistantBtn.disabled = false; // Enable the button when the form is closed
       setInteractionsEnabled(true);
     }
 
@@ -242,12 +243,12 @@
     }
 
 
-    function showDoctors() {
-      fetch('/admin_panel/read_doctors')
+    function showAssistants() {
+      fetch('/admin_panel/read_assistants')
         .then(response => response.json())
         .then(doctors => {
-          const doctorsContainer = document.getElementById('doctorsContainer');
-          doctorsContainer.innerHTML = ''; // Clear previous content
+          const assistantsContainer = document.getElementById('assistantsContainer');
+          assistantsContainer.innerHTML = ''; // Clear previous content
   
           doctors.forEach(doctor => {
             const doctorInfo = `
@@ -260,22 +261,22 @@
                 <td>${doctor.clinic}</td>
                 <td>
                   <button onclick="openUpdateForm('${doctor.email}')">Update</button>
-                  <button onclick="deleteDoctor('${doctor.name}', '${doctor.surname}', '${doctor.email}')">Delete Doctor</button>
+                  <button onclick="deleteAssistant('${doctor.name}', '${doctor.surname}', '${doctor.email}')">Delete Assistant </button>
                 </td>
               </tr>
             `;
   
-            doctorsContainer.innerHTML += doctorInfo;
+            assistantsContainer.innerHTML += doctorInfo;
           });
-          updateDoctorCount(doctors.length);
+          updateAssistantCount(doctors.length);
 
         })
-        .catch(error => console.error('Error fetching doctors:', error));
+        .catch(error => console.error('Error fetching assistants:', error));
   }
 
-  function updateDoctorCount(count) {
-    var d_header = document.getElementById("doctorsHeader");
-    d_header.innerHTML = "Doktorlar (" + count + ")";
+  function updateAssistantCount(count) {
+    var d_header = document.getElementById("assistantsHeader");
+    d_header.innerHTML = "Asistanlar (" + count + ")";
   }
 
       function openUpdateForm(email) {
@@ -294,9 +295,9 @@
 
 
 
-      async function deleteDoctor(name, surname, email) {
+      async function deleteAssistant(name, surname, email) {
         try {
-            const response = await fetch('/admin_panel/delete_doctor', {
+            const response = await fetch('/admin_panel/delete_assistant', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -310,18 +311,18 @@
     
             if (response.ok) {
                 // Alert göster
-                alert('Doktor başarıyla silindi!');
+                alert('Asistan başarıyla silindi!');
                 // '/admin_panel/doktorlar' sayfasına yönlendir
-                window.location.href = '/admin_panel/doktorlar/';
+                window.location.href = '/admin_panel/asistanlar/';
             } else {
-                console.error('Error deleting doctor:', response.statusText);
+                console.error('Error deleting assistant:', response.statusText);
                 // Hata işleme
-                alert('Doktor silinemedi: ' + response.statusText);
+                alert('Asistan silinemedi: ' + response.statusText);
             }
         } catch (error) {
-            console.error('Error deleting doctor:', error.message);
+            console.error('Error deleting assistant:', error.message);
             // Hata işleme
-            alert('Doktor silinemedi: ' + error.message);
+            alert('Asistan silinemedi: ' + error.message);
         }
     }
     
@@ -332,3 +333,4 @@
 </body>
 
 </html>
+

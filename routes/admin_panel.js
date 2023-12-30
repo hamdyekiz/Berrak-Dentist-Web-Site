@@ -26,6 +26,10 @@ router.get("/doktorlar/", (req, res) => {
     res.render("admin_panel/doctors.ejs");
 });
 
+router.get("/asistanlar/", (req, res) => {
+  res.render("admin_panel/assistants.ejs");
+});
+
 router.get("/gelecek_randevular/", (req,res) => {
     res.render("admin_panel/randevular.ejs");
 });
@@ -53,11 +57,21 @@ router.post('/create_doctor', async (req, res) => {
 //this will create new assistant account.
 //Warn!!! Burada yetki meselesini de halletmek gerekir. Neticede doktoru herkes ekleyemiyor.
 router.post('/create_assistant', async (req, res) => {
-    let personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic;
-    //Buradaki verilerin boş olmadığını kabul ediyoruz.
-    ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic} = req.body);
+    // let personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic;
+    // //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    // ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic} = req.body);
 
-    await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Assistant", personelClinic);
+    // await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Assistant", personelClinic);
+
+    let personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, personelClinic;
+    personelClinic = 1; // there's only 1 clinic that's why it is 1.
+    let addAssistantSuccessful;
+    //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword} = req.body);
+    // await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
+    addAssistantSuccessful = await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Assistant", personelClinic);
+    res.render("admin_panel/assistants.ejs", {addAssistantSuccessful: addAssistantSuccessful});
+
 });
 
 router.post('/create_admin', async (req, res) => {
@@ -176,6 +190,8 @@ router.post("/delete_assistant", async (req, res) => {
         delete_account(name, surname, email, 'Assistant');
     }
 
+    res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
+
 });
 
 
@@ -263,15 +279,6 @@ router.post('/delete_patient_appointment', async (req, res) => {
 //Warn!!! Update'de title değiştirmeye dahi izin veriyorum. Sadece mail değiştirmeye izin vermiyorum. Kodda ona da izin veriyorum da front endde verilmemeli. Şifre değiştirmeye dahi izin veriyorum
 router.post('/update_doctor', async (req, res) => {
 
-    // const { name, surname, phoneNum, email, password, title, clinic } = req.body;
-    // if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
-    //     return res.status(400).json({ error: "Missing required parameters" });
-    // }    
-
-    // else{
-    //     update_account(name, surname, phoneNum, email, password, title, clinic)
-    // }
-
     const { name, surname, phoneNum, email, password } = req.body;
     if (!name || !surname || !phoneNum || !email || !password) {
         return res.status(400).json({ error: "Missing required parameters" });
@@ -287,14 +294,27 @@ router.post('/update_doctor', async (req, res) => {
 
 router.post('/update_assistant', async (req, res) => {
 
-    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
-    if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+    // const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    // if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
+    //     return res.status(400).json({ error: "Missing required parameters" });
+    // }    
+
+    // else{
+    //     update_account(name, surname, phoneNum, email, password, title, clinic)
+    // }
+
+
+    const { name, surname, phoneNum, email, password } = req.body;
+    if (!name || !surname || !phoneNum || !email || !password) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, title, clinic)
+        update_account(name, surname, phoneNum, email, password, "Assistant", "Klinik1")
     }
+    res.render("admin_panel/assistants.ejs", {isAssistantUpdated: 1});
+
+
 });
 
 
@@ -737,6 +757,34 @@ router.get('/read_doctors', async (req, res) => {
     finally {
         await mongoose.connection.close();
         console.log('Disconnected from MongoDB in doctors');
+    }
+  });
+
+
+  router.get('/read_assistants', async (req, res) => {
+    console.log("read_assistants'dayım");
+
+    await mongoose.connect(process.env.URL + "clinicDB", { useNewUrlParser: true, useUnifiedTopology: true });
+
+    //create assistants'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+    try {
+      // Fetch assistants from the database
+      const assistants = await Personellist.find({ title: 'Assistant' });
+  
+      // Render the assistants.ejs template with the fetched data
+      //console.log("Okundu");
+      //console.log(assistants);
+      //res.render('admin_panel/dumen.ejs', { assistants });
+      res.json(assistants);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+    finally {
+        await mongoose.connection.close();
+        console.log('Disconnected from MongoDB in read_assistants');
     }
   });
 

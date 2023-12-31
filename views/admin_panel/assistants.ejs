@@ -44,18 +44,18 @@
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
   <% if (typeof addAssistantSuccessful !== 'undefined') { %>
     <% if (addAssistantSuccessful) { %>
-      <script>alert("Hasta randevusu başarıyla eklendi!");</script>
+      <script>alert("Asistan başarıyla eklendi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu eklenemedi!");</script>
+      <script>alert("Asistan eklenemedi!");</script>
     <% } %>
   <% } %>    
 
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
   <% if (typeof updateAssistantSuccessful !== 'undefined') { %>
     <% if (updateAssistantSuccessful) { %>
-      <script>alert("Hasta randevusu başarıyla güncellendi!");</script>
+      <script>alert("Asistan bilgileri başarıyla güncellendi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu güncellenemedi!!");</script>
+      <script>alert("Asistan bilgileri güncellenemedi!!");</script>
     <% } %>
   <% } %> 
 
@@ -63,9 +63,9 @@
   <!-- delete olduğu zaman uyarı çıkar. -->
   <% if (typeof deleteAssistantSuccessful !== 'undefined') { %>
     <% if (deleteAssistantSuccessful) { %>
-      <script>alert("Hasta randevusu silindi!");</script>
+      <script>alert("Asistan sistemden silindi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu silinemedi!");</script>
+      <script>alert("Asistan sistemden silinemedi!");</script>
     <% } %>
   <% } %>
 
@@ -78,23 +78,23 @@
                         <h2 id="randevuHeader">Randevular</h2>
                     </div>
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Randevu Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Asistan Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
                        <form action="/admin_panel/create_assistant/" method="post" class="form-container">
                         
                             <div style="display: flex; gap: 50px;">
-                                <h1>Randevu Ekle</h1>
+                                <h1>Asistan Ekle</h1>
                                 <a style="cursor: pointer;" onclick="closeForm()"><img
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
                             </div>
 
                             <label for="Name"></label>
-                            <input type="text" placeholder="Hasta Adı" name="personelName" required>
+                            <input type="text" placeholder="Asistan Adı" name="personelName" required>
 
                             <label for="surname"></label>
-                            <input type="text" placeholder="Hasta Soyadı" name="personelSurname" required>
+                            <input type="text" placeholder="Asistan Soyadı" name="personelSurname" required>
 
                             <label for="phoneNum"></label>
                             <input type="text" placeholder="Telefon" name="personelPhoneNum" required>
@@ -119,12 +119,13 @@
                 <table id="randevuTable">
                     <thead>
                       <tr>
-                        <th>Hasta Adı</th>
-                        <th>Hasta Soyadı</th>
+                        <th>Asistan Adı</th>
+                        <th>Asistan Soyadı</th>
                         <th>Telefon</th>
                         <th>E-posta</th>
                         <th>Ünvan</th>
                         <th>Klinik</th>
+                        <th>Eylemler</th>
                       </tr>
                     </thead>
                     <tbody id="appointmentsContainer">
@@ -135,7 +136,7 @@
                   <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
                     <form action="/admin_panel/update_assistant/" method="post" class="form-container">
                       <div style="display: flex; gap: 50px;">
-                        <h1>Randevu Bilgilerini Güncelle</h1>
+                        <h1>Asistan Bilgilerini Güncelle</h1>
                         <a style="cursor: pointer;" onclick="closeUpdateForm()">
                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
                         </a>
@@ -148,10 +149,10 @@
 
 
                             <label for="Name"></label>
-                            <input type="text" placeholder="Hasta Adı" name="name" required>
+                            <input type="text" placeholder="Asistan Adı" name="name" required>
 
                             <label for="surname"></label>
-                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
+                            <input type="text" placeholder="Asistan Soyadı" name="surname" required>
 
                             <label for="phoneNum"></label>
                             <input type="text" placeholder="Telefon" name="phoneNum" required>
@@ -188,7 +189,7 @@
 
         // Update the heading dynamically
         var d_header = document.getElementById("randevuHeader");
-        d_header.innerHTML = "Randevular (" + d_rowCount + ")";
+        d_header.innerHTML = "Asistanlar (" + d_rowCount + ")";
 
         function toggleForm() {
             var form = document.getElementById("myForm");
@@ -284,7 +285,7 @@
 
         function updateAppointmentsCount(count) {
             var d_header = document.getElementById("randevuHeader");
-            d_header.innerHTML = "Randevular (" + count + ")";
+            d_header.innerHTML = "Asistanlar (" + count + ")";
           }
 
 
@@ -330,7 +331,7 @@
         
                 if (response.ok) {
                     // Alert göster
-                    alert('Hasta randevusu başarıyla silindi!');
+                    alert('Asistan başarıyla silindi!');
                     // '/admin_panel/doktorlar' sayfasına yönlendir
                     window.location.href = '/admin_panel/asistanlar/';
                 } else {

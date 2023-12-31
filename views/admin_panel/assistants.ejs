@@ -75,7 +75,7 @@
             <div class="right-page">
                 <div style="display: flex;">
                     <div style="flex:10;">
-                        <h2 id="randevuHeader">Randevular</h2>
+                        <h2 id="randevuHeader">Asistanlar</h2>
                     </div>
                     <div style="flex:1;">
                         <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Asistan Ekle</button>
@@ -266,8 +266,8 @@
                       <td>${patient.title}</td>
                       <td>${patient.clinic}</td>
                       <td>
-                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Update</button>
-                        <button onclick="deletePatient('${patient._id}')">Delete patient</button>
+                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                        <button onclick="deletePatient('${patient._id}')">Kaldır</button>
                       </td>
                       
                     </tr>

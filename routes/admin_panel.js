@@ -162,17 +162,17 @@ router.post('/create_patient_appointment', async (req, res) => {
 
 
 router.post("/delete_doctor", async (req, res) => {
-    const { name, surname, email } = req.body;
+    const { _id } = req.body;
   
-    if (!name || !surname || !email) {
+    if (!_id) {
         return res.status(400).json({ error: "Missing required parameters" });
     }
 
     else{
-        delete_account(name, surname, email, 'Doctor');
+      const objectId = new ObjectId(_id);  
+      delete_account(objectId);
     }
     
-    console.log("GİRDİM2");
 
     res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
 
@@ -197,20 +197,21 @@ router.post("/delete_assistant", async (req, res) => {
 
 
 router.post("/delete_admin", async (req, res) => {
-    const { name, surname, email } = req.body;
+    const { _id } = req.body;
   
-    if (!name || !surname || !email) {
+    if (!_id) {
         return res.status(400).json({ error: "Missing required parameters" });
     }
 
     else{
-        delete_account(name, surname, email, 'Admin');
+      const objectId = new ObjectId(_id);  
+      delete_account(objectId);
     }
 
 });
 
 
-
+//This will be remmoved
 router.post("/delete_superadmin", async (req, res) => {
     const { name, surname, email } = req.body;
   

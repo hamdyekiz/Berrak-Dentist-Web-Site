@@ -38,6 +38,9 @@ router.get("/hastalar/", (req, res) => {
     res.render("admin_panel/hastalar.ejs");
 });
 
+router.get("/eski_randevular/", (req, res) => {
+  res.render("admin_panel/pastDueAppointments.ejs");
+});
 
 
 //this will create new doctor account.
@@ -845,6 +848,210 @@ router.get('/read_doctors', async (req, res) => {
         console.log('Disconnected from MongoDB in read_appointments');
     }
   });
+
+
+
+//Hasta geçmişi ile ilgili olan kısım
+
+  const patientHistorySchema = new mongoose.Schema({
+    name: String,
+    surname: String,
+    phoneNum: String,
+    email: String,
+    records: [{ doctor: String, clinic: String , date: String, time: String, price: String, more: String, doctorComment: String }]
+  });
+
+
+
+
+
+  router.post('/add_record', async (req, res) => {
+    
+    const { name, surname, phoneNum, email, doctor, clinic, date, time, price, more, doctorComment } = req.body;
+    
+    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+    const PatientHistory = mongoose.model('patienthistory', patientHistorySchema);
+
+
+    try {
+      // Check if 'patientHistory' collection exists
+      const collectionExists = await mongoose.connection.db.listCollections({ name: 'patienthistory' }).hasNext();
+  
+      if (!collectionExists) {
+        // Create 'patientHistory' collection if it doesn't exist
+        await mongoose.connection.db.createCollection('patienthistory');
+      }
+  
+      // Check if the document with given name, surname, and phoneNum exists
+      const existingPatient = await PatientHistory.findOne({ name, surname, phoneNum });
+  
+      if (!existingPatient) {
+        // Create a new document if it doesn't exist
+        const newPatient = new PatientHistory({
+          name,
+          surname,
+          phoneNum,
+          email,
+          records: [{ doctor, clinic, date, time, price, more, doctorComment }]
+        });
+        await newPatient.save();
+      } else {
+        // Add a new record to the existing document
+        existingPatient.records.push({ doctor, clinic, date, time, price, more, doctorComment });
+        await existingPatient.save();
+      }
+  
+      //res.status(200).send('Record added successfully.');
+      res.render("admin_panel/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1});
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error in add_record');
+    }
+    finally {
+      await mongoose.connection.close();
+    }
+  });
+
+
+
+
+router.post('/create_past_patient_appointment', async (req, res) => {
+    let name, surname, phoneNum, email, doctor, clinic, date, time, price, more;
+    //Buradaki verilerin boş olmadığını kabul ediyoruz.
+    ({name, surname, phoneNum, email, doctor, clinic, date, time, price, more} = req.body);
+    //console.log("LAAAAAANNNN!");
+
+    // there is no email verification. Because these datas will be added by person.
+    
+    // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
+    // await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+    await mongoose.connect(url + "clinicDB");
+
+    let patientList;
+
+    //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
+    try {
+        patientList = mongoose.model('pastDueAppointments');
+    } catch {
+        const patientSchema = new mongoose.Schema({
+          name: String,
+          surname: String,
+          phoneNum: String,
+          email: String,
+          doctor: String,
+          clinic: String,
+          date: String,
+          time: String,
+          price: String,
+          more: String
+        });
+      
+        patientList = mongoose.model('pastDueAppointments', patientSchema);
+    }    
+    //Burada neden try catch yapısı kullandık? Neden direkt dentistSchema'yı tanımlayıp Dentistlit objesi oluşturmadık? Çünkü eğer PersonelList collection'ı yoksa oluşturuyoruz. Eğer PersonelList collection'ı varsa, direkt PersonelList objesini oluşturuyoruz. Bu yüzden try catch kullandık. Eğer PersonelList collection'ı yoksa, try bloğu çalışacak ve PersonelList objesini oluşturacak. Eğer PersonelList collection'ı varsa, catch bloğu çalışacak ve PersonelList objesini oluşturacak.
+    // Ayrıca try catch içinde yazmasaydım garip bir şekilde password invalid hatasından sonra yeni valid doktor eklemesi yapınca hata alıyordum.
+
+    
+    const personel = new patientList({
+        name: name,
+        surname: surname,
+        phoneNum: phoneNum,
+        email: email,
+        doctor: doctor,
+        clinic: clinic,
+        date: date,
+        time: time,
+        price: price,
+        more: more
+        
+    });
+
+    await personel.save();
+    
+    res.render("admin_panel/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1});
+
+    console.log("\npastDueAppointments Database'ine eklendi!");
+
+    await mongoose.connection.close();
+
+
+});  
+
+
+const PastPatientlist = mongoose.model('pastDueAppointments', {
+  name: String,
+  surname: String,
+  phoneNum: String,
+  email: String,
+  doctor: String,
+  clinic: String,
+  date: String,
+  time: String,
+  price: String,
+  more: String
+});
+
+
+router.get('/read_past_appointments', async (req, res) => {
+  //console.log("Doctosdayım");
+  //WARN!!! Bu normalde fonksiyonun dışında idi. Burada içeri yazdık. Buradaki pastDueAppointments kısmı da sıkıntı çıkarabilir.
+
+
+  await mongoose.connect(url + 'clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+  //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+  try {
+    // Fetch doctors from the database
+    const patients = await PastPatientlist.find();
+
+    res.json(patients);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+  finally {
+      await mongoose.connection.close();
+      console.log('Disconnected from MongoDB in read_past_appointments');
+  }
+});
+
+
+
+router.post('/delete_past_patient_appointment', async (req, res) => {
+  let name, surname, phoneNum, email, doctor, clinic, date, time, more;
+  //Buradaki verilerin boş olmadığını kabul ediyoruz.
+  //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
+  ({name, surname, phoneNum, doctor, date, time, more} = req.body);
+
+
+  const dbName = 'clinicDB';
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB in delete_past_patient_appointment');
+
+    const db = client.db(dbName);
+    const collection = db.collection('pastdueappointments');
+
+
+    // Delete documents where name, surname, email, and title match the provided values
+    const result = await collection.deleteMany({ name: name, surname: surname, phoneNum: phoneNum, date: date, time:time });
+
+    console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
+
+    res.render("admin_panel/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1});
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB in delete_past_patient_appointment');
+  }    
+
+});
 
 
 module.exports = router;

@@ -279,13 +279,16 @@ router.post('/delete_patient_appointment', async (req, res) => {
 //Warn!!! Update'de title değiştirmeye dahi izin veriyorum. Sadece mail değiştirmeye izin vermiyorum. Kodda ona da izin veriyorum da front endde verilmemeli. Şifre değiştirmeye dahi izin veriyorum
 router.post('/update_doctor', async (req, res) => {
 
-    const { name, surname, phoneNum, email, password } = req.body;
+    const { _id, name, surname, phoneNum, email, password } = req.body;
+
+    const objectId = new ObjectId(_id);
+
     if (!name || !surname || !phoneNum || !email || !password) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, "Doctor", "Klinik1")
+        update_account(objectId, name, surname, phoneNum, email, password, "Doctor", "Klinik1")
     }
     res.render("admin_panel/doctors.ejs", {isDoctorUpdated: 1});
 
@@ -304,13 +307,16 @@ router.post('/update_assistant', async (req, res) => {
     // }
 
 
-    const { name, surname, phoneNum, email, password } = req.body;
+    const { _id, name, surname, phoneNum, email, password } = req.body;
+
+    const objectId = new ObjectId(_id);
+
     if (!name || !surname || !phoneNum || !email || !password) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, "Assistant", "Klinik1")
+        update_account(objectId, name, surname, phoneNum, email, password, "Assistant", "Klinik1")
     }
     res.render("admin_panel/assistants.ejs", {isAssistantUpdated: 1});
 
@@ -321,13 +327,16 @@ router.post('/update_assistant', async (req, res) => {
 
 router.post('/update_admin', async (req, res) => {
 
-    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    const { _id, name, surname, phoneNum, email, password, title, clinic } = req.body;
+
+    const objectId = new ObjectId(_id);
+
     if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, title, clinic)
+        update_account(objectId, name, surname, phoneNum, email, password, title, clinic)
     }
 });
 
@@ -335,13 +344,16 @@ router.post('/update_admin', async (req, res) => {
 
 router.post('/update_superadmin', async (req, res) => {
 
-    const { name, surname, phoneNum, email, password, title, clinic } = req.body;
+    const {_id, name, surname, phoneNum, email, password, title, clinic } = req.body;
+
+    const objectId = new ObjectId(_id);
+
     if (!name || !surname || !phoneNum || !email || !password || !title || !clinic) {
         return res.status(400).json({ error: "Missing required parameters" });
     }    
 
     else{
-        update_account(name, surname, phoneNum, email, password, title, clinic)
+        update_account(objectId, name, surname, phoneNum, email, password, title, clinic)
     }
 });
 
@@ -624,7 +636,7 @@ async function delete_account(name, surname, email, title) {
 
 
 // commented out because it is not using mongoose
-async function update_account(name, surname, phoneNum, email, password, title, clinic){    
+async function update_account(objectId, name, surname, phoneNum, email, password, title, clinic){    
   
 
     const dbName = 'clinicDB';
@@ -640,12 +652,13 @@ async function update_account(name, surname, phoneNum, email, password, title, c
   
       // Update documents where email matches the provided value
       const result = await collection.updateMany(
-        { email: email },
+        { _id: objectId },
         {
           $set: {
             name: name,
             surname: surname,
             phoneNum: phoneNum,
+            email : email,
             password: password,
             title: title,
             clinic: clinic

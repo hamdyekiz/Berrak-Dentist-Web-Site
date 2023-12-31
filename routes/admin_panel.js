@@ -207,6 +207,8 @@ router.post("/delete_superadmin", async (req, res) => {
 
 });
 
+
+
 // commented out because it is not using mongoose
 // //Warn!!! Hasta ekle sil mantıksız geldi. O yüzden randevu ekle sil mantığıyla yapıyorum.
 router.post('/delete_patient_appointment', async (req, res) => {
@@ -757,7 +759,12 @@ router.get('/read_doctors', async (req, res) => {
 
 
   router.get('/read_appointments', async (req, res) => {
-    //console.log("Doctosdayım");
+    const moment = require('moment');
+    
+    // getting the filter query from the request for example: "all" or "today"
+    const { filter } = req.query;
+    console.log("filter: " + filter)
+
 
     await mongoose.connect(url + 'clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -765,13 +772,71 @@ router.get('/read_doctors', async (req, res) => {
 
 
     try {
-      // Fetch doctors from the database
-      const patients = await Patientlist.find();
-  
-      // Render the doctors.ejs template with the fetched data
-      //console.log("Okundu");
-      //console.log(doctors);
-      //res.render('admin_panel/dumen.ejs', { doctors });
+      // Fetch patients from the database according to the filter
+      let patients;
+      async function filterPatients(filter) {
+            // Fetch all patients from the database
+            let allPatients = await Patientlist.find();
+    
+            // Filter patients based on the provided filter
+            let filteredPatients;
+            let currentTime;
+            let currentDate = moment().startOf('day');
+
+            // Only include appointments that are after the current time
+            currentTime = moment();
+            allPatients = allPatients.filter(patient => {
+                let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
+                return appointmentTime_.isAfter(currentTime);
+            });
+
+    
+            switch(filter) {
+                case 'today':
+                    // filteredPatients = allPatients.filter(patient => 
+                    //     moment(patient.date, "DD.MM.YYYY").isSame(currentDate, 'day'));
+                    currentTime = moment();
+                    filteredPatients = allPatients.filter(patient => {
+                      let appointmentTime = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
+                      return appointmentTime.isSame(currentTime, 'day') && appointmentTime.isAfter(currentTime);
+                    });
+                    break;
+                case 'week':
+                    // Next 7 days including today
+                    let weekLater = moment().add(6, 'days').endOf('day'); // 6 days ahead + today = 7 days
+                    filteredPatients = allPatients.filter(patient => {
+                        let patientDate = moment(patient.date, "DD.MM.YYYY");
+                        return patientDate.isSameOrAfter(currentDate) && patientDate.isSameOrBefore(weekLater);
+                    });
+                    break;
+                case 'month':
+                    // Next 30 days including today
+                    let monthLater = moment().add(29, 'days').endOf('day'); // 29 days ahead + today = 30 days
+                    filteredPatients = allPatients.filter(patient => {
+                        let patientDate = moment(patient.date, "DD.MM.YYYY");
+                        return patientDate.isSameOrAfter(currentDate) && patientDate.isSameOrBefore(monthLater);
+                    });
+                    break;
+                default:
+                  // Only include appointments that are after the current time
+                  currentTime = moment();
+                  filteredPatients = allPatients.filter(patient => {
+                      let appointmentTime = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
+                      return appointmentTime.isAfter(currentTime);
+                  });
+                  break;
+            }
+            // After filtering, sort the patients by datetime
+            filteredPatients.sort((a, b) => {
+              let dateTimeA = moment(`${a.date} ${a.time}`, "DD.MM.YYYY HH.mm");
+              let dateTimeB = moment(`${b.date} ${b.time}`, "DD.MM.YYYY HH.mm");
+              return dateTimeA - dateTimeB; // Ascending order
+            });
+
+            return filteredPatients;
+      }
+      patients = await filterPatients(filter);
+      
       res.json(patients);
     } catch (error) {
       console.error(error);

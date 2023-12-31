@@ -4,3 +4,5 @@ Onay kodu doğruysa uyarı verildikten sonra 5 saniye geri sayılacak ve ana ekr
 
 Shitmail kontrolu backend ile yap.
 Email gönderme sistemini daha sağlam bir temele oturt.
+
+Haftalık, aylık, günlük gelecek randevular.

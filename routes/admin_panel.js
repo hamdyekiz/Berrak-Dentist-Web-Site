@@ -901,8 +901,11 @@ router.get('/read_doctors', async (req, res) => {
         existingPatient.records.push({ doctor, clinic, date, time, price, more, doctorComment });
         await existingPatient.save();
       }
-  
-      //res.status(200).send('Record added successfully.');
+
+      // Geçmiş randevu hasta geçmişine eklendiği için artık pastDueAppointments database'inde bulunmasına gerek yok.
+      await mongoose.connection.db.collection('pastdueappointments').deleteOne({ name, surname, phoneNum, date, time });
+
+
       res.render("admin_panel/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1});
     } catch (error) {
       console.error(error);

@@ -180,14 +180,15 @@ router.post("/delete_doctor", async (req, res) => {
 
 
 router.post("/delete_assistant", async (req, res) => {
-    const { name, surname, email } = req.body;
+    const { _id } = req.body;
   
-    if (!name || !surname || !email) {
+    if (!_id) {
         return res.status(400).json({ error: "Missing required parameters" });
     }
 
     else{
-        delete_account(name, surname, email, 'Assistant');
+        const objectId = new ObjectId(_id);
+        delete_account(objectId);
     }
 
     res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
@@ -590,7 +591,7 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
 
 // commented out because it is not using mongoose
 // // Function to delete doctor documents
-async function delete_account(name, surname, email, title) {
+async function delete_account(id) {
 
     const dbName = 'clinicDB';
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -604,9 +605,9 @@ async function delete_account(name, surname, email, title) {
 
   
       // Delete documents where name, surname, email, and title match the provided values
-      const result = await collection.deleteMany({ name: name, surname: surname, email: email, title: title });
+      const result = await collection.deleteMany({ _id: id });
   
-      console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+      //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
     } catch (error) {
       console.error('Error deleting documents:', error);
     } finally {

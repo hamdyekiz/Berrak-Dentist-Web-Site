@@ -267,7 +267,7 @@
                       <td>${patient.clinic}</td>
                       <td>
                         <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Update</button>
-                        <button onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.email}')">Delete patient</button>
+                        <button onclick="deletePatient('${patient._id}')">Delete patient</button>
                       </td>
                       
                     </tr>
@@ -315,7 +315,7 @@
 
 
 
-          async function deletePatient(name, surname, email) {
+          async function deletePatient(id) {
             try {
                 const response = await fetch('/admin_panel/delete_assistant', {
                     method: 'POST',
@@ -323,9 +323,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        name: name,
-                        surname: surname,
-                        email: email
+                        _id: id
                     }),
                 });
         

@@ -1057,4 +1057,143 @@ router.post('/delete_past_patient_appointment', async (req, res) => {
 });
 
 
+
+
+router.post('/update_patient_history', async (req, res) => {
+
+  //Warn!!! TÜm özellikler girilmeli derken; update deyince eski özellikler orada gözükür. Dolayısıyla onları değiştirmezsek zaten oradan veri gelecektir. Ancak boş bırakılmasına izin verilmez. 
+  const {_id, name, surname, phoneNum, email } = req.body;
+  //if (!name || !surname || !phoneNum || !email || !doctor || !clinic || !date  || !time) {
+
+  // console.log("----------UPDATE POST REQUESTTEYİM-----------");
+  // console.log("ID İn update patient appo post: " + _id);
+  // console.log("Veri tipi: " + typeof _id);
+  const objectId = new ObjectId(_id);
+
+  if (!name || !surname || !phoneNum) {    
+      return res.status(400).json({ error: "Missing required parameters" });
+  }    
+
+  else{
+
+      const dbName = 'clinicDB';
+
+      const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    
+      try {
+        await client.connect();
+        console.log('Connected to MongoDB in update_patient_history');
+    
+        const db = client.db(dbName);
+        const collection = db.collection('patienthistories');
+    
+        // Update documents where email matches the provided value
+        const result = await collection.updateMany(
+          {_id: objectId },
+          {
+            $set: {
+              name: name,
+              surname: surname,
+              phoneNum: phoneNum,
+              email: email
+            }
+          }
+        );
+    
+        console.log(`Updated ${result.modifiedCount} appointments documents with email ${email}`);
+        res.render("admin_panel/hastalar.ejs", {updatePatientHistorySuccessful: 1});
+        
+        //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
+      } catch (error) {
+        console.error('Error updating documents:', error);
+      } finally {
+        await client.close();
+        
+        console.log('Disconnected from MongoDB in update_patient_history');
+      }        
+
+  }
+
+});
+
+
+
+router.post('/delete_patient_history', async (req, res) => {
+  //Buradaki verilerin boş olmadığını kabul ediyoruz.
+  //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
+  const {_id} = req.body;
+
+  const id = new ObjectId(_id);
+
+
+  const dbName = 'clinicDB';
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB in delete_patient_history');
+
+    const db = client.db(dbName);
+    const collection = db.collection('patienthistories');
+
+
+    // Delete documents where name, surname, email, and title match the provided values
+    const result = await collection.deleteMany({ _id: id });
+
+    res.render("admin_panel/hastalar.ejs", {deleteAppointmentSuccessful: 1});
+
+    //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB in delete_patient_history');
+  }   
+
+});
+
+
+
+
+
+
+
+const PatientHistoryList = mongoose.model('patienthistories', {
+  name: String,
+  surname: String,
+  phoneNum: String,
+  email: String,
+  records: [{ doctor: String, clinic: String , date: String, time: String, price: String, more: String, doctorComment: String }]
+});
+
+
+
+router.get('/read_patient_histories', async (req, res) => {
+  //console.log("Doctosdayım");
+  //WARN!!! Bu normalde fonksiyonun dışında idi. Burada içeri yazdık. Buradaki pastDueAppointments kısmı da sıkıntı çıkarabilir.
+
+
+  await mongoose.connect(url + 'clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+  //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+  try {
+    // Fetch doctors from the database
+    const patients = await PatientHistoryList.find();
+
+    res.json(patients);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in read_patient_histories');
+  }
+  finally {
+      await mongoose.connection.close();
+      console.log('Disconnected from MongoDB in read_patient_histories');
+  }
+});
+
+
+
+
 module.exports = router;

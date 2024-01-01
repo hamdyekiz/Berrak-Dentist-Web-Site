@@ -3,8 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { MongoClient, ObjectId } = require('mongodb');
-
-//console.log("Girdim1!");
+const session = require('express-session')
+const passport = require('passport')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 
 const path = require("path");
@@ -15,6 +16,14 @@ const dirName = path.dirname(require.main.filename);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Mongodb'ye bağlanmak için url:
@@ -566,26 +575,51 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
           title: String,
           clinic: String
         });
+        dentistSchema.plugin(passportLocalMongoose);
       
         PersonelsList = mongoose.model('PersonelList', dentistSchema);
+        passport.use(PersonelsList.createStrategy());
+        passport.serializeUser(PersonelsList.serializeUser());
+        passport.deserializeUser(PersonelsList.deserializeUser());
     }    
     //Burada neden try catch yapısı kullandık? Neden direkt dentistSchema'yı tanımlayıp Dentistlit objesi oluşturmadık? Çünkü eğer PersonelList collection'ı yoksa oluşturuyoruz. Eğer PersonelList collection'ı varsa, direkt PersonelList objesini oluşturuyoruz. Bu yüzden try catch kullandık. Eğer PersonelList collection'ı yoksa, try bloğu çalışacak ve PersonelList objesini oluşturacak. Eğer PersonelList collection'ı varsa, catch bloğu çalışacak ve PersonelList objesini oluşturacak.
     // Ayrıca try catch içinde yazmasaydım garip bir şekilde password invalid hatasından sonra yeni valid doktor eklemesi yapınca hata alıyordum.
 
     
-    const personel = new PersonelsList({
-        name: personelName,
-        surname: personelSurname,
-        phoneNum: personelPhoneNum,
-        email: personelEmail,
-        password: personelPassword,
-        title: personelTitle,
-        clinic: personelClinic
+    // const personel = new PersonelsList({
+    //     name: personelName,
+    //     surname: personelSurname,
+    //     phoneNum: personelPhoneNum,
+    //     email: personelEmail,
+    //     password: personelPassword,
+    //     title: personelTitle,
+    //     clinic: personelClinic
         
+    // });
+
+    // await personel.save();
+
+    PersonelsList.register({username: personelEmail, name: personelName, surname: personelSurname, phoneNum: personelPhoneNum, title: personelTitle, clinic: personelClinic}, personelPassword, function(err, user){
+      if(err){
+        console.log(err);
+        return addDoctorSuccessfull = false;
+      }
+      else{
+        passport.authenticate("local")(req, res, function(){
+          
+          console.log("User authenticated");
+          console.log("\nDatabase'e eklendi!");
+
+          mongoose.connection.close()
+            .then(() => console.log('Database connection closed'))
+            .catch(err => console.log(err));
+
+          return addDoctorSuccessfull = true;
+        });
+      }
     });
 
-    await personel.save();
-    await mongoose.connection.close();
+    // await mongoose.connection.close();
     
 
     console.log("\nDatabase'e eklendi!");

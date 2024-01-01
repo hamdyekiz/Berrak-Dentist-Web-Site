@@ -1288,8 +1288,8 @@ router.get('/read_patient_histories', async (req, res) => {
 
 
   try {
-    // Fetch doctors from the database
-    const patients = await PatientHistoryList.find();
+    // Fetch doctors from the database and sort them alphabetically
+    const patients = await PatientHistoryList.find().collation({ locale: 'tr', strength: 2, }).sort({ name: 1, surname: 1, });
 
     res.json(patients);
   } catch (error) {

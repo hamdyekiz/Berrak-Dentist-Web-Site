@@ -1140,7 +1140,7 @@ router.post('/delete_patient_history', async (req, res) => {
     // Delete documents where name, surname, email, and title match the provided values
     const result = await collection.deleteMany({ _id: id });
 
-    res.render("admin_panel/hastalar.ejs", {deleteAppointmentSuccessful: 1});
+    res.render("admin_panel/hastalar.ejs", {deletePatientHistorySuccessful: 1});
 
     //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
   } catch (error) {
@@ -1192,6 +1192,41 @@ router.get('/read_patient_histories', async (req, res) => {
       console.log('Disconnected from MongoDB in read_patient_histories');
   }
 });
+
+
+
+
+
+router.get('/read_patient_records/:_id', async (req, res) => {
+  const { _id } = req.params;
+
+  // if (!ObjectId.isValid(id)) {
+  //   return res.status(400).json({ error: 'Invalid ID' });
+  // }
+
+  const id = new ObjectId(_id);
+
+  await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    const patient = await PatientHistoryList.findById(id);
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    //console.log("HASTA KAYITLARIIII: \n" + patient.records);
+
+    res.json(patient.records);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in get_records');
+  } finally {
+    await mongoose.connection.close();
+    console.log('Disconnected from MongoDB in get_records');
+  }
+});
+
 
 
 

@@ -1231,4 +1231,49 @@ router.get('/read_patient_records/:_id', async (req, res) => {
 
 
 
+
+router.post('/delete_one_record', async (req, res) => {
+  //Buradaki verilerin boş olmadığını kabul ediyoruz.
+  //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
+  const {_patient_id, _record_id} = req.body;
+
+  const patient_id = new ObjectId(_patient_id);
+  const record_id = new ObjectId(_record_id);
+
+
+  const dbName = 'clinicDB';
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB in delete_one_record');
+
+    const db = client.db(dbName);
+    const collection = db.collection('patienthistories');
+
+
+    // Delete documents where name, surname, email, and title match the provided values
+    //const result = await collection.deleteMany({ _id: id });
+    const result = await collection.updateOne(
+      { _id: patient_id },
+      { $pull: { records: { _id: record_id } } }
+    );
+
+    res.render("admin_panel/hastalar.ejs", {deletePatientRecordSuccessful: 1});
+
+    //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB in delete_patient_history');
+  }   
+
+});
+
+
+
+
+
+
 module.exports = router;

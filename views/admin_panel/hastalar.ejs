@@ -372,6 +372,9 @@
                           <td>${record.price}</td>
                           <td>${record.more}</td>
                           <td>${record.doctorComment}</td>
+                          <td>
+                            <button onclick="deleteRecord('${patientId}', '${record._id}')">Kaldır</button>
+                          </td>
                         </tr>
                       `).join('')}
                     </tbody>
@@ -408,6 +411,36 @@
           document.getElementById("popup").style.display = "none";
       }
         
+      async function deleteRecord(patient_id, record_id) {
+        try {
+            const response = await fetch('/admin_panel/delete_one_record', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    _patient_id: patient_id,
+                    _record_id: record_id
+                }),
+            });
+    
+            if (response.ok) {
+                // Alert göster
+                alert('Hasta recordu başarıyla silindi!');
+                // '/admin_panel/doktorlar' sayfasına yönlendir
+                window.location.href = '/admin_panel/hastalar/';
+            } else {
+                console.error('Error deleting patient record:', response.statusText);
+                // Hata işleme
+                alert('record silinemedi: ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting patient record:', error.message);
+            // Hata işleme
+            alert('record silinemedi: ' + error.message);
+        }
+    }
+
 
 
 

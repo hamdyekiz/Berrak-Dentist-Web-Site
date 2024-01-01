@@ -16,14 +16,14 @@ const dirName = path.dirname(require.main.filename);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
-app.use(session({
+router.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(passport.initialize());
+router.use(passport.session());
 
 
 //Mongodb'ye bağlanmak için url:

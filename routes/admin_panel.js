@@ -824,6 +824,20 @@ router.get('/read_doctors', async (req, res) => {
     });
 
 
+    const PastPatientlist = mongoose.model('pastdueappointments', {
+      name: String,
+      surname: String,
+      phoneNum: String,
+      email: String,
+      doctor: String,
+      clinic: String,
+      date: String,
+      time: String,
+      price: String,
+      more: String
+    });
+
+
   router.get('/read_appointments', async (req, res) => {
     const moment = require('moment');
     
@@ -851,10 +865,48 @@ router.get('/read_doctors', async (req, res) => {
 
             // Only include appointments that are after the current time
             currentTime = moment();
+
+            // Geçmiş randevuları bulma 
+            let allpastPatients;
+            allpastPatients = allPatients.filter(patient => {
+              let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
+              return currentTime.isAfter(appointmentTime_);
+            });
+
+            //console.log("ESKI : !!! \n" + allpastPatients);
+
+            for (const pastPatient of allpastPatients) {
+              // Remove from patientlists
+              await Patientlist.findByIdAndDelete(pastPatient._id);
+        
+              // Add to pastdueappointments
+              console.log("Past patient!!!!!: " + pastPatient);
+              const pastPatientObject = pastPatient.toObject();
+              const pastDueAppointment = new PastPatientlist(pastPatientObject);
+              await pastDueAppointment.save();
+            }
+
+            
+
+            // geçmiş randevuları patientlists'ten silme
+
+
+
+
+
+
             allPatients = allPatients.filter(patient => {
                 let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
                 return appointmentTime_.isAfter(currentTime);
             });
+
+            //console.log("YENI : !!! \n" + allPatients);
+
+
+
+            // 
+
+            
 
     
             switch(filter) {
@@ -1047,18 +1099,7 @@ router.post('/create_past_patient_appointment', async (req, res) => {
 });  
 
 
-const PastPatientlist = mongoose.model('pastDueAppointments', {
-  name: String,
-  surname: String,
-  phoneNum: String,
-  email: String,
-  doctor: String,
-  clinic: String,
-  date: String,
-  time: String,
-  price: String,
-  more: String
-});
+
 
 
 router.get('/read_past_appointments', async (req, res) => {

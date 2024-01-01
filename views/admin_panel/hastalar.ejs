@@ -132,6 +132,47 @@
 
 
 
+                  <div class="form-popup" id="myRecordUpdateForm" style="max-height: 400px; overflow-y: auto;">
+                    <form action="/admin_panel/update_one_record/" method="post" class="form-container">
+                      <div style="display: flex; gap: 50px;">
+                        <h1>Hasta Geçmişini Güncelle</h1>
+                        <a style="cursor: pointer;" onclick="closeUpdateForm()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                        </a>
+                      </div>
+
+                            <label for="patientID"></label>
+                            <input type="text" placeholder="patientID" name="_patientID" required readonly style="display: none;">
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+
+
+                            <label for="Doctor"></label>
+                            <input type="text" placeholder="Doktor" name="doctor" required>
+
+                            <label for="clinic"></label>
+                            <input type="text" placeholder="Klinik" name="clinic" required>
+
+                            <label for="date"></label>
+                            <input type="text" placeholder="Tarih" name="date" required>
+
+                            <label for="time"></label>
+                            <input type="text" placeholder="Saat" name="time">
+
+                            <label for="price"></label>
+                            <input type="text" placeholder="Ücret" name="price" required>
+
+                            <label for="more"></label>
+                            <input type="text" placeholder="Daha Fazla" name="more">
+
+                            <label for="doctorComment"></label>
+                            <input type="text" placeholder="Doktor Yorumu" name="doctorComment" required>
+
+                      <button type="submit" class="btn">Kaydı Güncelle</button>
+                    </form>
+                  </div>
+
 
 
 
@@ -373,6 +414,7 @@
                           <td>${record.more}</td>
                           <td>${record.doctorComment}</td>
                           <td>
+                            <button onclick="openRecordUpdateForm('${patientId}', '${record._id}', '${record.doctor}', '${record.clinic}', '${record.date}', '${record.time}', '${record.price}', '${record.more}', '${record.doctorComment}')">Güncelle</button>
                             <button onclick="deleteRecord('${patientId}', '${record._id}')">Kaldır</button>
                           </td>
                         </tr>
@@ -439,6 +481,31 @@
             // Hata işleme
             alert('record silinemedi: ' + error.message);
         }
+    }
+
+    function openRecordUpdateForm(patientId, _id, doctor, clinic, date, time, price, more, doctorComment){
+
+      const form = document.getElementById('myRecordUpdateForm');
+          
+      // Form alanlarını doldur
+      form.querySelector('input[name="_patientID"]').value = patientId;
+      form.querySelector('input[name="_id"]').value = _id;
+      form.querySelector('input[name="doctor"]').value = doctor;
+      form.querySelector('input[name="clinic"]').value = clinic;
+      form.querySelector('input[name="date"]').value = date;
+      form.querySelector('input[name="time"]').value = time;
+      form.querySelector('input[name="price"]').value = price;
+      form.querySelector('input[name="more"]').value = more;
+      form.querySelector('input[name="doctorComment"]').value = doctorComment;
+    
+      // Formu görünür hale getir
+      form.style.display = 'block';
+
+    }
+
+    function closeRecordUpdateForm() {
+      const form = document.getElementById('myRecordUpdateForm');
+      form.style.display = 'none';
     }
 
 

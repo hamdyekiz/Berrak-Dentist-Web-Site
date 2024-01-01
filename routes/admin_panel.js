@@ -1118,6 +1118,9 @@ router.post('/update_patient_history', async (req, res) => {
 
 
 
+
+
+
 router.post('/delete_patient_history', async (req, res) => {
   //Buradaki verilerin boş olmadığını kabul ediyoruz.
   //Çarpı butonuna basılarak randevu iptal ediliyor. O halde o kısımdaki tüm bilgilerin input olarak alındığını kabul ediyorum. Sonradan değiştirebiliriz. 
@@ -1269,6 +1272,48 @@ router.post('/delete_one_record', async (req, res) => {
     console.log('Disconnected from MongoDB in delete_patient_history');
   }   
 
+});
+
+
+
+router.post('/update_one_record', async (req, res) => {
+  try {
+    const { _patientID, _id, doctor, clinic, date, time, price, more, doctorComment } = req.body;
+
+    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+    const patient = await PatientHistoryList.findOneAndUpdate(
+      {
+        _id: new ObjectId(_patientID),
+        'records._id': new ObjectId(_id)
+      },
+      {
+        $set: {
+          'records.$.doctor': doctor,
+          'records.$.clinic': clinic,
+          'records.$.date': date,
+          'records.$.time': time,
+          'records.$.price': price,
+          'records.$.more': more,
+          'records.$.doctorComment': doctorComment
+        }
+      },
+      { new: true }
+    );
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found or record not found' });
+    }
+
+    res.render("admin_panel/hastalar.ejs", {updatePatientRecordSuccessful: 1});
+    //res.status(200).send('Record updated successfully.');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in update_one_record');
+  } finally {
+    await mongoose.connection.close();
+    console.log('Disconnected from MongoDB in update_one_record');
+  }
 });
 
 

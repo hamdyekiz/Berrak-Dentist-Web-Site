@@ -3,9 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { MongoClient, ObjectId } = require('mongodb');
-
-//console.log("Girdim1!");
-
+const session = require('express-session')
+const passport = require('passport')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const path = require("path");
 const { URL } = require("url");
@@ -15,6 +15,13 @@ const dirName = path.dirname(require.main.filename);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.use(express.static(dirName + '/public'));
+router.use(session({
+  secret: "QNDWQJNNNNDkqwndqNDNJQWNDLQnkdwnlqqnw",
+  resave: false,
+  saveUninitialized: false
+}));
+router.use(passport.initialize());
+router.use(passport.session());
 
 
 //Mongodb'ye bağlanmak için url:

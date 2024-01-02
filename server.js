@@ -39,6 +39,7 @@ app.use('/login', loginRoutes); // change '/login.js' to '/login'
 // declaring static files under the public directory
 app.use(express.static("public"));
 
+
 // landing page.
 app.get("/",(req, res) => {
   // send the file from the public/landing_page/index.html

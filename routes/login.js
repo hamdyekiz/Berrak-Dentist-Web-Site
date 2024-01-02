@@ -7,11 +7,23 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const { URL } = require("url");
 const dirName = path.dirname(require.main.filename);
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
 
 //Form'un verilerini okumak için bu 3 satıra ihtiyaç var. req.body yapabilmek için gerekli. 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());  
 router.use(express.static(dirName + '/public'));
+
+router.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+     mongoUrl: `${process.env.URL}clinicDB`
+    })
+}));
 
 //mail gönderebilmek için
 const nodemailer = require("nodemailer");
@@ -158,7 +170,6 @@ let email_to_be_removed_from_lockouted;
   //Hepsi aynı girişten giriyor diye kabul ediyorum.
   // /login/general_login'e post etmek gerek.
 router.post("/general_login", async (req, res) => {
-
     let email = req.body.email;
     let password = req.body.password;
     console.log("Damn body");
@@ -183,10 +194,20 @@ router.post("/general_login", async (req, res) => {
 
     
         if (user) {
-            console.log('User found:', user);
-            removeDocumentsByEmail();
-            //res.redirect("/admin_panel/doctors.html");
-            res.render("admin_panel/doctors.ejs");
+          req.session.regenerate((err) => {
+              if (err) throw err;
+              req.session.user = user;
+              req.session.isAuthenticated = true;
+              req.session.save((err) => {
+                if (err) throw err;
+                console.log('User found:', user);
+                console.log("Session user: ", req.session.user);
+                console.log("Session User authenticated: ", req.session.isAuthenticated)
+                removeDocumentsByEmail();
+                res.redirect("/admin_panel/doktorlar");
+              });
+            });
+            // res.render("admin_panel/doctors.ejs");
             //res.status(200).json({ message: 'User found' });
         } else {
             console.log('Wrong email or password');
@@ -210,6 +231,7 @@ router.post("/general_login", async (req, res) => {
       res.render("admin_login/verification.ejs");
     }
 });
+
 
 
 

@@ -3,9 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { MongoClient, ObjectId } = require('mongodb');
-const session = require('express-session')
-const passport = require('passport')
-const passportLocalMongoose = require('passport-local-mongoose')
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 
 const path = require("path");
@@ -19,20 +18,32 @@ router.use(express.static(dirName + '/public'));
 router.use(session({
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true,
+  cookie: { secure: false },
+  store: MongoStore.create({
+    mongoUrl: `${process.env.URL}clinicDB` 
+   })
 }));
 
-router.use(passport.initialize());
-router.use(passport.session());
 
 
 //Mongodb'ye bağlanmak için url:
 // const url = 'mongodb://127.0.0.1:27017';
 const url = process.env.URL;
 
+router.get("/", (req, res) => {
+    res.redirect("/admin_panel/doktorlar");
+});
+
 // admin paneldeki sayfalara erişmek için get methodları.
 router.get("/doktorlar/", (req, res) => {
-    res.render("admin_panel/doctors.ejs");
+    console.log("session: " + req.session.user);
+    if(req.session.user && req.session.isAuthenticated){
+      res.render("admin_panel/doctors.ejs");
+    }
+    else{
+      res.redirect("/login");
+    }
 });
 
 router.get("/asistanlar/", (req, res) => {
@@ -575,51 +586,30 @@ async function create_account(personelName, personelSurname, personelPhoneNum, p
           title: String,
           clinic: String
         });
-        dentistSchema.plugin(passportLocalMongoose);
-      
         PersonelsList = mongoose.model('PersonelList', dentistSchema);
-        passport.use(PersonelsList.createStrategy());
-        passport.serializeUser(PersonelsList.serializeUser());
-        passport.deserializeUser(PersonelsList.deserializeUser());
     }    
     //Burada neden try catch yapısı kullandık? Neden direkt dentistSchema'yı tanımlayıp Dentistlit objesi oluşturmadık? Çünkü eğer PersonelList collection'ı yoksa oluşturuyoruz. Eğer PersonelList collection'ı varsa, direkt PersonelList objesini oluşturuyoruz. Bu yüzden try catch kullandık. Eğer PersonelList collection'ı yoksa, try bloğu çalışacak ve PersonelList objesini oluşturacak. Eğer PersonelList collection'ı varsa, catch bloğu çalışacak ve PersonelList objesini oluşturacak.
     // Ayrıca try catch içinde yazmasaydım garip bir şekilde password invalid hatasından sonra yeni valid doktor eklemesi yapınca hata alıyordum.
 
-    
-    // const personel = new PersonelsList({
-    //     name: personelName,
-    //     surname: personelSurname,
-    //     phoneNum: personelPhoneNum,
-    //     email: personelEmail,
-    //     password: personelPassword,
-    //     title: personelTitle,
-    //     clinic: personelClinic
+    try {
+      const personel = new PersonelsList({
+        name: personelName,
+        surname: personelSurname,
+        phoneNum: personelPhoneNum,
+        email: personelEmail,
+        password: personelPassword,
+        title: personelTitle,
+        clinic: personelClinic
         
-    // });
+      });
 
-    // await personel.save();
+    await personel.save();
+    }
+    catch(error) {
+        console.log("Error in create_account: " + error);
+    }
 
-    PersonelsList.register({username: personelEmail, name: personelName, surname: personelSurname, phoneNum: personelPhoneNum, title: personelTitle, clinic: personelClinic}, personelPassword, function(err, user){
-      if(err){
-        console.log(err);
-        return addDoctorSuccessfull = false;
-      }
-      else{
-        passport.authenticate("local")(req, res, function(){
-          
-          console.log("User authenticated");
-          console.log("\nDatabase'e eklendi!");
-
-          mongoose.connection.close()
-            .then(() => console.log('Database connection closed'))
-            .catch(err => console.log(err));
-
-          return addDoctorSuccessfull = true;
-        });
-      }
-    });
-
-    // await mongoose.connection.close();
+    await mongoose.connection.close();
     
 
     console.log("\nDatabase'e eklendi!");
@@ -1415,7 +1405,23 @@ router.post('/update_one_record', async (req, res) => {
   }
 });
 
-
+router.get("/logout", (req, res) => {
+  req.session.user = null;
+  req.session.isAuthenticated = false;
+  req.session.save((err) => {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+    req.session.regenerate((err) => {
+      if(err){
+        console.log(err);
+        throw err;
+      }
+      res.redirect("/login");
+    });
+  });
+});
 
 
 

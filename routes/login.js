@@ -316,7 +316,12 @@ router.post('/verify_lockout_code', (req, res) => {
 
 // get request to show the main ADMIN LOGIN page. 
 router.get("/", (req, res) => {
-  res.render("admin_login/admin_login.ejs");
+  if(req.session.isAuthenticated && req.session.user){
+    res.redirect("/admin_panel/doktorlar");
+  }
+  else {
+    res.render("admin_login/admin_login.ejs");
+  }
 });
 
 

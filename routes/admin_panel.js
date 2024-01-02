@@ -880,7 +880,7 @@ router.get('/read_doctors', async (req, res) => {
               await Patientlist.findByIdAndDelete(pastPatient._id);
         
               // Add to pastdueappointments
-              console.log("Past patient!!!!!: " + pastPatient);
+              //console.log("Past patient!!!!!: " + pastPatient);
               const pastPatientObject = pastPatient.toObject();
               const pastDueAppointment = new PastPatientlist(pastPatientObject);
               await pastDueAppointment.save();
@@ -1423,6 +1423,40 @@ router.post('/update_one_record', async (req, res) => {
 });
 
 
+
+router.get('/read_searched_patient/:name/:surname', async (req, res) => {
+  
+  
+  
+  const { name, surname } = req.params;
+
+  //console.log("read_searched_patient'a girdik: " + name + surname);
+
+  // if (!ObjectId.isValid(id)) {
+  //   return res.status(400).json({ error: 'Invalid ID' });
+  // }
+
+  await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    const patient = await PatientHistoryList.find({ name: name, surname: surname });
+
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    //console.log("ARANAN HASTA: \n" + patient);
+
+    res.json(patient);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in get_records');
+  } finally {
+    await mongoose.connection.close();
+    console.log('Disconnected from MongoDB in get_records');
+  }
+});
 
 
 

@@ -1439,7 +1439,19 @@ router.get('/read_searched_patient/:name/:surname', async (req, res) => {
   await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
-    const patient = await PatientHistoryList.find({ name: name, surname: surname });
+    //const patient = await PatientHistoryList.find({ name: name, surname: surname });
+
+    const nameRegex = new RegExp(name, "i");
+    const surnameRegex = new RegExp(surname, "i");
+    
+    // Şimdi bu regex'leri kullanarak arama işlemlerini gerçekleştirebilirsiniz
+    // Örneğin, bir MongoDB sorgusu:
+    const patient = await PatientHistoryList.find({
+      $or: [
+        { name: nameRegex },
+        { surname: surnameRegex }
+      ]
+    });
 
 
     if (!patient) {

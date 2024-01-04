@@ -1010,7 +1010,7 @@ router.get('/read_doctors', async (req, res) => {
     
     const { name, surname, phoneNum, email, doctor, clinic, date, time, price, more, doctorComment } = req.body;
     
-    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(`${process.env.URL}clinicDB`, { useNewUrlParser: true, useUnifiedTopology: true });
 
     const PatientHistory = mongoose.model('patienthistory', patientHistorySchema);
 
@@ -1339,7 +1339,7 @@ router.get('/read_patient_records/:_id', async (req, res) => {
 
   const id = new ObjectId(_id);
 
-  await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(`${process.env.URL}clinicDB`, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
     const patient = await PatientHistoryList.findById(id);
@@ -1410,7 +1410,7 @@ router.post('/update_one_record', async (req, res) => {
   try {
     const { _patientID, _id, doctor, clinic, date, time, price, more, doctorComment } = req.body;
 
-    await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(`${process.env.URL}clinicDB`, { useNewUrlParser: true, useUnifiedTopology: true });
 
     const patient = await PatientHistoryList.findOneAndUpdate(
       {
@@ -1476,7 +1476,7 @@ router.get('/read_searched_patient/:name/:surname', async (req, res) => {
   //   return res.status(400).json({ error: 'Invalid ID' });
   // }
 
-  await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(`${process.env.URL}clinicDB`, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
     //const patient = await PatientHistoryList.find({ name: name, surname: surname });

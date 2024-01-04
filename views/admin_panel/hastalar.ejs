@@ -80,7 +80,30 @@
                     <div style="flex:10;">
                         <h2 id="randevuHeader">Hastalar</h2>
                     </div>
-                    
+
+                    <div style="flex:1;">
+                      <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">Ara</button>
+                  </div>
+                  <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
+              
+                     <form onsubmit="searchPatient(event)" class="form-container">
+                      
+                          <div style="display: flex; gap: 50px;">
+                              <h1>Ara</h1>
+                              <a style="cursor: pointer;" onclick="closeForm()"><img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
+                          </div>
+
+                          <label for="Name"></label>
+                          <input type="text" placeholder="Hasta Adı" name="personelName" required>
+
+                          <label for="surname"></label>
+                          <input type="text" placeholder="Hasta Soyadı" name="personelSurname" required>
+
+                          <button type="submit" class="btn">Ara</button>
+                      </form>
+                  </div>
+
                 </div>
 
 
@@ -507,6 +530,62 @@
     function closeRecordUpdateForm() {
       const form = document.getElementById('myRecordUpdateForm');
       form.style.display = 'none';
+    }
+
+
+    function searchPatient(event) {
+      event.preventDefault();  // Formun otomatik submit olmasını engelle
+      
+      const form = event.target;
+
+      // Formdaki input alanlarına ulaşıldı
+      const nameInput = form.querySelector('input[name="personelName"]');
+      const surnameInput = form.querySelector('input[name="personelSurname"]');
+    
+      // Input alanlarının değerlerine ulaştık
+      const nameValue = nameInput.value;
+      const surnameValue = surnameInput.value;
+
+      showSearchedPatients(nameValue, surnameValue);
+      
+
+    }
+
+    function showSearchedPatients(name, surname){
+      console.log("showSearchedPatients başı");
+      fetch(`/admin_panel/read_searched_patient/${name}/${surname}`)
+      .then(response => response.json())
+      .then(doctors => {
+        const appointmentsContainer = document.getElementById('appointmentsContainer');
+        appointmentsContainer.innerHTML = ''; // Clear previous content
+
+        doctors.forEach(patient => {
+          const patientInfo = `
+            <tr>
+              <td>${patient.name}</td>
+              <td>${patient.surname}</td>
+              <td>${patient.phoneNum}</td>
+              <td>${patient.email}</td>
+              <td>
+                <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                <button onclick="deletePatient('${patient._id}')">Kaldır</button>
+                <button onclick="showRecordsofPatient('${patient._id}')">Geçmişi Göster</button>
+                
+              </td>
+              
+            </tr>
+          `;
+
+          appointmentsContainer.innerHTML += patientInfo;
+          //console.log("ID in showDoctors(): " + patient._id);
+        });
+
+        updateAppointmentsCount(doctors.length);
+
+      })
+      .catch(error => console.error('Error fetching patients:', error));
+
+
     }
 
 

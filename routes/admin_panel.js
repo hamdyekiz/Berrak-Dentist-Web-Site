@@ -848,6 +848,20 @@ router.get('/read_doctors', async (req, res) => {
     });
 
 
+    const PastPatientlist = mongoose.model('pastdueappointments', {
+      name: String,
+      surname: String,
+      phoneNum: String,
+      email: String,
+      doctor: String,
+      clinic: String,
+      date: String,
+      time: String,
+      price: String,
+      more: String
+    });
+
+
   router.get('/read_appointments', async (req, res) => {
     const moment = require('moment');
     
@@ -875,10 +889,48 @@ router.get('/read_doctors', async (req, res) => {
 
             // Only include appointments that are after the current time
             currentTime = moment();
+
+            // Geçmiş randevuları bulma 
+            let allpastPatients;
+            allpastPatients = allPatients.filter(patient => {
+              let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
+              return currentTime.isAfter(appointmentTime_);
+            });
+
+            //console.log("ESKI : !!! \n" + allpastPatients);
+
+            for (const pastPatient of allpastPatients) {
+              // Remove from patientlists
+              await Patientlist.findByIdAndDelete(pastPatient._id);
+        
+              // Add to pastdueappointments
+              //console.log("Past patient!!!!!: " + pastPatient);
+              const pastPatientObject = pastPatient.toObject();
+              const pastDueAppointment = new PastPatientlist(pastPatientObject);
+              await pastDueAppointment.save();
+            }
+
+            
+
+            // geçmiş randevuları patientlists'ten silme
+
+
+
+
+
+
             allPatients = allPatients.filter(patient => {
                 let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
                 return appointmentTime_.isAfter(currentTime);
             });
+
+            //console.log("YENI : !!! \n" + allPatients);
+
+
+
+            // 
+
+            
 
     
             switch(filter) {
@@ -1071,18 +1123,7 @@ router.post('/create_past_patient_appointment', async (req, res) => {
 });  
 
 
-const PastPatientlist = mongoose.model('pastDueAppointments', {
-  name: String,
-  surname: String,
-  phoneNum: String,
-  email: String,
-  doctor: String,
-  clinic: String,
-  date: String,
-  time: String,
-  price: String,
-  more: String
-});
+
 
 
 router.get('/read_past_appointments', async (req, res) => {
@@ -1271,8 +1312,8 @@ router.get('/read_patient_histories', async (req, res) => {
 
 
   try {
-    // Fetch doctors from the database
-    const patients = await PatientHistoryList.find();
+    // Fetch doctors from the database and sort them alphabetically
+    const patients = await PatientHistoryList.find().collation({ locale: 'tr', strength: 2, }).sort({ name: 1, surname: 1, });
 
     res.json(patients);
   } catch (error) {
@@ -1421,6 +1462,52 @@ router.get("/logout", (req, res) => {
       res.redirect("/login");
     });
   });
+});
+
+router.get('/read_searched_patient/:name/:surname', async (req, res) => {
+  
+  
+  
+  const { name, surname } = req.params;
+
+  //console.log("read_searched_patient'a girdik: " + name + surname);
+
+  // if (!ObjectId.isValid(id)) {
+  //   return res.status(400).json({ error: 'Invalid ID' });
+  // }
+
+  await mongoose.connect('mongodb://localhost:27017/clinicDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    //const patient = await PatientHistoryList.find({ name: name, surname: surname });
+
+    const nameRegex = new RegExp(name, "i");
+    const surnameRegex = new RegExp(surname, "i");
+    
+    // Şimdi bu regex'leri kullanarak arama işlemlerini gerçekleştirebilirsiniz
+    // Örneğin, bir MongoDB sorgusu:
+    const patient = await PatientHistoryList.find({
+      $or: [
+        { name: nameRegex },
+        { surname: surnameRegex }
+      ]
+    });
+
+
+    if (!patient) {
+      return res.status(404).json({ error: 'Patient not found' });
+    }
+
+    //console.log("ARANAN HASTA: \n" + patient);
+
+    res.json(patient);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in get_records');
+  } finally {
+    await mongoose.connection.close();
+    console.log('Disconnected from MongoDB in get_records');
+  }
 });
 
 

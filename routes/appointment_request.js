@@ -47,8 +47,7 @@ router.post('/submit', (req, res) => {
     // check if the email is a valid email
     if (!isEmailValid(email)) {
         console.log("email is not valid!");
-
-        // res.render("index.ejs", { error: "error" });
+        
         res.redirect("/randevu/randevu_main/randevu.html"); // !!!!!! test this.
         return;
     }
@@ -154,13 +153,23 @@ function sendEmail(name, telNo, email, availableHours) {
 }
 
 function isEmailValid(email) {
-    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\.?[a-zA-Z]*$/;
     let isTempMail = false;
     let popularDomains = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "yandex.com", "protonmail.com", "edu.tr"];
 
     let domain = email.split("@")[1];
     if (!popularDomains.includes(domain)) {
         isTempMail = true;
+    }
+    // if domain has edu.tr in it should be valid if it is like this: something@gtu.edu.tr
+    // it can be gtu or itu or whatever
+    if (domain.includes("edu.tr")) {
+        console.log(domain);
+        let x = domain.split(".");
+        console.log(x);
+        if (x[1] == "edu" && x[2] == "tr") {
+            isTempMail = false;
+        }
     }
 
     return emailRegex.test(email) && !isTempMail;

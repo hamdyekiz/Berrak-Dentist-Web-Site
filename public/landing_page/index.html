@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
   <!-- styles -->
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/landing_page/styles.css" />
 </head>
 
 <body>
@@ -32,6 +32,8 @@
           <button class="nav-toggle">
             <i class="fas fa-bars"></i>
           </button>
+
+
         </div>
         <!-- links -->
         <div class="links-container">
@@ -44,10 +46,12 @@
               <a href="#about" class="scroll-link">HAKKIMIZDA</a>
             </li>
             <li>
-              <a href="../doctors/doctor1.html">DOKTORLARIMIZ</a>
+              <!-- <a href="#services" class="scroll-link">DOKTORLARIMIZ</a> -->
+              <a href="../doktorlar/doctor1.html">DOKTORLARIMIZ</a>
             </li>
             <li>
-              <a href="../cures/implant.html">TEDAVİLER</a>
+              <!-- <a href="#cures" class="scroll-link">TEDAVİLER</a> -->
+              <a href="../tedaviler/implant.html">TEDAVİLER</a>
             </li>
             <li>
               <a href="#contact" class="scroll-link">İLETİŞİM</a>
@@ -55,7 +59,6 @@
           </ul>
 
         </div>
-
         <div class="social-icons-container">
           <ul class="social-icons" style="display:flex;gap:15px;margin-left:60px;">
             <li>
@@ -71,7 +74,7 @@
             </li>
             <li>
               <a target="_blank"
-                href="https://api.whatsapp.com/send/?phone=905071757186&text&type=phone_number&app_absent=0">
+                href="https://api.whatsapp.com/send/?phone=902163972850&text&type=phone_number&app_absent=0">
                 <img src="../svg/whatsapp.svg" style="width:25px;height:25px;">
 
               </a>
@@ -79,13 +82,13 @@
             </li>
 
             <li>
-              <a href="../admin_login/admin_login.html">Giriş</a>
+              <!-- <a href="/admin_login/admin_login.html">Giriş</a> -->
+              <a href="/login/">Giriş</a>
 
             </li>
 
           </ul>
         </div>
-
       </div>
     </nav>
     <!-- banner -->
@@ -93,11 +96,13 @@
       <div class="container">
         <h1>BERRAK AĞIZ VE DİŞ SAĞLIĞI</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas eos
-          neque sunt in? Id, necessitatibus quos quisquam distinctio
-          laudantium fugiat?
+          <br>Berrak Ağız ve Diş Sağlığı Polikliniği'ne Hoş Geldiniz! <br>
+          Sağlıklı gülüşlerin adresi olan kliniğimiz, alanında uzman doktorlarımız ve son teknoloji ekipmanlarımızla siz
+          değerli hastalarımıza hizmet vermektedir.
+          <br>Siz de sağlıklı ve doğal bir gülüşe sahip olmak için randevunuzu hemen alabilirsiniz
+          <br><br>
         </p>
-        <a id="appointment" href="../randevu/randevu.html">RANDEVU AL</a>
+        <a id="appointment" href="../randevu/randevu_main/randevu.html">RANDEVU AL</a>
       </div>
     </div>
   </header>
@@ -105,22 +110,37 @@
   <section id="about" class="section">
     <div class="title">
       <h2>HAKKIMIZDA</h2>
+      <p style="text-align: center;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 20px;
+      border-radius: 10px;">
+        Biz, Berrak Ağız ve Diş Sağlığı Polikliniği, sağlıklı ve doğal gülüşlerin adresiyiz. Alanında uzman
+        doktorlarımız ve son teknoloji ekipmanlarımızla, siz değerli hastalarımıza kaliteli ve güvenilir hizmet sunmayı
+        amaçlıyoruz. Hastalarımızın memnuniyeti ve sağlığı bizim için her zaman önceliklidir.
 
+        Polikliniğimizde, ağız ve diş sağlığı ile ilgili geniş bir yelpazede hizmetler sunuyoruz. Estetik diş hekimliği,
+        implantoloji, ortodonti ve daha birçok alanda, en güncel tedavi yöntemlerini kullanarak hastalarımızın
+        ihtiyaçlarına en iyi şekilde yanıt vermeye çalışıyoruz.
+
+        Sağlıklı ve mutlu gülüşlerinizi bizimle paylaşmak için randevunuzu hemen alabilirsiniz. Berrak Ağız ve Diş
+        Sağlığı Polikliniği olarak, sizleri ağırlamaktan ve en iyi hizmeti sunmaktan mutluluk duyarız.
+      </p>
   </section>
   <!-- doctors -->
   <section id="services" class="section">
     <div class="title">
-      <h2>DOKTORLAR</h2>
+      <h2 style="padding-top: 15px; margin-bottom: 0px;">DOKTORLAR</h2>
       <div class="img-container">
         <div class="doctor-container">
-          <a href="../doctors/doctor1.html#doc1">
+          <a href="../doktorlar/doctor1.html#doc1">
             <img class="doctorimg" src="../img/doctor1.jpg" alt="">
           </a>
           <p style="margin-top: 15px; color: black;">ÇETİN ÖZGÜR KALDIRIMOĞLU
           </p>
         </div>
         <div class="doctor-container">
-          <a href="../doctors/doctor1.html#doc2">
+          <a href="../doktorlar/doctor1.html#doc2">
             <img class="doctorimg" src="../img/doctor2.jpg" alt="">
 
           </a>
@@ -136,40 +156,40 @@
       <h2>TEDAVİLER</h2>
 
       <div class="grid-container">
-        <a href="../cures/implant.html#c1">
+        <a href="../tedaviler/implant.html#c1">
           <div id="coure-1" class="grid-item">Implant</div>
         </a>
-        <a href="../cures/implant.html#c2">
+        <a href="../tedaviler/implant.html#c2">
           <div id="coure-2" class="grid-item">Estetik Diş</div>
         </a>
-        <a href="../cures/implant.html#c3">
+        <a href="../tedaviler/implant.html#c3">
           <div id="coure-3" class="grid-item">Diş Protezi</div>
         </a>
-        <a href="../cures/implant.html#c4">
+        <a href="../tedaviler/implant.html#c4">
           <div id="coure-4" class="grid-item">Endodontik Tedaviler</div>
         </a>
-        <a href="../cures/implant.html#c5">
+        <a href="../tedaviler/implant.html#c5">
           <div id="coure-5" class="grid-item">Ortodonti</div>
         </a>
-        <a href="../cures/implant.html#c6">
+        <a href="../tedaviler/implant.html#c6">
           <div id="coure-6" class="grid-item">Kanal Tedavisi</div>
         </a>
-        <a href="../cures/implant.html#c7">
+        <a href="../tedaviler/implant.html#c7">
           <div id="coure-7" class="grid-item">Ağız Çene Diş Cerrahisi</div>
         </a>
-        <a href="../cures/implant.html#c8">
+        <a href="../tedaviler/implant.html#c8">
           <div id="coure-8" class="grid-item">Dolgu</div>
         </a>
-        <a href="../cures/implant.html#c9">
+        <a href="../tedaviler/implant.html#c9">
           <div id="coure-9" class="grid-item">Diş Eti Hastalıkları</div>
         </a>
-        <a href="../cures/implant.html#c10">
+        <a href="../tedaviler/implant.html#c10">
           <div id="coure-10" class="grid-item">Çocuk Diş Hekimliği</div>
         </a>
-        <a href="../cures/implant.html#c11">
+        <a href="../tedaviler/implant.html#c11">
           <div id="coure-11" class="grid-item">Dental Radyoloji</div>
         </a>
-        <a href="../cures/implant.html#c12">
+        <a href="../tedaviler/implant.html#c12">
           <div id="coure-12" class="grid-item">Diş tedavi Yöntemleri</div>
         </a>
       </div>
@@ -213,7 +233,6 @@
     </div>
 
 
-
   </section>
   <!-- contact -->
   <section id="contact" class="section">
@@ -225,7 +244,7 @@
           <hr>
           <div class="contact-icon">
             <img src="../svg/location-pin-alt-1-svgrepo-com.svg" style="width: 25px;height: 25px; ">
-            <p>Fevzi Çakmak Mah. Meriç Sk. No:3/2 Pendik, Istanbul, Turkey</p>
+            <p>Fevzi Çakmak Mah. Şen Sk. No:3/2 Pendik, Istanbul, Turkey</p>
           </div>
           <div class="contact-icon">
             <img src="../svg/telephone.svg" style="width: 25px;height: 25px;">
@@ -263,7 +282,7 @@
   </footer>
 
   <!-- javascript -->
-  <script src="app.js"></script>
+  <script src="/landing_page/app.js"></script>
 </body>
 
 </html>

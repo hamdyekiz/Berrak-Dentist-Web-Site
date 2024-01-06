@@ -24,7 +24,8 @@ html {
 
 body {
     font-family: "Open Sans", sans-serif;
-    background-color: hsl(210, 36%, 96%);;
+    background-color: hsl(210, 36%, 96%);
+    ;
     color: hsl(209, 61%, 16%);
     line-height: 1.5;
     font-size: 0.875rem;
@@ -133,52 +134,52 @@ nav {
     ;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     z-index: 99;
-  }
-  
-  
-  .contact-icon {
+}
+
+
+.contact-icon {
     display: flex;
     gap: 15px;
-  }
-  
-  .links-container .links a:hover {
+}
+
+.links-container .links a:hover {
     color: #222;
-  }
-  
-  .nav-header {
+}
+
+.nav-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  .nav-toggle {
+}
+
+.nav-toggle {
     font-size: 1.5rem;
     color: hsl(209, 61%, 16%);
     background: transparent;
     border-color: transparent;
     transition: all 0.3s linear;
     cursor: pointer;
-  }
-  
-  .nav-toggle:hover {
+}
+
+.nav-toggle:hover {
     transform: scale(1.2);
-  }
-  
-  .logo {
+}
+
+.logo {
     height: 50px;
-  }
-  
-  .links-container {
+}
+
+.links-container {
     height: 0;
     overflow: hidden;
     transition: all 0.3s linear;
-  }
-  
-  .show-links {
+}
+
+.show-links {
     height: 250px;
-  }
-  
-  .links a {
+}
+
+.links a {
     background-color: hsl(205, 89%, 70%);
     ;
     color: hsl(210, 22%, 49%);
@@ -189,73 +190,73 @@ nav {
     transition: all 0.3s linear;
     font-weight: bold;
     padding: 0.75rem 0;
-  }
-  
-  .links a:hover {
+}
+
+.links a:hover {
     color: hsl(209, 61%, 16%);
-  }
-  
-  @media screen and (max-width: 800px) {
+}
+
+@media screen and (max-width: 800px) {
     .social-icons-container {
-      display: none;
+        display: none;
     }
 
     .mydiv {
         display: flex;
         flex-direction: row;
         gap: 50%;
-      }
-    
-  }
-  
-  @media screen and (min-width: 800px) {
+    }
+
+}
+
+@media screen and (min-width: 800px) {
     nav {
-      background-color: hsl(205, 89%, 70%);
+        background-color: hsl(205, 89%, 70%);
     }
-  
+
     .nav-center {
-      width: 90vw;
-      max-width: 1170px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+        width: 90vw;
+        max-width: 1170px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-  
+
     .nav-header {
-      padding: 0;
+        padding: 0;
     }
-  
+
     .nav-toggle {
-      display: none;
+        display: none;
     }
-  
+
     .links-container {
-      height: auto !important;
+        height: auto !important;
     }
-  
+
     .links {
-      display: flex;
+        display: flex;
     }
-  
+
     .links a {
-      background: transparent;
-      color: #fff;
-      font-size: 0.75rem;
-      text-transform: capitalize;
-      letter-spacing: 0.25rem;
-      display: block;
-      transition: all 0.3s linear;
-      margin: 0 1rem;
-      font-weight: bold;
-      padding: 0;
+        background: transparent;
+        color: #fff;
+        font-size: 0.75rem;
+        text-transform: capitalize;
+        letter-spacing: 0.25rem;
+        display: block;
+        transition: all 0.3s linear;
+        margin: 0 1rem;
+        font-weight: bold;
+        padding: 0;
     }
-  
+
     .links a:hover {
-      color: #fff;
+        color: #fff;
     }
-  }
-  
+}
+
 
 /* hero */
 header {
@@ -304,7 +305,7 @@ header {
     margin-top: 90px;
     text-align: center;
 
-        
+
     height: 100%;
 }
 
@@ -324,8 +325,8 @@ header {
 
 html {
     background: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7)),
-    url(../img/group-of-doctors.jpg) center/cover no-repeat;
-        background-size: cover;
+        url(../img/group-of-doctors.jpg) center/cover no-repeat;
+    background-size: cover;
     height: 100%;
     background-attachment: fixed;
 }
@@ -341,10 +342,25 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Optional: Adjust the height to your preference */
+    height: 100vh;
+    /* Optional: Adjust the height to your preference */
 }
 
+#success-conf {
+    font-size: 25px;
+}
 
+#success-div {
+
+    width: 450px;
+    margin: 15px auto;
+    /* Center the element horizontally using auto margin */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+
+}
 
 
 #form-div {
@@ -354,7 +370,8 @@ html {
     padding-top: 35px;
     padding-bottom: 50px;
     width: 450px;
-    margin: 15px auto; /* Center the element horizontally using auto margin */
+    margin: 15px auto;
+    /* Center the element horizontally using auto margin */
     border-radius: 10px;
 }
 
@@ -436,6 +453,49 @@ input:focus,
 textarea:focus {
     background-color: white;
 }
+
+#button-return {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    float: left;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+    background-color: #21325b;
+    border-color: #21325b;
+    border: none;
+    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: all 0.3s;
+    margin-top: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+#button-return:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    background-color: #1c2745;
+    border-color: #1c2745;
+}
+
+
+
+.form-popup {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fbfbfb;
+    z-index: 10;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 
 #button-blue {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;

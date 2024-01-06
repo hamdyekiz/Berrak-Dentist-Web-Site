@@ -174,7 +174,10 @@ main {
   display: grid;
   grid-template-columns: 275px 275px 275px 275px;
   padding: 10px;
-  margin: 100px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 100px;
+  margin-top: 75px;
   row-gap: 10px;
   column-gap: 10px;
   /* Only set row-gap to 10px */
@@ -423,11 +426,108 @@ header {
   text-align: center;
 }
 
+@media (max-width: 1280px) {
+  .review__headerDescription {
+    height: 300px;
+    width: 100%;
+  }
+
+  .img-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    /* Adjust the gap as needed */
+  }
+
+  .mydiv {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  .img-container>div {
+    text-align: center;
+  }
+
+  .doctorimg {
+    width: 180px;
+    height: 180px;
+  }
+
+
+  .grid-container {
+    grid-template-columns: auto auto auto;
+  }
+
+  .grid-item {
+    height: 175px;
+    width: 180px;
+    padding: 20px;
+    border-radius: 5%;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    object-fit: cover;
+  }
+
+  .review {
+    flex-direction: column;
+    width: 50%;
+
+  }
+
+  .review__ {
+    width: 350px;
+
+
+  }
+
+  .abc {
+    flex-direction: column;
+    gap: 0px;
+    /* justify-content: ; */
+
+  }
+
+  .map {
+    height: 300px;
+  }
+
+  .mapx {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info {
+    width: 100%;
+    height: auto;
+  }
+
+  .nav-header {
+    gap: 15px;
+  }
+
+  .social-icons {
+    display: none;
+  }
+
+  #services {
+    width: 100%;
+  }
+
+
+}
+
+
 
 
 @media (max-width: 767px) {
   .review__headerDescription {
-
+    height: 300px;
     width: 100%;
   }
 
@@ -589,7 +689,7 @@ header {
 .title h2 {
   text-align: center;
   text-transform: uppercase;
-  margin-top: 1rem;
+  padding-top: 6rem;
   margin-bottom: 2rem;
 }
 
@@ -713,7 +813,7 @@ hr {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .review {
     width: 100%;
     flex-direction: column;

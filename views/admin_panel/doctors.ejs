@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Boostrap 4 responsive Sidebar template with slide in/out effect">
+    <meta name="author" content="Simran Singh">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+    <title>Responsive sidebar - Boostrap 4 - Light</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin_panel/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="side-bar side-bar-light">
+        <nav class="navbar navbar-inverse">
+
+            <div style="text-align: center; display:flex;flex-direction: column;">
+                <a style="color: black;" class="navbar-brand">Admin</a>
+                <a style="color: gray;" class="navbar-brand">adming@gmail.com</a>
+
+            </div>
+
+            <a href="/admin_panel/logout">
+              <button class="logout-button">Çıkış Yap</button>
+            </a>
+            
+            <hr />
+            <div class="list-container">
+                <ul>
+                    <li><a href="/admin_panel/doktorlar" class="active" ></span>Doktorlar</a></li>
+                    <li><a href="/admin_panel/asistanlar">Asistanlar</a></li>
+                    <li><a href="/admin_panel/gelecek_randevular" >Gelecek Randevular</a></li>
+                    <li><a href="/admin_panel/hastalar">Hastalar</a></li>
+                    <li><a href="/admin_panel/eski_randevular">Geçmiş Randevular</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof addDoctorSuccessful !== 'undefined') { %>
+    <% if (addDoctorSuccessful) { %>
+      <script>alert("Doktor başarıyla eklendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor eklenemedi!");</script>
+    <% } %>
+  <% } %>    
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof updateDoctorSuccessful !== 'undefined') { %>
+    <% if (updateDoctorSuccessful) { %>
+      <script>alert("Doktor bilgileri başarıyla güncellendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor bilgileri güncellenemedi!!");</script>
+    <% } %>
+  <% } %> 
+
+
+  <!-- delete olduğu zaman uyarı çıkar. -->
+  <% if (typeof deleteDoctorSuccessful !== 'undefined') { %>
+    <% if (deleteDoctorSuccessful) { %>
+      <script>alert("Doktor sistemden silindi!");</script>
+    <% } else { %>
+      <script>alert("Doktor sistemden silinemedi!");</script>
+    <% } %>
+  <% } %>
+
+
+    <div class="bodyContent">
+        <div style="padding:2rem">
+            <div class="right-page">
+                <div style="display: flex;">
+                    <div style="flex:10;">
+                        <h2 id="randevuHeader">Doktorlar</h2>
+                    </div>
+                    <div style="flex:1;">
+                        <button class="add-btn" id="addDoctorBtn" onclick="openForm()" style="width: 140px;">+ Doktor Ekle</button>
+                    </div>
+                    <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
+                
+                       <form action="/admin_panel/create_doctor/" method="post" class="form-container">
+                        
+                            <div style="display: flex; gap: 50px;">
+                                <h1>Doktor Ekle</h1>
+                                <a style="cursor: pointer;" onclick="closeForm()"><img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
+                            </div>
+
+                            <label for="Name"></label>
+                            <input type="text" placeholder="Doktor Adı" name="personelName" required>
+
+                            <label for="surname"></label>
+                            <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
+
+                            <label for="phoneNum"></label>
+                            <input type="text" placeholder="Telefon" name="personelPhoneNum" required>
+
+                            <label for="email"></label>
+                            <input type="text" placeholder="Email" name="personelEmail">
+
+                            <label for="password"></label>
+                            <input type="text" placeholder="Şifre" name="personelPassword" required>
+
+
+
+
+                            <button type="submit" class="btn">Ekle</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <br />
+                <table id="randevuTable">
+                    <thead>
+                      <tr>
+                        <th>Doktor Adı</th>
+                        <th>Doktor Soyadı</th>
+                        <th>Telefon</th>
+                        <th>E-posta</th>
+                        <th>Ünvan</th>
+                        <th>Klinik</th>
+                        <th>Eylemler</th>
+                      </tr>
+                    </thead>
+                    <tbody id="appointmentsContainer">
+                      <!-- Doctors information will be displayed here -->
+                    </tbody>
+                  </table>
+
+                  <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
+                    <form action="/admin_panel/update_doctor/" method="post" class="form-container">
+                      <div style="display: flex; gap: 50px;">
+                        <h1>Doktor Bilgilerini Güncelle</h1>
+                        <a style="cursor: pointer;" onclick="closeUpdateForm()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                        </a>
+                      </div>
+
+                            
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+
+
+                            <label for="Name"></label>
+                            <input type="text" placeholder="Doktor Adı" name="name" required>
+
+                            <label for="surname"></label>
+                            <input type="text" placeholder="Doktor Soyadı" name="surname" required>
+
+                            <label for="phoneNum"></label>
+                            <input type="text" placeholder="Telefon" name="phoneNum" required>
+
+                            <label for="email"></label>
+                            <input type="text" placeholder="Email" name="email">
+
+                            <label for="Password"></label>
+                            <input type="text" placeholder="Şifre" name="password" required>
+          
+                
+                      <button type="submit" class="btn">Güncelle</button>
+                    </form>
+                  </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function(){
+            showAppointments();
+        });
+
+        var d_table = document.getElementById("randevuTable");
+
+        // Get the number of rows in the table
+        var d_rowCount = d_table.rows.length - 1;
+
+        // Update the heading dynamically
+        var d_header = document.getElementById("randevuHeader");
+        d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
+
+        function openForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+                form.style.display = "block";
+                body.classList.add("darken-bg");
+                d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                addDoctorBtn.style.opacity = "0.5"; 
+        }
+
+        function closeForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+            form.style.display = "none";
+            body.classList.remove("darken-bg");
+            d_table.style.opacity = "1"; // Reset opacity when the form is closed
+            addDoctorBtn.disabled = false; // Enable the button when the form is closed
+            setInteractionsEnabled(true);
+            addDoctorBtn.style.opacity = "1"; 
+        }
+
+        function toggleLink(event) {
+            var form = document.getElementById("myForm");
+            if (form.style.display === "block") {
+                event.preventDefault();
+            }
+        }
+
+        function setInteractionsEnabled(enabled) {
+            // Disable/enable anchor links
+            var links = document.querySelectorAll(".list-container a");
+            links.forEach(function (link) {
+                link.classList.toggle("disabled", !enabled); // Add or remove the disabled class
+            });
+
+            // Disable/enable buttons in the table
+            var buttons = document.querySelectorAll(".event-buttons button");
+            buttons.forEach(function (button) {
+                button.disabled = !enabled; // Set the disabled property
+            });
+
+            // Disable/enable the logout button
+            var logoutButton = document.querySelector(".logout-button");
+            logoutButton.disabled = !enabled;
+        }
+
+
+        function showAppointments() {
+            fetch('/admin_panel/read_doctors')
+              .then(response => response.json())
+              .then(doctors => {
+                const appointmentsContainer = document.getElementById('appointmentsContainer');
+                appointmentsContainer.innerHTML = ''; // Clear previous content
+        
+                doctors.forEach(patient => {
+                  const patientInfo = `
+                    <tr>
+                      <td>${patient.name}</td>
+                      <td>${patient.surname}</td>
+                      <td>${patient.phoneNum}</td>
+                      <td>${patient.email}</td>
+                      <td>${patient.title}</td>
+                      <td>${patient.clinic}</td>
+                      <td>
+                        <div  style="display: flex; gap: 10px;">
+
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                        <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
+                          <div>
+                        </td>
+                      
+                    </tr>
+                  `;
+        
+                  appointmentsContainer.innerHTML += patientInfo;
+                  //console.log("ID in showDoctors(): " + patient._id);
+                });
+
+                updateAppointmentsCount(doctors.length);
+
+              })
+              .catch(error => console.error('Error fetching patients:', error));
+        }
+
+        function updateAppointmentsCount(count) {
+            var d_header = document.getElementById("randevuHeader");
+            d_header.innerHTML = "Doktor (" + count + ")";
+          }
+
+
+          function openUpdateForm(id, name, surname, phoneNum, email) {
+            //console.log("open Update'deyim!!!!!!!");
+            //console.log("ID İn openUpdateform: " + id);
+          
+            // Formu seç
+            const form = document.getElementById('myUpdateForm');
+            const body = document.body;
+
+            body.classList.add("darken-bg");          
+            d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                addDoctorBtn.style.opacity = "0.4"
+            // Form alanlarını doldur
+            form.querySelector('input[name="_id"]').value = id;
+            form.querySelector('input[name="name"]').value = name;
+            form.querySelector('input[name="surname"]').value = surname;
+            form.querySelector('input[name="phoneNum"]').value = phoneNum;
+            form.querySelector('input[name="email"]').value = email;
+          
+            // Formu görünür hale getir
+            form.style.display = 'block';
+          }
+          
+      
+          function closeUpdateForm() {
+            const form = document.getElementById('myUpdateForm');
+            form.style.display = 'none';
+            const body = document.body;
+
+body.classList.remove("darken-bg");          
+d_table.style.opacity = "1"; // Set opacity for the table when the form is open
+    addDoctorBtn.disabled = false; // Disable the button when the form is open
+    setInteractionsEnabled(true);
+    addDoctorBtn.style.opacity = "1"
+          }
+
+
+
+          async function deletePatient(id) {
+            var confirmAction = confirm("Doktoru kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
+            try {
+                const response = await fetch('/admin_panel/delete_doctor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        _id: id
+                    }),
+                });
+        
+                if (response.ok) {
+                    // Alert göster
+                    alert('Doktor başarıyla silindi!');
+                    // '/admin_panel/doktorlar' sayfasına yönlendir
+                    window.location.href = '/admin_panel/doktorlar/';
+                } else {
+                    console.error('Error deleting doctor:', response.statusText);
+                    // Hata işleme
+                    alert('Doktor silinemedi: ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error deleting doctor:', error.message);
+                // Hata işleme
+                alert('Doktor silinemedi: ' + error.message);
+            }
+        }
+      }
+
+
+
+    </script>
+</body>
+
+</html>

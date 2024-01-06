@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Boostrap 4 responsive Sidebar template with slide in/out effect">
+    <meta name="author" content="Simran Singh">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+    <title>Responsive sidebar - Boostrap 4 - Light</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin_panel/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="side-bar side-bar-light">
+        <nav class="navbar navbar-inverse">
+
+            <div style="text-align: center; display:flex;flex-direction: column;">
+                <a style="color: black;" class="navbar-brand">Admin</a>
+                <a style="color: gray;" class="navbar-brand">adming@gmail.com</a>
+
+            </div>
+
+            <a href="/admin_panel/logout">
+              <button class="logout-button">Çıkış Yap</button>
+            </a>
+            <hr />
+            <div class="list-container">
+                <ul>
+                    <li><a href="/admin_panel/doktorlar"></span>Doktorlar</a></li>
+                    <li><a href="/admin_panel/asistanlar">Asistanlar</a></li>
+                    <li><a href="/admin_panel/gelecek_randevular">Gelecek Randevular</a></li>
+                    <li><a href="/admin_panel/hastalar" class="active">Hastalar</a></li>
+                    <li><a href="/admin_panel/eski_randevular">Geçmiş Randevular</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <!-- <% if (typeof addAppointmentSuccessful !== 'undefined') { %>
+    <% if (addAppointmentSuccessful) { %>
+      <script>alert("Hasta kaydı başarıyla eklendi!");</script>
+    <% } else { %>
+      <script>alert("Hasta kaydı eklenemedi!");</script>
+    <% } %>
+  <% } %>     -->
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof updatePatientHistorySuccessful !== 'undefined') { %>
+    <% if (updatePatientHistorySuccessful) { %>
+      <script>alert("Hasta kaydı başarıyla güncellendi!");</script>
+    <% } else { %>
+      <script>alert("Hasta kaydı güncellenemedi!!");</script>
+    <% } %>
+  <% } %> 
+
+
+  <!-- delete olduğu zaman uyarı çıkar. -->
+  <% if (typeof deletePatientHistorySuccessful !== 'undefined') { %>
+    <% if (deletePatientHistorySuccessful) { %>
+      <script>alert("Hasta kaydı silindi!");</script>
+    <% } else { %>
+      <script>alert("Hasta kaydı silinemedi!");</script>
+    <% } %>
+  <% } %>
+
+
+    <div class="bodyContent">
+        <div style="padding:2rem">
+            <div class="right-page">
+                <div style="display: flex;">
+                    <div style="flex:10;">
+                        <h2 id="randevuHeader">Hastalar</h2>
+                    </div>
+
+                    <div style="flex:1;">
+                      <button class="add-btn" id="addDoctorBtn" onclick="toggleForm('addDoctorBtn')" style="width: 140px;">Ara</button>
+                  </div>
+                  <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
+              
+                     <form onsubmit="searchPatient(event)" class="form-container">
+                      
+                          <div style="display: flex; gap: 50px;">
+                              <h1>Ara</h1>
+                              <a style="cursor: pointer;" onclick="closeForm()"><img
+                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
+                          </div>
+
+                          <label for="Name"></label>
+                          <input type="text" placeholder="Hasta Adı" name="personelName" required>
+
+                          <label for="surname"></label>
+                          <input type="text" placeholder="Hasta Soyadı" name="personelSurname" required>
+
+                          <button type="submit" class="btn">Ara</button>
+                      </form>
+                  </div>
+
+                </div>
+
+
+
+                <br />
+                <table id="randevuTable">
+                    <thead>
+                      <tr>
+                        <th>Hasta Adı</th>
+                        <th>Hasta Soyadı</th>
+                        <th>Telefon</th>
+                        <th>E-posta</th>
+                        <th>Eylemler</th>
+                      </tr>
+                    </thead>
+                    <tbody id="appointmentsContainer">
+                      <!-- Doctors information will be displayed here -->
+                    </tbody>
+                  </table>
+
+                  <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
+                    <form action="/admin_panel/update_patient_history/" method="post" class="form-container">
+                      <div style="display: flex; gap: 50px;">
+                        <h3>Hastayı Güncelle</h3>
+                        <a style="cursor: pointer;" onclick="closeUpdateForm()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                        </a>
+                      </div>
+
+                            
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+
+
+                            <label for="Name"></label>
+                            <input type="text" placeholder="Hasta Adı" name="name" required>
+
+                            <label for="surname"></label>
+                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
+
+                            <label for="phoneNum"></label>
+                            <input type="text" placeholder="Telefon" name="phoneNum" required>
+
+                            <label for="email"></label>
+                            <input type="text" placeholder="Email" name="email">
+
+                      <button type="submit" class="btn">Güncelle</button>
+                    </form>
+                  </div>
+
+ 
+                  <div class="form-popup" id="myRecordUpdateForm" style="max-height: 400px; overflow-y: auto;">
+                    <form action="/admin_panel/update_one_record/" method="post" class="form-container">
+                      <div style="display: flex; gap: 50px;">
+                        <h1>Hasta Geçmişini Güncelle</h1>
+                        <a style="cursor: pointer;" onclick="closeRecordUpdateForm()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                        </a>
+                      </div>
+
+                            <label for="patientID"></label>
+                            <input type="text" placeholder="patientID" name="_patientID" required readonly style="display: none;">
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+
+
+                            <label for="Doctor"></label>
+                            <input type="text" placeholder="Doktor" name="doctor" required>
+
+                            <label for="clinic"></label>
+                            <input type="text" placeholder="Klinik" name="clinic" required>
+
+                            <label for="date"></label>
+                            <input type="text" placeholder="Tarih" name="date" required>
+
+                            <label for="time"></label>
+                            <input type="text" placeholder="Saat" name="time">
+
+                            <label for="price"></label>
+                            <input type="text" placeholder="Ücret" name="price" required>
+
+                            <label for="more"></label>
+                            <input type="text" placeholder="Daha Fazla" name="more">
+
+                            <label for="doctorComment"></label>
+                            <input type="text" placeholder="Doktor Yorumu" name="doctorComment" required>
+
+                      <button type="submit" class="btn">Kaydı Güncelle</button>
+                    </form>
+                  </div>
+
+
+
+
+
+                  <div id="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <h2>Hasta Geçmişi</h2>
+                        <table id="recordTable">
+                          <!-- <thead>
+                            <tr>
+                              <th>Doktor</th>
+                              <th>Klinik</th>
+                              <th>Tarih</th>
+                              <th>Saat</th>
+                              <th>Ücret</th>
+                              <th>Daha Fazla</th>
+                              <th>Doktor Yorumu</th>
+                            </tr>
+                          </thead> -->
+                          <tbody id="recordsContainer">
+                            <!-- Records information will be displayed here -->
+                          </tbody>
+                        </table>
+                        
+                    </div>
+                  </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function(){
+            showAppointments();
+        });
+        
+
+        var d_table = document.getElementById("randevuTable");
+
+        // Get the number of rows in the table
+        var d_rowCount = d_table.rows.length - 1;
+
+        // Update the heading dynamically
+        var d_header = document.getElementById("randevuHeader");
+        d_header.innerHTML = "Hastalar (" + d_rowCount + ")";
+
+        function toggleForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+            if (form.style.display === "block") {
+                form.style.display = "none";
+                body.classList.remove("darken-bg");
+                d_table.style.opacity = "1"; // Reset opacity when form is closed
+                addDoctorBtn.disabled = false; // Enable the button when the form is closed
+                setInteractionsEnabled(true);
+            } else {
+                form.style.display = "block";
+                body.classList.add("darken-bg");
+                d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+            }
+        }
+
+        function closeForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+
+            form.style.display = "none";
+            body.classList.remove("darken-bg");
+            d_table.style.opacity = "1"; // Reset opacity when the form is closed
+            addDoctorBtn.disabled = false; // Enable the button when the form is closed
+            setInteractionsEnabled(true);
+        }
+
+        function toggleLink(event) {
+            var form = document.getElementById("myForm");
+            if (form.style.display === "block") {
+                event.preventDefault();
+            }
+        }
+
+        function setInteractionsEnabled(enabled) {
+            // Disable/enable anchor links
+            var links = document.querySelectorAll(".list-container a");
+            links.forEach(function (link) {
+                link.classList.toggle("disabled", !enabled); // Add or remove the disabled class
+            });
+
+            // Disable/enable buttons in the table
+            var buttons = document.querySelectorAll(".event-buttons button");
+            buttons.forEach(function (button) {
+                button.disabled = !enabled; // Set the disabled property
+            });
+
+            // Disable/enable the logout button
+            var logoutButton = document.querySelector(".logout-button");
+            logoutButton.disabled = !enabled;
+        }
+
+
+        function showAppointments() {
+            fetch('/admin_panel/read_patient_histories')
+              .then(response => response.json())
+              .then(doctors => {
+                const appointmentsContainer = document.getElementById('appointmentsContainer');
+                appointmentsContainer.innerHTML = ''; // Clear previous content
+        
+                doctors.forEach(patient => {
+                  const patientInfo = `
+                    <tr>
+                      <td>${patient.name}</td>
+                      <td>${patient.surname}</td>
+                      <td>${patient.phoneNum}</td>
+                      <td>${patient.email}</td>
+                      <td>
+                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                        <button onclick="deletePatient('${patient._id}')">Kaldır</button>
+                        <button onclick="showRecordsofPatient('${patient._id}')">Geçmişi Göster</button>
+                        
+                      </td>
+                      
+                    </tr>
+                  `;
+        
+                  appointmentsContainer.innerHTML += patientInfo;
+                  //console.log("ID in showDoctors(): " + patient._id);
+                });
+
+                updateAppointmentsCount(doctors.length);
+
+              })
+              .catch(error => console.error('Error fetching patients:', error));
+        }
+
+        function updateAppointmentsCount(count) {
+            var d_header = document.getElementById("randevuHeader");
+            d_header.innerHTML = "Hastalar (" + count + ")";
+          }
+
+
+          function openUpdateForm(id, name, surname, phoneNum, email) {
+            //console.log("open Update'deyim!!!!!!!");
+            //console.log("ID İn openUpdateform: " + id);
+          var body = document.body;
+          body.classList.add("darken-bg");
+          d_table.style.opacity = "0.5"; 
+          addDoctorBtn.disabled = true; 
+          setInteractionsEnabled(false);
+            // Formu seç
+            const form = document.getElementById('myUpdateForm');
+          
+            // Form alanlarını doldur
+            form.querySelector('input[name="_id"]').value = id;
+            form.querySelector('input[name="name"]').value = name;
+            form.querySelector('input[name="surname"]').value = surname;
+            form.querySelector('input[name="phoneNum"]').value = phoneNum;
+            form.querySelector('input[name="email"]').value = email;
+          
+            // Formu görünür hale getir
+            form.style.display = 'block';
+          }
+          
+      
+          function closeUpdateForm() {
+            const form = document.getElementById('myUpdateForm');
+            form.style.display = 'none';
+            var body = document.body;
+          body.classList.remove("darken-bg");
+          d_table.style.opacity = "1"; 
+          addDoctorBtn.disabled = false; 
+          setInteractionsEnabled(true);
+          }
+
+
+
+          async function deletePatient(id) {
+            var confirmAction = confirm("Hastayı kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
+      
+    
+            try {
+                const response = await fetch('/admin_panel/delete_patient_history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        _id: id
+                    }),
+                });
+        
+                if (response.ok) {
+                    // Alert göster
+                    alert('Hasta historysi başarıyla silindi!');
+                    // '/admin_panel/doktorlar' sayfasına yönlendir
+                    window.location.href = '/admin_panel/hastalar/';
+                } else {
+                    console.error('Error deleting patient history:', response.statusText);
+                    // Hata işleme
+                    alert('historysi silinemedi: ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error deleting patient history:', error.message);
+                // Hata işleme
+                alert('historysi silinemedi: ' + error.message);
+            }
+          }
+        }
+
+        //Async yazılmalı mı başına? 
+        function showRecordsofPatient(patientId) {
+          // Make a GET request to fetch patient records
+          document.getElementById("popup").style.display = "block";
+          var body = document.body;
+          body.classList.add("darken-bg");
+          d_table.style.opacity = "0.5"; 
+          addDoctorBtn.disabled = true; 
+          setInteractionsEnabled(false);
+          fetch(`/admin_panel/read_patient_records/${patientId}`)
+            .then(response => response.json())
+            .then(records => {
+              // Create a pop-up with a table to display patient records
+              const recordsContainer = document.getElementById('recordsContainer');
+              recordsContainer.innerHTML = ''; // Clear previous content
+              const popupContent = `
+                <div class="popup">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Doktor</th>
+                        <th>Klinik</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>Ücret</th>
+                        <th>Daha Fazla</th>
+                        <th>Doktor Yorumu</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${records.map(record => `
+                        <tr>
+                          <td>${record.doctor}</td>
+                          <td>${record.clinic}</td>
+                          <td>${record.date}</td>
+                          <td>${record.time}</td>
+                          <td>${record.price}</td>
+                          <td>${record.more}</td>
+                          <td>${record.doctorComment}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              `;
+        
+              // Append the pop-up content to the body
+              //document.body.insertAdjacentHTML('beforeend', popupContent);
+              recordsContainer.innerHTML += popupContent;
+            })
+            .catch(error => console.error('Error fetching patient records:', error));
+        }
+        /*
+        function closePopup() {
+          // Remove the pop-up from the DOM
+          const popup = document.querySelector('.popup');
+          if (popup) {
+            popup.remove();
+          }
+        }
+        */
+        
+
+        document.getElementById("popup").style.display = "none";
+
+
+        function openPopup() {
+          document.getElementById("popup").style.display = "block";
+        }
+      
+        
+      // Function to Close the Popup
+      function closePopup() {
+          document.getElementById("popup").style.display = "none";
+          var body = document.body;
+          body.classList.remove("darken-bg");
+          d_table.style.opacity = "1"; 
+          addDoctorBtn.disabled = false; 
+          setInteractionsEnabled(true);
+      }
+        
+      async function deleteRecord(patient_id, record_id) {
+        try {
+            const response = await fetch('/admin_panel/delete_one_record', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    _patient_id: patient_id,
+                    _record_id: record_id
+                }),
+            });
+    
+            if (response.ok) {
+                // Alert göster
+                alert('Hasta recordu başarıyla silindi!');
+                // '/admin_panel/doktorlar' sayfasına yönlendir
+                window.location.href = '/admin_panel/hastalar/';
+            } else {
+                console.error('Error deleting patient record:', response.statusText);
+                // Hata işleme
+                alert('record silinemedi: ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting patient record:', error.message);
+            // Hata işleme
+            alert('record silinemedi: ' + error.message);
+        }
+    }
+
+    function openRecordUpdateForm(patientId, _id, doctor, clinic, date, time, price, more, doctorComment){
+
+      const form = document.getElementById('myRecordUpdateForm');
+          
+      // Form alanlarını doldur
+      form.querySelector('input[name="_patientID"]').value = patientId;
+      form.querySelector('input[name="_id"]').value = _id;
+      form.querySelector('input[name="doctor"]').value = doctor;
+      form.querySelector('input[name="clinic"]').value = clinic;
+      form.querySelector('input[name="date"]').value = date;
+      form.querySelector('input[name="time"]').value = time;
+      form.querySelector('input[name="price"]').value = price;
+      form.querySelector('input[name="more"]').value = more;
+      form.querySelector('input[name="doctorComment"]').value = doctorComment;
+    
+      // Formu görünür hale getir
+      form.style.display = 'block';
+
+    }
+
+    function closeRecordUpdateForm() {
+      const form = document.getElementById('myRecordUpdateForm');
+      form.style.display = 'none';
+    }
+
+
+    function searchPatient(event) {
+      event.preventDefault();  // Formun otomatik submit olmasını engelle
+      
+      const form = event.target;
+
+      // Formdaki input alanlarına ulaşıldı
+      const nameInput = form.querySelector('input[name="personelName"]');
+      const surnameInput = form.querySelector('input[name="personelSurname"]');
+    
+      // Input alanlarının değerlerine ulaştık
+      const nameValue = nameInput.value;
+      const surnameValue = surnameInput.value;
+
+      showSearchedPatients(nameValue, surnameValue);
+      
+
+    }
+
+    function showSearchedPatients(name, surname){
+      console.log("showSearchedPatients başı");
+      fetch(`/admin_panel/read_searched_patient/${name}/${surname}`)
+      .then(response => response.json())
+      .then(doctors => {
+        const appointmentsContainer = document.getElementById('appointmentsContainer');
+        appointmentsContainer.innerHTML = ''; // Clear previous content
+
+        doctors.forEach(patient => {
+          const patientInfo = `
+            <tr>
+              <td>${patient.name}</td>
+              <td>${patient.surname}</td>
+              <td>${patient.phoneNum}</td>
+              <td>${patient.email}</td>
+              <td>
+                <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                <button onclick="deletePatient('${patient._id}')">Kaldır</button>
+                <button onclick="showRecordsofPatient('${patient._id}') ">Geçmişi Göster</button>
+                
+              </td>
+              
+            </tr>
+          `;
+
+          appointmentsContainer.innerHTML += patientInfo;
+          //console.log("ID in showDoctors(): " + patient._id);
+        });
+
+        updateAppointmentsCount(doctors.length);
+
+      })
+      .catch(error => console.error('Error fetching patients:', error));
+
+
+    }
+
+
+
+
+    </script>
+</body>
+
+</html>

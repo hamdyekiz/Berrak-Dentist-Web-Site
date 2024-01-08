@@ -102,15 +102,8 @@
 
                         <a href="/"><button id="button-return">Geri
                                 Dön</button></a>
-
-
-
                     </div>
-
-
-
                 </div>
-
 
                 </div>
                 <% }%>
@@ -121,14 +114,15 @@
             <div id="form-main">
                 <div id="form-div">
                     <form action="/appointment_request/verify" method="post" class="form" id="form1">
-                        
-                        <!-- Error Message Here -->
-                        <% if (isCodeCorrect == false) { %>
-                            <div style="display: flex; justify-content: center; align-items: center;">
-                                <div>
-                                    <p style="font-size: 22px; color: rgba(193, 7, 7); text-align: center; font-weight: bold;">Doğrulama kodu yanlış.<br> Lütfen tekrar deneyiniz.</p>
+                         
+                        <% if (typeof isCodeCorrect !== 'undefined') { %>
+                            <% if (isCodeCorrect == false) { %>
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <div>
+                                        <p style="font-size: 22px; color: rgba(193, 7, 7); text-align: center; font-weight: bold;">Doğrulama kodu yanlış.<br> Lütfen tekrar deneyiniz.</p>
+                                    </div>
                                 </div>
-                            </div>
+                            <% } %>
                         <% } %>
 
                         <p style="font-size: 20px;">Randevu onay maili email adresinize gönderildi.

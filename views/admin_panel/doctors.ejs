@@ -82,7 +82,7 @@
                         <h2 id="randevuHeader">Doktorlar</h2>
                     </div>
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Doktor Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="openForm()" style="width: 140px;">+ Doktor Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
@@ -195,24 +195,17 @@
         var d_header = document.getElementById("randevuHeader");
         d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
 
-        function toggleForm() {
+        function openForm() {
             var form = document.getElementById("myForm");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
 
-            if (form.style.display === "block") {
-                form.style.display = "none";
-                body.classList.remove("darken-bg");
-                d_table.style.opacity = "1"; // Reset opacity when form is closed
-                addDoctorBtn.disabled = false; // Enable the button when the form is closed
-                setInteractionsEnabled(true);
-            } else {
                 form.style.display = "block";
                 body.classList.add("darken-bg");
                 d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
                 addDoctorBtn.disabled = true; // Disable the button when the form is open
                 setInteractionsEnabled(false);
-            }
+                addDoctorBtn.style.opacity = "0.5"; 
         }
 
         function closeForm() {
@@ -225,6 +218,7 @@
             d_table.style.opacity = "1"; // Reset opacity when the form is closed
             addDoctorBtn.disabled = false; // Enable the button when the form is closed
             setInteractionsEnabled(true);
+            addDoctorBtn.style.opacity = "1"; 
         }
 
         function toggleLink(event) {
@@ -270,9 +264,12 @@
                       <td>${patient.title}</td>
                       <td>${patient.clinic}</td>
                       <td>
-                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
-                        <button onclick="deletePatient('${patient._id}')">Kaldır</button>
-                      </td>
+                        <div  style="display: flex; gap: 10px;">
+
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                        <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
+                          <div>
+                        </td>
                       
                     </tr>
                   `;
@@ -299,7 +296,13 @@
           
             // Formu seç
             const form = document.getElementById('myUpdateForm');
-          
+            const body = document.body;
+
+            body.classList.add("darken-bg");          
+            d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                addDoctorBtn.style.opacity = "0.4"
             // Form alanlarını doldur
             form.querySelector('input[name="_id"]').value = id;
             form.querySelector('input[name="name"]').value = name;
@@ -315,11 +318,22 @@
           function closeUpdateForm() {
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
+            const body = document.body;
+
+body.classList.remove("darken-bg");          
+d_table.style.opacity = "1"; // Set opacity for the table when the form is open
+    addDoctorBtn.disabled = false; // Disable the button when the form is open
+    setInteractionsEnabled(true);
+    addDoctorBtn.style.opacity = "1"
           }
 
 
 
           async function deletePatient(id) {
+            var confirmAction = confirm("Doktoru kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
             try {
                 const response = await fetch('/admin_panel/delete_doctor', {
                     method: 'POST',
@@ -347,6 +361,7 @@
                 alert('Doktor silinemedi: ' + error.message);
             }
         }
+      }
 
 
 

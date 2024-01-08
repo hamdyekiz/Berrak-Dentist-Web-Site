@@ -81,25 +81,28 @@
                         <h2 id="randevuHeader">Randevular</h2>
 
                         <!-- date filter buttons -->
-                        <div id="dateFilterButtons">
-                          <button onclick="showAppointments('all')">Tümü</button>
-                          <button onclick="showAppointments('today')">Bugün</button>
-                          <button onclick="showAppointments('week')">Bu Hafta</button>
-                          <button onclick="showAppointments('month')">Bu Ay</button>
+                        <div id="dateFilterButtons" style="display: flex; gap: 10px ; margin-top: 20px;">
+                          
+                          <button onclick="showAppointments('all')" class="add-btn">Tümü</button>
+                          <button onclick="showAppointments('today')" class="add-btn">Bugün</button>
+                          <button onclick="showAppointments('week')" class="add-btn">Bu Hafta</button>
+                          <button onclick="showAppointments('month')" class="add-btn  ">Bu Ay</button>
+
+                          
                        </div>
 
                     </div>
 
 
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Randevu Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="openForm()" style="width: 140px;">+ Randevu Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
                        <form action="/admin_panel/create_patient_appointment/" method="post" class="form-container">
                         
                             <div style="display: flex; gap: 50px;">
-                                <h1>Randevu Ekle</h1>
+                                <h3>Randevu Ekle</h3>
                                 <a style="cursor: pointer;" onclick="closeForm()"><img
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
                             </div>
@@ -165,7 +168,7 @@
                   <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
                     <form action="/admin_panel/update_patient_appointment/" method="post" class="form-container">
                       <div style="display: flex; gap: 50px;">
-                        <h1>Randevu Bilgilerini Güncelle</h1>
+                        <h4>Randevuyu Güncelle</h4>
                         <a style="cursor: pointer;" onclick="closeUpdateForm()">
                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
                         </a>
@@ -237,36 +240,33 @@
         var d_header = document.getElementById("randevuHeader");
         d_header.innerHTML = "Randevular (" + d_rowCount + ")";
 
-        function toggleForm() {
+        function openForm() {
             var form = document.getElementById("myForm");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
-
-            if (form.style.display === "block") {
-                form.style.display = "none";
-                body.classList.remove("darken-bg");
-                d_table.style.opacity = "1"; // Reset opacity when form is closed
-                addDoctorBtn.disabled = false; // Enable the button when the form is closed
-                setInteractionsEnabled(true);
-            } else {
+            const flt = document.getElementById('dateFilterButtons')
                 form.style.display = "block";
                 body.classList.add("darken-bg");
                 d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
                 addDoctorBtn.disabled = true; // Disable the button when the form is open
                 setInteractionsEnabled(false);
-            }
+                flt.style.opacity = "0.4";
+                addDoctorBtn.style.opacity = "0.4"
+
         }
 
         function closeForm() {
             var form = document.getElementById("myForm");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
-
+            const flt = document.getElementById('dateFilterButtons')
             form.style.display = "none";
             body.classList.remove("darken-bg");
             d_table.style.opacity = "1"; // Reset opacity when the form is closed
             addDoctorBtn.disabled = false; // Enable the button when the form is closed
             setInteractionsEnabled(true);
+            flt.style.opacity = "1";
+            addDoctorBtn.style.opacity = "1"
         }
 
         function toggleLink(event) {
@@ -315,9 +315,11 @@
                       <td>${patient.price}</td>
                       <td>${patient.more}</td>
                       <td>
-                        <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Güncelle</button>
-                        <button onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.phoneNum}','${patient.doctor}','${patient.date}','${patient.time}','${patient.more}')">Kaldır</button>
-                      </td>
+                        <div  style="display: flex; gap: 10px;">
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Güncelle</button>
+                        <button  class="add-btn" onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.phoneNum}','${patient.doctor}','${patient.date}','${patient.time}','${patient.more}')">Kaldır</button>
+                        <div>
+                        </td>
                       
                     </tr>
                   `;
@@ -332,6 +334,8 @@
               .catch(error => console.error('Error fetching patients:', error));
         }
 
+
+
         function updateAppointmentsCount(count) {
             var d_header = document.getElementById("randevuHeader");
             d_header.innerHTML = "Randevular (" + count + ")";
@@ -341,7 +345,15 @@
           function openUpdateForm(id, name, surname, phoneNum, email, doctor, date, time, price, more) {
             //console.log("open Update'deyim!!!!!!!");
             //console.log("ID İn openUpdateform: " + id);
-          
+            var body = document.body;
+            const flt = document.getElementById('dateFilterButtons');
+
+          body.classList.add("darken-bg");
+          d_table.style.opacity = "0.5"; 
+          addDoctorBtn.disabled = true; 
+          setInteractionsEnabled(false);
+          flt.style.opacity = "0.4";
+          addDoctorBtn.style.opacity = "0.4"
             // Formu seç
             const form = document.getElementById('myUpdateForm');
           
@@ -363,13 +375,25 @@
           
       
           function closeUpdateForm() {
+            const flt = document.getElementById('dateFilterButtons');
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
+            var body = document.body;
+          body.classList.remove("darken-bg");
+          d_table.style.opacity = "1"; 
+          addDoctorBtn.disabled = false; 
+          setInteractionsEnabled(true);
+          flt.style.opacity = "1";
+          addDoctorBtn.style.opacity = "1 "
           }
 
 
 
           async function deletePatient(name, surname, phoneNum, doctor, date, time, more) {
+            var confirmAction = confirm("Randevuyu kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
             try {
                 const response = await fetch('/admin_panel/delete_patient_appointment', {
                     method: 'POST',
@@ -410,7 +434,7 @@
         function updateAppointmentsTable(appointments) {
             // Implement functionality to update the appointments table
             // Similar to your existing showAppointments function
-        }
+        }}
 
 
 

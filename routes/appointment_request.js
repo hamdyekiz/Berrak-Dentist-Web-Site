@@ -33,7 +33,7 @@ let name, telNo, email, availableHours, doctor, complaint;
 
 router.post('/submit', (req, res) => {
     // Access form inputs using req.body
-    ({ name, telNo, email, availableHours, doctor, complaint} = req.body);
+    ({ name, telNo, email, availableHours, doctor, complaint } = req.body);
 
     // alınan veriler doğru mu diye kontrol etme
     console.log("name: " + name);
@@ -47,7 +47,7 @@ router.post('/submit', (req, res) => {
     // check if the email is a valid email
     if (!isEmailValid(email)) {
         console.log("email is not valid!");
-        
+
         res.redirect("/randevu/randevu_main/randevu.html"); // !!!!!! test this.
         return;
     }
@@ -88,11 +88,11 @@ function sendVerificationCode(name, email) {
         port: 587,
         secure: false, //ssl
         auth: {
-            user:process.env.EMAIL_USER,
-            pass:process.env.EMAIL_PASSWORD
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
         }
     });
-    
+
     const emailContent = `
     <p>Sayın ${name},</p>
     <p>Berrak diş hekimliğinden almak istediğiniz randevu için onay kodunuz:</p>
@@ -124,11 +124,11 @@ function sendEmail(name, telNo, email, availableHours) {
         port: 587,
         secure: false, //ssl
         auth: {
-            user:process.env.EMAIL_USER,
-            pass:process.env.EMAIL_PASSWORD
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
         }
     });
-    
+
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
@@ -175,4 +175,4 @@ function isEmailValid(email) {
     return emailRegex.test(email) && !isTempMail;
 }
 
-module.exports = router ;
+module.exports = router;

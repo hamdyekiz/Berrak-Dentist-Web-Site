@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Randevu Al</title>
     <!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- styles -->
 
     <link rel="stylesheet" href="./styles.css">
@@ -93,65 +93,22 @@
     </header>
 
     <div class="doctor_container">
-
         <div id="form-main">
-            <div id="form-div">
-                <form action="/appointment_request/submit" method="post" class="form" id="form1">
+            <div id="success-div">
+                <i class="fa-solid fa-check"
+                    style="font-size: 50px; color: rgb(4, 152, 4); margin-bottom: 10px;"></i>
+                <p id="success-conf" style="color: rgba(245, 245, 245, 0.771);">Randevu talebiniz başarıyla
+                    alınmıştır.</p>
 
-                    <p class="name">
-                        <input type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input"
-                            required placeholder="Ad Soyad" id="name" pattern="[A-Za-zğüşıöçĞÜŞİÖÇ\s]+" name="name"/>
-                    </p>
-                    
 
-                    <p class="tel">
-                        <input type="tel" class="validate[required,custom[onlyNumber],length[10,10]] feedback-input"
-                            required placeholder="Telefon Numarası (5XX)" id="tel" pattern="[5][0-9]{9}" inputmode="numeric" name="telNo"/>
-                    </p>
-                    
-
-                    <p class="email">
-                        <input type="text" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" 
-                            class="validate[required] feedback-input" id="email" required placeholder="Email"
-                            title="Lütfen doğru formatta yazınız (örnek, berrakdis@gmail.com)" name="email"/>
-                    </p>
-                    
+                <a href="/public/landing_page/index.html"><button id="button-return">Geri Dön</button></a>
 
 
 
-
-                    <select required name="availableHours" class="form-control selectpicker">
-                        <option value="" disabled selected hidden>Sizi hangi saatte arayalım?</option>
-                        <option>09:00 - 10:00</option>
-                        <option>10:00 - 11:00</option>
-                        <option>11:00 - 12:00</option>
-                        <option>13:00 - 14:00</option>
-                        <option>14:00 - 15:00</option>submit
-                        <option>15:00 - 16:00</option>
-                        <option>16:00 - 17:00</option>
-                        <option>17:00 - 18:00</option>
-                    </select>
-                    
-                    <select required name="doctor" class="form-control selectpicker">
-                        <option value="" disabled selected hidden>Doktor Tercihi</option>
-                        <option>Dt. Çetin Özgür KALDIRIMOĞLU</option>
-                        <option>Dt. Özlem Aydın GÜLER</option>
-                    </select>
-                    
-
-
-                    <p class="text">
-                        <textarea class="validate[required,length[6,300]] feedback-input" id="comment"  required
-                            placeholder="Şikayetinizi belirtiniz" name="complaint"></textarea>
-                    </p>
-
-
-                    <div class="submit">
-                        <input type="submit" value="Teslim Et" id="button-blue" />
-                        <div class="ease"></div>
-                    </div>
-                </form>
             </div>
+        </div>
+        </div>
+        
 
         </div>
 

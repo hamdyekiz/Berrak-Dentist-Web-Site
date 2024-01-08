@@ -93,6 +93,8 @@ router.post('/create_assistant', async (req, res) => {
     ({personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword} = req.body);
     // await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
     addAssistantSuccessful = await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Assistant", personelClinic);
+    console.log(personelName + " " + personelSurname + " " + personelPhoneNum + " " + personelEmail + " " + personelPassword + " " + personelClinic);
+    console.log("başarıyla eklendi mi: " + addAssistantSuccessful);
     res.render("admin_panel/assistants.ejs", {addAssistantSuccessful: addAssistantSuccessful});
 
 });

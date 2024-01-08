@@ -6,39 +6,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/randevu/randevu_main/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
-    <% if (typeof isCodeCorrect !== 'undefined') { %>
+
+    <nav id="nav">
+        <div class="nav-center">
+            <!-- nav header -->
+            <div class="mydiv">
+                <div class="nav-header">
+                    <a href="../landing_page/index.html#home" class="scroll-link">
+                        <div style="display: flex;">
+                            <img src="../svg/dentist-svgrepo-com.svg" class="logo" alt="logo" />
+                            <h5 class="myh5"
+                                style="margin-left: 10px;font-family: Playpen Sans ;font-size: 17px;color: #222;">
+                                BERRAK AĞIZ VE DİŞ <br> SAĞLIĞI POLİKİNİĞİ
+                            </h5>
+                        </div>
+                    </a>
+                </div>
+                <button class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- links -->
+            <div class="links-container">
+                <ul class="links">
+
+                    <li>
+                        <a href="../landing_page/index.html#home" class="scroll-link">ANASAYFA</a>
+                    </li>
+                    <li>
+                        <a href="../landing_page/index.html#about" class="scroll-link">HAKKIMIZDA</a>
+                    </li>
+                    <li>
+                        <a href="../doktorlar/doctor1.html">DOKTORLARIMIZ</a>
+                    </li>
+                    <li>
+                        <a href="../tedaviler/implant.html">TEDAVİLER</a>
+                    </li>
+                    <li>
+                        <a href="../landing_page/index.html#contact" class="scroll-link">İLETİŞİM</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="social-icons-container">
+                <ul class="social-icons" style="display:flex;gap:15px;margin-left:60px;">
+                    <li>
+                        <a href="https://www.instagram.com/berrakdis/" target="_blank">
+                            <img src="../svg/instagram.svg" style="width:25px;height:25px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                            href="https://www.facebook.com/p/%C3%96zel-Berrak-A%C4%9F%C4%B1z-ve-Di%C5%9F-Sa%C4%9Fl%C4%B1%C4%9F%C4%B1-Poliklini%C4%9Fi-100063785460407/?locale=tr_TR">
+                            <img src="../svg/facebook.svg" style="width:25px;height:25px;">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                            href="https://api.whatsapp.com/send/?phone=902163972850&text&type=phone_number&app_absent=0">
+                            <img src="../svg/whatsapp.svg" style="width:25px;height:25px;">
+
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="/login">Giriş</a>
+
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <% if (typeof isCodeCorrect !=='undefined' ) { %>
         <p class="<% if (isCodeCorrect) { %>success<% } else { %>error<% } %>">
             <% if (isCodeCorrect) { %>
-                Randevu talebiniz başarıyla alınmıştır.
-            <% } else { %>
-                Doğrulama kodu yanlış. Lütfen tekrar deneyiniz.
-            <% } %>
-        </p>
-    <% } %>
-    <div id="form-main">
-        <div id="form-div">
-            <form action="/appointment_request/verify" method="post" class="form" id="form1">
 
-                <p style="font-size: 20px;">Randevu onay maili email adresinize gönderildi.
-                    Lütfen email adresinize gelen 5 haneli kodu girin</p>
 
-                <p class="tel">
-                    <input type="" class="feedback-input" pattern="\d{5}" placeholder="Onay kodu" name="authCode"/>
+                <div class="form-popup" id="myForm" style="height: 375px; overflow-y: auto;">
+                    <div id="success-div">
+                        <i class="fa-solid fa-check"
+                            style="font-size: 50px; color: rgb(4, 152, 4); margin-bottom: 10px;"></i>
+                        <p id="success-conf" style="color: rgba(4, 152, 4);">Randevu talebiniz
+                            başarıyla
+                            alınmıştır.</p>
 
-                </p>
 
-                <div class="submit">
-                    <input type="submit" value="Onayla" id="button-blue" <% if (typeof isCodeCorrect !== 'undefined' && isCodeCorrect) { %>disabled<% } %> />
-                    <div class="ease"></div>
+                        <a href="/"><button id="button-return">Geri
+                                Dön</button></a>
+
+
+
+                    </div>
+
+
+
                 </div>
-            </form>
-        </div>
 
-    </div>
 
+                </div>
+                <% }%>
+        </p>
+        <% } %>
+
+
+            <div id="form-main">
+                <div id="form-div">
+                    <form action="/appointment_request/verify" method="post" class="form" id="form1">
+                        
+                        <!-- Error Message Here -->
+                        <% if (isCodeCorrect == false) { %>
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                                <div>
+                                    <p style="font-size: 22px; color: rgba(193, 7, 7); text-align: center; font-weight: bold;">Doğrulama kodu yanlış.<br> Lütfen tekrar deneyiniz.</p>
+                                </div>
+                            </div>
+                        <% } %>
+
+                        <p style="font-size: 20px;">Randevu onay maili email adresinize gönderildi.
+                            Lütfen email adresinize gelen 5 haneli kodu girin</p>
+
+                        <p class="tel">
+                            <input type="" class="feedback-input" pattern="\d{5}" placeholder="Onay kodu"
+                                name="authCode" />
+
+                        </p>
+
+                        <div class="submit">
+                            <input type="submit" value="Onayla" id="button-blue" <% if (typeof isCodeCorrect
+                                !=='undefined' && isCodeCorrect) { %>disabled<% } %> />
+                                <div class="ease"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+            <script>
+                app.get('/', function (req, res) {
+                    res.render('index', {});
+                });
+
+
+
+            </script>
 
 </body>
 

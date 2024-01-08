@@ -81,7 +81,7 @@
                         <h2 id="randevuHeader">Asistanlar</h2>
                     </div>
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Asistan Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()" style="width: 140px;">+ Asistan Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
@@ -319,6 +319,10 @@
 
 
           async function deletePatient(id) {
+            var confirmAction = confirm("Asistanı kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
             try {
                 const response = await fetch('/admin_panel/delete_assistant', {
                     method: 'POST',
@@ -346,7 +350,7 @@
                 alert('Randevu silinemedi: ' + error.message);
             }
         }
-
+      }
 
 
     </script>

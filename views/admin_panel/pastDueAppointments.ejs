@@ -81,7 +81,7 @@
                         <h2 id="randevuHeader">Geçmişe Eklenmeyi Bekleyen Randevular</h2>
                     </div>
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">+ Geçmiş Randevu Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()" style="width: 190px;">+ Geçmiş Randevu Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
@@ -361,6 +361,10 @@
 
 
           async function deletePatient(name, surname, phoneNum, doctor, date, time, more) {
+            var confirmAction = confirm("Randevuyu unutmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
             try {
                 const response = await fetch('/admin_panel/delete_past_patient_appointment', {
                     method: 'POST',
@@ -393,7 +397,7 @@
                 // Hata işleme
                 alert('Geçmiş Randevu silinemedi: ' + error.message);
             }
-        }
+        }}
 
 
 

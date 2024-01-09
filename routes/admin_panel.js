@@ -62,6 +62,11 @@ router.get("/eski_randevular/", (req, res) => {
   res.render("admin_panel/pastDueAppointments.ejs");
 });
 
+router.get("/randevu_talepleri/", (req, res) => {
+  res.render("admin_panel/appointmentRequests.ejs");
+});
+
+
 
 //this will create new doctor account.
 //Warn!!! Burada yetki meselesini de halletmek gerekir. Neticede doktoru herkes ekleyemiyor.
@@ -1512,6 +1517,80 @@ router.get('/read_searched_patient/:name/:surname', async (req, res) => {
   }
 });
 
+
+
+const AppointmentRequests = mongoose.model('appointmentrequests', {
+  name: String,
+  telNo: String,
+  email: String,
+  availableHours: String,
+  doctor: String,
+  complaint: String
+});
+
+
+
+router.get('/read_appointment_requests', async (req, res) => {
+  console.log("Doctosdayım");
+
+  await mongoose.connect(process.env.URL + "clinicDB", { useNewUrlParser: true, useUnifiedTopology: true });
+
+  //create doctors'ta collection'un ismini PersonelLists diye oluşturuyorum ancak database'de personelslists
+
+
+  try {
+    // Fetch doctors from the database
+    const doctors = await AppointmentRequests.find();
+
+    // Render the doctors.ejs template with the fetched data
+    //console.log("Okundu");
+    //console.log(doctors);
+    //res.render('admin_panel/dumen.ejs', { doctors });
+    res.json(doctors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error in read_appointment_requests');
+  }
+  finally {
+      await mongoose.connection.close();
+      console.log('Disconnected from MongoDB in read_appointment_requests');
+  }
+});
+
+
+
+
+router.post('/delete_appointment_request', async (req, res) => {
+
+  const { _id } = req.body;
+  const id = new ObjectId(_id);  
+
+  const dbName = 'clinicDB';
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB in delete_appointment_request');
+
+    const db = client.db(dbName);
+    const collection = db.collection('appointmentrequests');
+
+
+    // Delete documents where name, surname, email, and title match the provided values
+    const result = await collection.deleteMany({ _id: id });
+
+    console.log(`KALDIRILDI ${result}`);
+
+    //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
+    res.render("admin_panel/appointmentRequests.ejs", {isAppointmentRequestDeleted: 1});
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  } finally {
+    await client.close();
+    console.log('Disconnected from MongoDB in delete_appointment_request');
+  }
+
+});
 
 
 

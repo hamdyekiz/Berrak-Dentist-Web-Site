@@ -8,7 +8,7 @@
     <meta name="author" content="Simran Singh">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
-    <title>Randevular</title>
+    <title>Responsive sidebar - Boostrap 4 - Light</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -30,15 +30,16 @@
             <a href="/admin_panel/logout">
               <button class="logout-button">Çıkış Yap</button>
             </a>
+            
             <hr />
             <div class="list-container">
                 <ul>
-                    <li><a href="/admin_panel/doktorlar"></span>Doktorlar</a></li>
+                    <li><a href="/admin_panel/doktorlar" ></span>Doktorlar</a></li>
                     <li><a href="/admin_panel/asistanlar">Asistanlar</a></li>
-                    <li><a href="/admin_panel/gelecek_randevular" class="active">Gelecek Randevular</a></li>
+                    <li><a href="/admin_panel/gelecek_randevular" >Gelecek Randevular</a></li>
                     <li><a href="/admin_panel/hastalar">Hastalar</a></li>
                     <li><a href="/admin_panel/eski_randevular">Geçmiş Randevular</a></li>
-                    <li><a href="/admin_panel/randevu_talepleri">Randevu Talepleri</a></li>
+                    <li><a href="/admin_panel/randevu_talepleri" class="active">Randevu Talepleri</a></li>
                 </ul>
             </div>
         </nav>
@@ -48,28 +49,28 @@
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
   <% if (typeof addAppointmentSuccessful !== 'undefined') { %>
     <% if (addAppointmentSuccessful) { %>
-      <script>alert("Hasta randevusu başarıyla eklendi!");</script>
+      <script>alert("Randevu başarıyla eklendi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu eklenemedi!");</script>
+      <script>alert("Randevu eklenemedi!");</script>
     <% } %>
   <% } %>    
 
   <!-- eğer ekleme başarısız olduysa alert çıkar. -->
-  <% if (typeof updateAppointmentSuccessful !== 'undefined') { %>
-    <% if (updateAppointmentSuccessful) { %>
-      <script>alert("Hasta randevusu başarıyla güncellendi!");</script>
+  <!-- <% if (typeof updateDoctorSuccessful !== 'undefined') { %>
+    <% if (updateDoctorSuccessful) { %>
+      <script>alert("Doktor bilgileri başarıyla güncellendi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu güncellenemedi!!");</script>
+      <script>alert("Doktor bilgileri güncellenemedi!!");</script>
     <% } %>
-  <% } %> 
+  <% } %>  -->
 
 
   <!-- delete olduğu zaman uyarı çıkar. -->
-  <% if (typeof deleteAppointmentSuccessful !== 'undefined') { %>
-    <% if (deleteAppointmentSuccessful) { %>
-      <script>alert("Hasta randevusu silindi!");</script>
+  <% if (typeof isAppointmentRequestDeleted !== 'undefined') { %>
+    <% if (isAppointmentRequestDeleted) { %>
+      <script>alert("Randevu talebi sistemden silindi!");</script>
     <% } else { %>
-      <script>alert("Hasta randevusu silinemedi!");</script>
+      <script>alert("Randevu talebi sistemden silinemedi!");</script>
     <% } %>
   <% } %>
 
@@ -79,64 +80,38 @@
             <div class="right-page">
                 <div style="display: flex;">
                     <div style="flex:10;">
-                        <h2 id="randevuHeader">Randevular</h2>
-
-                        <!-- date filter buttons -->
-                        <div id="dateFilterButtons" style="display: flex; gap: 10px ; margin-top: 20px;">
-                          
-                          <button onclick="showAppointments('all')" class="add-btn">Tümü</button>
-                          <button onclick="showAppointments('today')" class="add-btn">Bugün</button>
-                          <button onclick="showAppointments('week')" class="add-btn">Bu Hafta</button>
-                          <button onclick="showAppointments('month')" class="add-btn  ">Bu Ay</button>
-
-                          
-                       </div>
-
+                        <h2 id="randevuHeader">Doktorlar</h2>
                     </div>
-
-
                     <div style="flex:1;">
-                        <button class="add-btn" id="addDoctorBtn" onclick="openForm()" style="width: 140px;">+ Randevu Ekle</button>
+                        <button class="add-btn" id="addDoctorBtn" onclick="openForm()" style="width: 140px;">+ Doktor Ekle</button>
                     </div>
                     <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
                 
-                       <form action="/admin_panel/create_patient_appointment/" method="post" class="form-container">
+                       <form action="/admin_panel/create_doctor/" method="post" class="form-container">
                         
                             <div style="display: flex; gap: 50px;">
-                                <h3>Randevu Ekle</h3>
+                                <h1>Doktor Ekle</h1>
                                 <a style="cursor: pointer;" onclick="closeForm()"><img
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" /></a>
                             </div>
 
                             <label for="Name"></label>
-                            <input type="text" placeholder="Hasta Adı" name="name" required>
+                            <input type="text" placeholder="Doktor Adı" name="personelName" required>
 
                             <label for="surname"></label>
-                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
+                            <input type="text" placeholder="Doktor Soyadı" name="personelSurname" required>
 
                             <label for="phoneNum"></label>
-                            <input type="text" placeholder="Telefon" name="phoneNum" required>
+                            <input type="text" placeholder="Telefon" name="personelPhoneNum" required>
 
                             <label for="email"></label>
-                            <input type="text" placeholder="Email" name="email">
+                            <input type="text" placeholder="Email" name="personelEmail">
 
-                            <label for="Doctor"></label>
-                            <input type="text" placeholder="Doktor" name="doctor" required>
+                            <label for="password"></label>
+                            <input type="text" placeholder="Şifre" name="personelPassword" required>
 
-                            <label for="Clinic"></label>
-                            <input type="text" placeholder="Klinik" name="clinic">
 
-                            <label for="Date"></label>
-                            <input type="text" placeholder="Tarih" name="date" required>
 
-                            <label for="Time"></label>
-                            <input type="text" placeholder="Saat" name="time" required>
-
-                            <label for="Price"></label>
-                            <input type="text" placeholder="Fiyat" name="price">
-
-                            <label for="More"></label>
-                            <input type="text" placeholder="Daha fazla" name="more">
 
                             <button type="submit" class="btn">Ekle</button>
                         </form>
@@ -149,15 +124,13 @@
                 <table id="randevuTable">
                     <thead>
                       <tr>
-                        <th>Hasta Adı</th>
-                        <th>Hasta Soyadı</th>
+                        <th>Hasta Adı Soyadı</th>
+                        <!-- <th>Doktor Soyadı</th> -->
                         <th>Telefon</th>
                         <th>E-posta</th>
-                        <th>Doktor</th>
-                        <th>Tarih</th>
-                        <th>Saat</th>
-                        <th>Ücret</th>
-                        <th>Daha Fazla</th>
+                        <th>Müsait Saatleri</th>
+                        <th>Doktor Tercihi</th>
+                        <th>Şikayeti</th>
                         <th>Eylemler</th>
                       </tr>
                     </thead>
@@ -167,9 +140,9 @@
                   </table>
 
                   <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
-                    <form action="/admin_panel/update_patient_appointment/" method="post" class="form-container">
+                    <form action="/admin_panel/create_patient_appointment/" method="post" class="form-container">
                       <div style="display: flex; gap: 50px;">
-                        <h4>Randevuyu Güncelle</h4>
+                        <h1>Randevu Ekle</h1>
                         <a style="cursor: pointer;" onclick="closeUpdateForm()">
                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
                         </a>
@@ -177,8 +150,8 @@
 
                             
 
-                            <label for="ID"></label>
-                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+                            <!-- <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;"> -->
 
 
                             <label for="Name"></label>
@@ -211,9 +184,8 @@
                             <label for="More"></label>
                             <input type="text" placeholder="Daha fazla" name="more">
           
-                      
                 
-                      <button type="submit" class="btn">Güncelle</button>
+                      <button type="submit" class="btn">Ekle</button>
                     </form>
                   </div>
 
@@ -227,7 +199,6 @@
 
     <script>
 
-
         window.addEventListener("DOMContentLoaded", function(){
             showAppointments();
         });
@@ -239,35 +210,32 @@
 
         // Update the heading dynamically
         var d_header = document.getElementById("randevuHeader");
-        d_header.innerHTML = "Randevular (" + d_rowCount + ")";
+        d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
 
         function openForm() {
             var form = document.getElementById("myForm");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
-            const flt = document.getElementById('dateFilterButtons')
+
                 form.style.display = "block";
                 body.classList.add("darken-bg");
                 d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
                 addDoctorBtn.disabled = true; // Disable the button when the form is open
                 setInteractionsEnabled(false);
-                flt.style.opacity = "0.4";
-                addDoctorBtn.style.opacity = "0.4"
-
+                addDoctorBtn.style.opacity = "0.5"; 
         }
 
         function closeForm() {
             var form = document.getElementById("myForm");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
-            const flt = document.getElementById('dateFilterButtons')
+
             form.style.display = "none";
             body.classList.remove("darken-bg");
             d_table.style.opacity = "1"; // Reset opacity when the form is closed
             addDoctorBtn.disabled = false; // Enable the button when the form is closed
             setInteractionsEnabled(true);
-            flt.style.opacity = "1";
-            addDoctorBtn.style.opacity = "1"
+            addDoctorBtn.style.opacity = "1"; 
         }
 
         function toggleLink(event) {
@@ -296,30 +264,28 @@
         }
 
 
-        function showAppointments(filter = 'all') {
-            fetch('/admin_panel/read_appointments?filter=' + filter, { method: 'GET' })
+        function showAppointments() {
+            fetch('/admin_panel/read_appointment_requests')
               .then(response => response.json())
-              .then(patients => {
+              .then(doctors => {
                 const appointmentsContainer = document.getElementById('appointmentsContainer');
                 appointmentsContainer.innerHTML = ''; // Clear previous content
         
-                patients.forEach(patient => {
+                doctors.forEach(patient => {
                   const patientInfo = `
                     <tr>
                       <td>${patient.name}</td>
-                      <td>${patient.surname}</td>
-                      <td>${patient.phoneNum}</td>
+                      <td>${patient.telNo}</td>
                       <td>${patient.email}</td>
+                      <td>${patient.availableHours}</td>
                       <td>${patient.doctor}</td>
-                      <td>${patient.date}</td>
-                      <td>${patient.time}</td>
-                      <td>${patient.price}</td>
-                      <td>${patient.more}</td>
+                      <td>${patient.complaint}</td>
                       <td>
                         <div  style="display: flex; gap: 10px;">
-                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}','${patient.doctor}','${patient.date}','${patient.time}','${patient.price}','${patient.more}')">Güncelle</button>
-                        <button  class="add-btn" onclick="deletePatient('${patient.name}', '${patient.surname}', '${patient.phoneNum}','${patient.doctor}','${patient.date}','${patient.time}','${patient.more}')">Kaldır</button>
-                        <div>
+
+                        <button class="add-btn" onclick="openUpdateForm('${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${patient.doctor}', '${patient.complaint}')">Ekle</button>
+                        <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
+                          <div>
                         </td>
                       
                     </tr>
@@ -329,46 +295,38 @@
                   //console.log("ID in showDoctors(): " + patient._id);
                 });
 
-                updateAppointmentsCount(patients.length);
+                updateAppointmentsCount(doctors.length);
 
               })
               .catch(error => console.error('Error fetching patients:', error));
         }
 
-
-
         function updateAppointmentsCount(count) {
             var d_header = document.getElementById("randevuHeader");
-            d_header.innerHTML = "Randevular (" + count + ")";
+            d_header.innerHTML = "Randevu Talepleri (" + count + ")";
           }
 
 
-          function openUpdateForm(id, name, surname, phoneNum, email, doctor, date, time, price, more) {
+          function openUpdateForm(name, telNo, email, availableHours, doctor, complaint ) {
             //console.log("open Update'deyim!!!!!!!");
             //console.log("ID İn openUpdateform: " + id);
-            var body = document.body;
-            const flt = document.getElementById('dateFilterButtons');
-
-          body.classList.add("darken-bg");
-          d_table.style.opacity = "0.5"; 
-          addDoctorBtn.disabled = true; 
-          setInteractionsEnabled(false);
-          flt.style.opacity = "0.4";
-          addDoctorBtn.style.opacity = "0.4"
+          
             // Formu seç
             const form = document.getElementById('myUpdateForm');
-          
+            const body = document.body;
+
+            body.classList.add("darken-bg");          
+            d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                addDoctorBtn.style.opacity = "0.4"
             // Form alanlarını doldur
-            form.querySelector('input[name="_id"]').value = id;
             form.querySelector('input[name="name"]').value = name;
-            form.querySelector('input[name="surname"]').value = surname;
-            form.querySelector('input[name="phoneNum"]').value = phoneNum;
+            form.querySelector('input[name="phoneNum"]').value = telNo;
             form.querySelector('input[name="email"]').value = email;
+            //form.querySelector('input[name="availableHours"]').value = availableHours;
             form.querySelector('input[name="doctor"]').value = doctor;
-            form.querySelector('input[name="date"]').value = date;
-            form.querySelector('input[name="time"]').value = time;
-            form.querySelector('input[name="price"]').value = price;
-            form.querySelector('input[name="more"]').value = more;
+            form.querySelector('input[name="more"]').value = complaint;
           
             // Formu görünür hale getir
             form.style.display = 'block';
@@ -376,66 +334,52 @@
           
       
           function closeUpdateForm() {
-            const flt = document.getElementById('dateFilterButtons');
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
-            var body = document.body;
-          body.classList.remove("darken-bg");
-          d_table.style.opacity = "1"; 
-          addDoctorBtn.disabled = false; 
-          setInteractionsEnabled(true);
-          flt.style.opacity = "1";
-          addDoctorBtn.style.opacity = "1 "
+            const body = document.body;
+
+body.classList.remove("darken-bg");          
+d_table.style.opacity = "1"; // Set opacity for the table when the form is open
+    addDoctorBtn.disabled = false; // Disable the button when the form is open
+    setInteractionsEnabled(true);
+    addDoctorBtn.style.opacity = "1"
           }
 
 
 
-          async function deletePatient(name, surname, phoneNum, doctor, date, time, more) {
-            var confirmAction = confirm("Randevuyu kaldırmak istediğinize emin misiniz?");
+          async function deletePatient(id) {
+            var confirmAction = confirm("Randevu talebini kaldırmak istediğinize emin misiniz?");
     if (!confirmAction) {
         return;
     } else {
             try {
-                const response = await fetch('/admin_panel/delete_patient_appointment', {
+                const response = await fetch('/admin_panel/delete_appointment_request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        name: name,
-                        surname: surname,
-                        phoneNum: phoneNum,
-                        doctor: doctor,
-                        date: date,
-                        time: time,
-                        more: more,
+                        _id: id
                     }),
                 });
         
                 if (response.ok) {
                     // Alert göster
-                    alert('Hasta randevusu başarıyla silindi!');
+                    alert('Randevu talebi başarıyla silindi!');
                     // '/admin_panel/doktorlar' sayfasına yönlendir
-                    window.location.href = '/admin_panel/gelecek_randevular/';
+                    window.location.href = '/admin_panel/randevu_talepleri/';
                 } else {
-                    console.error('Error deleting patient appointment:', response.statusText);
+                    console.error('Error deleting Randevu talebi:', response.statusText);
                     // Hata işleme
-                    alert('Randevu silinemedi: ' + response.statusText);
+                    alert('Randevu talebi silinemedi: ' + response.statusText);
                 }
             } catch (error) {
-                console.error('Error deleting patient appointment:', error.message);
+                console.error('Error deleting Randevu talebi:', error.message);
                 // Hata işleme
-                alert('Randevu silinemedi: ' + error.message);
+                alert('Randevu talebi silinemedi: ' + error.message);
             }
         }
-        function filterAppointments(period) {
-        
-        }
-
-        function updateAppointmentsTable(appointments) {
-            // Implement functionality to update the appointments table
-            // Similar to your existing showAppointments function
-        }}
+      }
 
 
 

@@ -184,7 +184,7 @@ function isEmailValid(email) {
 
 
 async function sendInfoToAdminPanel(name, telNo, email, availableHours, doctor, complaint) {
-    const uri = 'mongodb://localhost/clinicDB';
+    const uri = process.env.URL + "clinicDB";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {

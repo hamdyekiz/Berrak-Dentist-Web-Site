@@ -27,9 +27,7 @@
 
             </div>
 
-            <a href="/admin_panel/logout">
-              <button class="logout-button">Çıkış Yap</button>
-            </a>
+            <button class="logout-button">Log Out</button>
             <hr />
             <div class="list-container">
                 <ul>
@@ -82,7 +80,7 @@
                     </div>
 
                     <div style="flex:1;">
-                      <button class="add-btn" id="addDoctorBtn" onclick="toggleForm('addDoctorBtn')" style="width: 140px;">Ara</button>
+                      <button class="add-btn" id="addDoctorBtn" onclick="toggleForm()">Ara</button>
                   </div>
                   <div class="form-popup" id="myForm" style="max-height: 400px; overflow-y: auto;">
               
@@ -127,7 +125,7 @@
                   <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
                     <form action="/admin_panel/update_patient_history/" method="post" class="form-container">
                       <div style="display: flex; gap: 50px;">
-                        <h3>Hastayı Güncelle</h3>
+                        <h1>Kayıtlı Hasta Bilgilerini Güncelle</h1>
                         <a style="cursor: pointer;" onclick="closeUpdateForm()">
                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
                         </a>
@@ -201,7 +199,7 @@
 
 
 
-                  <div id="popup">
+                  <div id="popup" class="popup">
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
                         <h2>Hasta Geçmişi</h2>
@@ -350,11 +348,7 @@
           function openUpdateForm(id, name, surname, phoneNum, email) {
             //console.log("open Update'deyim!!!!!!!");
             //console.log("ID İn openUpdateform: " + id);
-          var body = document.body;
-          body.classList.add("darken-bg");
-          d_table.style.opacity = "0.5"; 
-          addDoctorBtn.disabled = true; 
-          setInteractionsEnabled(false);
+          
             // Formu seç
             const form = document.getElementById('myUpdateForm');
           
@@ -373,22 +367,11 @@
           function closeUpdateForm() {
             const form = document.getElementById('myUpdateForm');
             form.style.display = 'none';
-            var body = document.body;
-          body.classList.remove("darken-bg");
-          d_table.style.opacity = "1"; 
-          addDoctorBtn.disabled = false; 
-          setInteractionsEnabled(true);
           }
 
 
 
           async function deletePatient(id) {
-            var confirmAction = confirm("Hastayı kaldırmak istediğinize emin misiniz?");
-    if (!confirmAction) {
-        return;
-    } else {
-      
-    
             try {
                 const response = await fetch('/admin_panel/delete_patient_history', {
                     method: 'POST',
@@ -415,18 +398,12 @@
                 // Hata işleme
                 alert('historysi silinemedi: ' + error.message);
             }
-          }
         }
 
         //Async yazılmalı mı başına? 
         function showRecordsofPatient(patientId) {
           // Make a GET request to fetch patient records
           document.getElementById("popup").style.display = "block";
-          var body = document.body;
-          body.classList.add("darken-bg");
-          d_table.style.opacity = "0.5"; 
-          addDoctorBtn.disabled = true; 
-          setInteractionsEnabled(false);
           fetch(`/admin_panel/read_patient_records/${patientId}`)
             .then(response => response.json())
             .then(records => {
@@ -445,6 +422,7 @@
                         <th>Ücret</th>
                         <th>Daha Fazla</th>
                         <th>Doktor Yorumu</th>
+                        <th>Eylemler</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -457,10 +435,15 @@
                           <td>${record.price}</td>
                           <td>${record.more}</td>
                           <td>${record.doctorComment}</td>
+                          <td>
+                            <button onclick="openRecordUpdateForm('${patientId}', '${record._id}', '${record.doctor}', '${record.clinic}', '${record.date}', '${record.time}', '${record.price}', '${record.more}', '${record.doctorComment}')">Güncelle</button>
+                            <button onclick="deleteRecord('${patientId}', '${record._id}')">Kaldır</button>
+                          </td>
                         </tr>
                       `).join('')}
                     </tbody>
                   </table>
+                  <button onclick="closePopup()">Close</button>
                 </div>
               `;
         
@@ -479,7 +462,6 @@
           }
         }
         */
-        
 
         document.getElementById("popup").style.display = "none";
 
@@ -488,15 +470,9 @@
           document.getElementById("popup").style.display = "block";
         }
       
-        
       // Function to Close the Popup
       function closePopup() {
           document.getElementById("popup").style.display = "none";
-          var body = document.body;
-          body.classList.remove("darken-bg");
-          d_table.style.opacity = "1"; 
-          addDoctorBtn.disabled = false; 
-          setInteractionsEnabled(true);
       }
         
       async function deleteRecord(patient_id, record_id) {
@@ -591,7 +567,7 @@
               <td>
                 <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
                 <button onclick="deletePatient('${patient._id}')">Kaldır</button>
-                <button onclick="showRecordsofPatient('${patient._id}') ">Geçmişi Göster</button>
+                <button onclick="showRecordsofPatient('${patient._id}')">Geçmişi Göster</button>
                 
               </td>
               

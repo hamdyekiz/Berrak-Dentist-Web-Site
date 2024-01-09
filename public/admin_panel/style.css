@@ -288,3 +288,9 @@ table {
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+  
+  .navbar-brand {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

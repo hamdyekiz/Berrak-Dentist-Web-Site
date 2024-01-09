@@ -55,11 +55,12 @@ router.get("/", (req, res) => {
     }
 });
 
+
 // admin paneldeki sayfalara erişmek için get methodları.
 router.get("/doktorlar/", (req, res) => {
     console.log("session: " + req.session.user);
     if(req.session.user && req.session.isAuthenticated && req.session.user.title == "Admin"){
-      res.render("admin_panel/doctors.ejs");
+      res.render("admin_panel/doctors.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else{
       res.redirect("/login");
@@ -69,7 +70,7 @@ router.get("/doktorlar/", (req, res) => {
 router.get("/asistanlar/", (req, res) => {
   console.log("session: " + req.session.user);
   if(req.session.user && req.session.isAuthenticated && req.session.user.title == "Admin"){
-    res.render("admin_panel/assistants.ejs");
+    res.render("admin_panel/assistants.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
   }
   else{
     res.redirect("/login");
@@ -86,15 +87,15 @@ router.get("/gelecek_randevular/", (req,res) => {
 
     // if admin show all the appointments in the database
     if(req.session.user.title == "Admin") {
-      res.render("admin_panel/randevular.ejs");
+      res.render("admin_panel/randevular.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant"){
-      res.render("admin_panel_assistant/randevular.ejs");
+      res.render("admin_panel_assistant/randevular.ejs", {assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
     // !!!! Show only their appointments
     else if(req.session.user.title == "Doctor"){
-      res.render("admin_panel_doctor/randevular.ejs");
+      res.render("admin_panel_doctor/randevular.ejs", {doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
   }
 
@@ -112,15 +113,15 @@ router.get("/hastalar/", (req, res) => {
       
       // if admin show all the patients in the database
       if(req.session.user.title == "Admin") {
-        res.render("admin_panel/hastalar.ejs");
+        res.render("admin_panel/hastalar.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
       }
       else if(req.session.user.title == "Assistant"){
-        res.render("admin_panel_assistant/hastalar.ejs");
+        res.render("admin_panel_assistant/hastalar.ejs", {assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
       }
   
       // !!!! Show only their patients
       else if(req.session.user.title == "Doctor"){
-        res.render("admin_panel_doctor/hastalar.ejs");
+        res.render("admin_panel_doctor/hastalar.ejs", {doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
       }
   }
 
@@ -140,15 +141,15 @@ router.get("/eski_randevular/", (req, res) => {
 
     // if admin show all the past appointments in the database
     if(req.session.user.title == "Admin") {
-      res.render("admin_panel/pastDueAppointments.ejs");
+      res.render("admin_panel/pastDueAppointments.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant"){
-      res.render("admin_panel_assistant/pastDueAppointments.ejs");
+      res.render("admin_panel_assistant/pastDueAppointments.ejs", {assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
     // !!!! Show only their past appointments
     else if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/pastDueAppointments.ejs");
+      res.render("admin_panel_doctor/pastDueAppointments.ejs", {doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
   }
   else{
@@ -169,13 +170,13 @@ router.post('/create_doctor', async (req, res) => {
     addDoctorSuccessful = await create_account(personelName, personelSurname, personelPhoneNum, personelEmail, personelPassword, "Doctor", personelClinic);
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/doctors.ejs", {addDoctorSuccessful: 1});
+      res.render("admin_panel_doctor/doctors.ejs", {addDoctorSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/doctors.ejs", {addDoctorSuccessful: 1});
+      res.render("admin_panel/doctors.ejs", {addDoctorSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/doctors.ejs", {addDoctorSuccessful: 1});
+      res.render("admin_panel_assistant/doctors.ejs", {addDoctorSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 });
@@ -201,13 +202,13 @@ router.post('/create_assistant', async (req, res) => {
     console.log("başarıyla eklendi mi: " + addAssistantSuccessful);
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/assistants.ejs", {addAssistantSuccessful: 1});
+      res.render("admin_panel_doctor/assistants.ejs", {addAssistantSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/assistants.ejs", {addAssistantSuccessful: 1});
+      res.render("admin_panel/assistants.ejs", {addAssistantSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/assistants.ejs", {addAssistantSuccessful: 1});
+      res.render("admin_panel_assistant/assistants.ejs", {addAssistantSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -286,13 +287,13 @@ router.post('/create_patient_appointment', async (req, res) => {
     await personel.save();
     
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/randevular.ejs", {addAppointmentSuccessful: 1});
+      res.render("admin_panel_doctor/randevular.ejs", {addAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/randevular.ejs", {addAppointmentSuccessful: 1});
+      res.render("admin_panel/randevular.ejs", {addAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/randevular.ejs", {addAppointmentSuccessful: 1});
+      res.render("admin_panel_assistant/randevular.ejs", {addAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -323,13 +324,13 @@ router.post("/delete_doctor", async (req, res) => {
     
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel_doctor/doctors.ejs", {isDoctorDeleted: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel_assistant/doctors.ejs", {isDoctorDeleted: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -349,13 +350,13 @@ router.post("/delete_assistant", async (req, res) => {
     }
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel_doctor/doctors.ejs", {isDoctorDeleted: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel/doctors.ejs", {isDoctorDeleted: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/doctors.ejs", {isDoctorDeleted: 1});
+      res.render("admin_panel_assistant/doctors.ejs", {isDoctorDeleted: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -420,13 +421,13 @@ router.post('/delete_patient_appointment', async (req, res) => {
 
 
       if(req.session.user.title == "Doctor") {
-        res.render("admin_panel_doctor/randevular.ejs", {deleteAppointmentSuccessful: 1});
+        res.render("admin_panel_doctor/randevular.ejs", {deleteAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
       }
       else if(req.session.user.title == "Admin") {
-        res.render("admin_panel/randevular.ejs", {deleteAppointmentSuccessful: 1});
+        res.render("admin_panel/randevular.ejs", {deleteAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
       }
       else if(req.session.user.title == "Assistant") {
-        res.render("admin_panel_assistant/randevular.ejs", {deleteAppointmentSuccessful: 1});
+        res.render("admin_panel_assistant/randevular.ejs", {deleteAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
       }
 
     } catch (error) {
@@ -472,13 +473,13 @@ router.post('/update_doctor', async (req, res) => {
     }
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/doctors.ejs", {isDoctorUpdated: 1});
+      res.render("admin_panel_doctor/doctors.ejs", {isDoctorUpdated: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/doctors.ejs", {isDoctorUpdated: 1});
+      res.render("admin_panel/doctors.ejs", {isDoctorUpdated: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/doctors.ejs", {isDoctorUpdated: 1});
+      res.render("admin_panel_assistant/doctors.ejs", {isDoctorUpdated: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -510,13 +511,13 @@ router.post('/update_assistant', async (req, res) => {
     }
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/assistants.ejs", {isAssistantUpdated: 1});
+      res.render("admin_panel_doctor/assistants.ejs", {isAssistantUpdated: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/assistants.ejs", {isAssistantUpdated: 1});
+      res.render("admin_panel/assistants.ejs", {isAssistantUpdated: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/assistants.ejs", {isAssistantUpdated: 1});
+      res.render("admin_panel_assistant/assistants.ejs", {isAssistantUpdated: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 });
@@ -608,13 +609,13 @@ router.post('/update_patient_appointment', async (req, res) => {
         console.log(`Updated ${result.modifiedCount} appointments documents with email ${email}`);
 
         if(req.session.user.title == "Doctor") {
-          res.render("admin_panel_doctor/randevular.ejs", {updateAppointmentSuccessful: 1});
+          res.render("admin_panel_doctor/randevular.ejs", {updateAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
         }
         else if(req.session.user.title == "Admin") {
-          res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1});
+          res.render("admin_panel/randevular.ejs", {updateAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
         }
         else if(req.session.user.title == "Assistant") {
-          res.render("admin_panel_assistant/randevular.ejs", {updateAppointmentSuccessful: 1});
+          res.render("admin_panel_assistant/randevular.ejs", {updateAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
         }
         
         
@@ -1239,13 +1240,13 @@ router.get('/read_doctors', async (req, res) => {
       await mongoose.connection.db.collection('pastdueappointments').deleteOne({ name, surname, phoneNum, date, time });
 
       if(req.session.user.title == "Doctor") {
-        res.render("admin_panel_doctor/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1});
+        res.render("admin_panel_doctor/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
       }
       else if(req.session.user.title == "Admin") {
-        res.render("admin_panel/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1});
+        res.render("admin_panel/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
       }
       else if(req.session.user.title == "Assistant") {
-        res.render("admin_panel_assistant/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1});
+        res.render("admin_panel_assistant/pastDueAppointments.ejs", {savePastAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
       }
 
     } catch (error) {
@@ -1314,13 +1315,13 @@ router.post('/create_past_patient_appointment', async (req, res) => {
     await personel.save();
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1});
+      res.render("admin_panel_doctor/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1});
+      res.render("admin_panel/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1});
+      res.render("admin_panel_assistant/pastDueAppointments.ejs", {addPastAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
 
@@ -1396,13 +1397,13 @@ router.post('/delete_past_patient_appointment', async (req, res) => {
     console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, and phoneNum ${phoneNum}`);
 
     if(req.session.user.title == "Doctor"){
-      res.render("admin_panel_doctor/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1});
+      res.render("admin_panel_doctor/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1});
+      res.render("admin_panel/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant"){
-      res.render("admin_panel_assistant/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1});
+      res.render("admin_panel_assistant/pastDueAppointments.ejs", {deletePastAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
   } catch (error) {
@@ -1461,13 +1462,13 @@ router.post('/update_patient_history', async (req, res) => {
         console.log(`Updated ${result.modifiedCount} appointments documents with email ${email}`);
 
         if(req.session.user.title == "Doctor") {
-          res.render("admin_panel_doctor/hastalar.ejs", {updatePatientHistorySuccessful: 1});
+          res.render("admin_panel_doctor/hastalar.ejs", {updatePatientHistorySuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
         }
         else if(req.session.user.title == "Admin") {
-          res.render("admin_panel/hastalar.ejs", {updatePatientHistorySuccessful: 1});
+          res.render("admin_panel/hastalar.ejs", {updatePatientHistorySuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
         }
         else if(req.session.user.title == "Assistant") {
-          res.render("admin_panel_assistant/hastalar.ejs", {updatePatientHistorySuccessful: 1});
+          res.render("admin_panel_assistant/hastalar.ejs", {updatePatientHistorySuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
         }
         
         //res.status(200).json({ message: `${result.modifiedCount} documents updated` });
@@ -1511,13 +1512,13 @@ router.post('/delete_patient_history', async (req, res) => {
     const result = await collection.deleteMany({ _id: id });
 
     if(req.session.user.title == "Doctor") {
-      res.render("admin_panel_doctor/hastalar.ejs", {deletePatientHistorySuccessful: 1});
+      res.render("admin_panel_doctor/hastalar.ejs", {deletePatientHistorySuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Admin") {
-      res.render("admin_panel/hastalar.ejs", {deletePatientHistorySuccessful: 1});
+      res.render("admin_panel/hastalar.ejs", {deletePatientHistorySuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
     }
     else if(req.session.user.title == "Assistant") {
-      res.render("admin_panel_assistant/hastalar.ejs", {deletePatientHistorySuccessful: 1});
+      res.render("admin_panel_assistant/hastalar.ejs", {deletePatientHistorySuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
     }
 
     //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
@@ -1646,7 +1647,15 @@ router.post('/delete_one_record', async (req, res) => {
       { $pull: { records: { _id: record_id } } }
     );
 
-    res.render("admin_panel/hastalar.ejs", {deletePatientRecordSuccessful: 1});
+    if(req.session.user.title == "Doctor") {
+      res.render("admin_panel_doctor/hastalar.ejs", {deletePatientRecordSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
+    }
+    else if(req.session.user.title == "Admin") {
+      res.render("admin_panel/hastalar.ejs", {deletePatientRecordSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
+    }
+    else if(req.session.user.title == "Assistant") {
+      res.render("admin_panel_assistant/hastalar.ejs", {deletePatientRecordSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
+    }
 
     //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
   } catch (error) {
@@ -1689,7 +1698,16 @@ router.post('/update_one_record', async (req, res) => {
       return res.status(404).json({ error: 'Patient not found or record not found' });
     }
 
-    res.render("admin_panel/hastalar.ejs", {updatePatientRecordSuccessful: 1});
+    if(req.session.user.title == "Doctor") {
+      res.render("admin_panel_doctor/hastalar.ejs", {updatePatientRecordSuccessful: 1, doctorName: req.session.user.name + " " + req.session.user.surname, doctorEmail: req.session.user.email});
+    }
+    else if(req.session.user.title == "Admin") {
+      res.render("admin_panel/hastalar.ejs", {updatePatientRecordSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
+    }
+    else if(req.session.user.title == "Assistant") {
+      res.render("admin_panel_assistant/hastalar.ejs", {updatePatientRecordSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
+    }
+
     //res.status(200).send('Record updated successfully.');
   } catch (error) {
     console.error(error);

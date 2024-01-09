@@ -22,8 +22,9 @@
         <nav class="navbar navbar-inverse">
 
             <div style="text-align: center; display:flex;flex-direction: column;">
-                <a style="color: black;" class="navbar-brand">Admin</a>
-                <a style="color: gray;" class="navbar-brand">adming@gmail.com</a>
+              <a style="color: black;" class="navbar-brand">Doktor</a>
+              <a style="color: black;" class="navbar-brand"><%=doctorName%></a>
+              <a style="color: gray;" class="navbar-brand"><%=doctorEmail%></a>
 
             </div>
 
@@ -384,7 +385,7 @@
                     // Alert göster
                     alert('Geçmiş randevusu başarıyla silindi!');
                     // '/admin_panel/doktorlar' sayfasına yönlendir
-                    window.location.href = '/admin_panel_doctor/eski_randevular/';
+                    window.location.href = '/admin_panel/eski_randevular/';
                 } else {
                     console.error('Error deleting past patient appointment:', response.statusText);
                     // Hata işleme
@@ -397,7 +398,24 @@
             }
         }}
 
+            // make the name and email fit in the navbar
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const navbarBrands = document.querySelectorAll('.navbar-brand');
+        navbarBrands.forEach(element => {
+            adjustFontSizeToFit(element);
+        });
+    });
 
+    function adjustFontSizeToFit(element) {
+        const maxWidth = element.offsetWidth; // Get the maximum width of the container
+        let fontSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+        fontSize = parseFloat(fontSize);
+
+        while (element.scrollWidth > maxWidth && fontSize > 10) { // Minimum font size is 10px
+            fontSize -= 1; // Decrease font size
+            element.style.fontSize = fontSize + 'px';
+        }
+    }
 
     </script>
 </body>

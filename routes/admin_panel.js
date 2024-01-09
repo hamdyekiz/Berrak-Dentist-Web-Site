@@ -158,7 +158,16 @@ router.get("/eski_randevular/", (req, res) => {
 });
 
 router.get("/randevu_talepleri/", (req, res) => {
-  res.render("admin_panel/appointmentRequests.ejs");
+  if(req.session.user && req.session.isAuthenticated && req.session.user.title == "Admin"){
+    res.render("admin_panel/appointmentRequests.ejs", {adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
+  }
+  else if(req.session.user && req.session.isAuthenticated && req.session.user.title == "Assistant"){
+    res.render("admin_panel_assistant/appointmentRequests.ejs", {assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
+  }
+
+  else {
+    redirect("/login");
+  }
 });
 
 
@@ -1893,17 +1902,24 @@ router.post('/create_patient_appointment2', async (req, res) => {
 
   await personel.save();
   
-  res.render("admin_panel/appointmentRequests.ejs", {addAppointmentSuccessful: 1});
+  if(req.session.user.title == "Admin") {
+    res.render("admin_panel/appointmentRequests.ejs", {addAppointmentSuccessful: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
+  }
+  else if(req.session.user.title == "Assistant") {
+    res.render("admin_panel_assistant/appointmentRequests.ejs", {addAppointmentSuccessful: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
+  }
+  else {
+    res.redirect("/login");
+  }
 
   console.log("\npatientlists collection'una eklendi!");
 
-  const secondApiResponse = await axios.post('http://localhost:3000/admin_panel/delete_appointment_request', { _id:_id });
+  const secondApiResponse = await axios.post("http://localhost:3000/admin_panel/delete_appointment_request", { _id:_id });
+
 
   console.log("\nappointmentrequests collection'undan silindi!");
 
   await mongoose.connection.close();
-
-
 });
 
 
@@ -1931,7 +1947,17 @@ router.post('/delete_appointment_request', async (req, res) => {
     //console.log(`KALDIRILDI ${result}`);
 
     //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
-    res.render("admin_panel/appointmentRequests.ejs", {isAppointmentRequestDeleted: 1});
+    
+    if(req.session.user.title == "Admin") {
+      res.render("admin_panel/appointmentRequests.ejs", {isAppointmentRequestDeleted: 1, adminName: req.session.user.name + " " + req.session.user.surname, adminEmail: req.session.user.email});
+    }
+    else if(req.session.user.title == "Assistant") {
+      res.render("admin_panel_assistant/appointmentRequests.ejs", {isAppointmentRequestDeleted: 1, assistantName: req.session.user.name + " " + req.session.user.surname, assistantEmail: req.session.user.email});
+    }
+    else {
+      res.redirect("/login");
+    }
+
   } catch (error) {
     console.error('Error deleting documents:', error);
   } finally {

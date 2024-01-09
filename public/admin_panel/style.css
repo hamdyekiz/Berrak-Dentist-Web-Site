@@ -68,9 +68,9 @@ body {
 }
 
 .logout-button {
-    background-color: #D8EBFA ;
+  background-color:rgba(12, 113, 175, 0.5);
     border: none;
-    color: #1969AA;
+    color: rgba(255, 255, 255, 0.822);
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -85,6 +85,12 @@ body {
 
 }
 
+.logout-button:hover{
+  background-color: rgba(1, 77, 124, 0.5);
+}
+
+
+
 .add-btn {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     width: 120px;
@@ -93,11 +99,14 @@ body {
     background-color: rgba(23, 216, 241, 0.5);
     border: none;
     font-size: 14px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: -4px;
+    padding: 2px;
     font-weight: 700;
     border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: rgba(12, 113, 175, 0.5);
 }
 
 
@@ -228,11 +237,22 @@ table {
     width: 280px;
   }
 
+  #popup{
+    background-color: #fff;
+    display: none;
+    border-radius: 5px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #f1f1f1;
+    z-index: 6;
+  }
   /* The popup form - hidden by default */
   .form-popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 3px solid #f1f1f1;

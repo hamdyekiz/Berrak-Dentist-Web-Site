@@ -102,41 +102,11 @@
 
                         <a href="/"><button id="button-return">Geri
                                 Dön</button></a>
-
-
-
                     </div>
-
-
-
                 </div>
 
-
                 </div>
-                <% } else { %>
-                    <div class="form-popup" id="myForm" style="height: 375px; overflow-y: auto;">
-                        <div id="success-div">
-                            <i class="fa-solid fa-x"
-                                style="font-size: 50px; color: rgb(193, 7, 7); margin-bottom: 10px;"></i>
-                            <p id="success-conf" style="color: rgba(193, 7, 7);">Doğrulama kodu yanlış. Lütfen tekrar
-                                deneyiniz.</p>
-
-
-                            <a href="/"><button id="button-return">Geri
-                                    Dön</button></a>
-
-
-
-                        </div>
-
-
-
-                    </div>
-
-
-                    </div>
-
-                    <% } %>
+                <% }%>
         </p>
         <% } %>
 
@@ -144,6 +114,16 @@
             <div id="form-main">
                 <div id="form-div">
                     <form action="/appointment_request/verify" method="post" class="form" id="form1">
+                         
+                        <% if (typeof isCodeCorrect !== 'undefined') { %>
+                            <% if (!isCodeCorrect) { %>
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <div>
+                                        <p style="font-size: 22px; color: rgba(193, 7, 7); text-align: center; font-weight: bold;">Doğrulama kodu yanlış.<br> Lütfen tekrar deneyiniz.</p>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% } %>
 
                         <p style="font-size: 20px;">Randevu onay maili email adresinize gönderildi.
                             Lütfen email adresinize gelen 5 haneli kodu girin</p>

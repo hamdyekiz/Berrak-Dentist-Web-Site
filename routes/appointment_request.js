@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 
+const { MongoClient } = require('mongodb');
+
+
 const path = require("path");
 const { URL } = require("url");
 
@@ -61,7 +64,7 @@ router.post('/submit', (req, res) => {
 });
 
 //e mail'e gönderilen kod verify edilecek.
-router.post('/verify', (req, res) => {
+router.post('/verify', async (req, res) => {
     let isCodeCorrect = false;
     console.log(req.body);
     let { authCode } = req.body;
@@ -70,6 +73,7 @@ router.post('/verify', (req, res) => {
         isCodeCorrect = true;
         console.log("True code");
         sendEmail(name, telNo, email, availableHours);
+        await sendInfoToAdminPanel(name, telNo, email, availableHours, doctor, complaint);
     } else {
         console.log("Wrong code");
     }
@@ -174,5 +178,54 @@ function isEmailValid(email) {
 
     return emailRegex.test(email) && !isTempMail;
 }
+
+
+
+
+
+async function sendInfoToAdminPanel(name, telNo, email, availableHours, doctor, complaint) {
+    const uri = process.env.URL + "clinicDB";
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+        // Connect to MongoDB
+        await client.connect();
+        console.log('Connected to the database');
+
+        const database = client.db('clinicDB');
+        const collectionName = 'appointmentrequests';
+
+        // Check if the collection already exists
+        const collections = await database.listCollections({ name: collectionName }).toArray();
+
+        if (collections.length === 0) {
+            // Collection does not exist, create it
+            await database.createCollection(collectionName);
+            console.log(`Collection '${collectionName}' created`);
+        }
+
+        // Insert document into the collection
+        const collection = database.collection(collectionName);
+        const result = await collection.insertOne({
+            name: name,
+            telNo: telNo,
+            email: email,
+            availableHours: availableHours,
+            doctor: doctor,
+            complaint: complaint
+        });
+
+        console.log('Appointment request saved successfully:', result);
+    } catch (error) {
+        console.error('Error saving appointment request:', error);
+    } finally {
+        // Close the MongoDB connection
+        await client.close();
+    }
+}
+
+
+
+
 
 module.exports = router;

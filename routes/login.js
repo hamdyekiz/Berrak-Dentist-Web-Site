@@ -254,12 +254,12 @@ function sendVerificationCode_forLockout(email) {
     email_to_be_removed_from_lockouted = email;
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.eu',
-      port: 465,
-      secure: true, //ssl
+      host: 'smtp.eu.mailgun.org',
+      port: 587,
+      secure: false, //ssl
       auth: {
-          user:process.env.EMAIL_USER,
-          pass:process.env.EMAIL_PASSWORD
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD
       }
   });
 
@@ -317,7 +317,7 @@ router.post('/verify_lockout_code', (req, res) => {
 // get request to show the main ADMIN LOGIN page. 
 router.get("/", (req, res) => {
   if(req.session.isAuthenticated && req.session.user){
-    res.redirect("/admin_panel/doktorlar");
+    res.redirect("/admin_panel/");
   }
   else {
     res.render("admin_login/admin_login.ejs");

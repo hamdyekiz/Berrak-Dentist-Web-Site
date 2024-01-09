@@ -140,7 +140,7 @@
                   </table>
 
                   <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
-                    <form action="/admin_panel/create_patient_appointment/" method="post" class="form-container">
+                    <form action="/admin_panel/create_patient_appointment2/" method="post" class="form-container">
                       <div style="display: flex; gap: 50px;">
                         <h1>Randevu Ekle</h1>
                         <a style="cursor: pointer;" onclick="closeUpdateForm()">
@@ -150,8 +150,8 @@
 
                             
 
-                            <!-- <label for="ID"></label>
-                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;"> -->
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
 
 
                             <label for="Name"></label>
@@ -283,7 +283,7 @@
                       <td>
                         <div  style="display: flex; gap: 10px;">
 
-                        <button class="add-btn" onclick="openUpdateForm('${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${patient.doctor}', '${patient.complaint}')">Ekle</button>
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${patient.doctor}', '${patient.complaint}')">Ekle</button>
                         <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
                           <div>
                         </td>
@@ -307,7 +307,7 @@
           }
 
 
-          function openUpdateForm(name, telNo, email, availableHours, doctor, complaint ) {
+          function openUpdateForm(id, name, telNo, email, availableHours, doctor, complaint ) {
             //console.log("open Update'deyim!!!!!!!");
             //console.log("ID İn openUpdateform: " + id);
           
@@ -321,6 +321,7 @@
                 setInteractionsEnabled(false);
                 addDoctorBtn.style.opacity = "0.4"
             // Form alanlarını doldur
+            form.querySelector('input[name="_id"]').value = id;
             form.querySelector('input[name="name"]').value = name;
             form.querySelector('input[name="phoneNum"]').value = telNo;
             form.querySelector('input[name="email"]').value = email;

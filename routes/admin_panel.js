@@ -1558,12 +1558,80 @@ router.get('/read_appointment_requests', async (req, res) => {
 });
 
 
+const axios = require('axios');
+
+
+router.post('/create_patient_appointment2', async (req, res) => {
+  let _id, name, surname, phoneNum, email, doctor, clinic, date, time, price, more;
+  //Buradaki verilerin boş olmadığını kabul ediyoruz.
+  ({_id, name, surname, phoneNum, email, doctor, clinic, date, time, price, more} = req.body);
+  //console.log("LAAAAAANNNN!");
+
+  // there is no email verification. Because these datas will be added by person.
+  
+  // Database'e bağlanıyoruz. (Burada database ismi vs değiişmeli!!!)
+  // await mongoose.connect("mongodb://127.0.0.1:27017/clinicDB", {useNewUrlParser: true});
+  await mongoose.connect(url + "clinicDB");
+
+  //dentistSchema'ya uyacak bir collection oluşturuyoruz. Eğer PersonelList collection'ı yoksa oluşturuyoruz. (ANCAK KLİNİK MANTIĞINDA DOKTORUN HANGİ KLİNİKTE OLDUĞU BELİRTİLMELİ. YA DA KLİNİK İÇİN BİR COLLECTİON OLUŞTURULUP O COLLECTİON İÇİNE OLUŞTURULAN DOKTORLAR EKLENMELİ.)
+  try {
+      patientList = mongoose.model('patientList');
+  } catch {
+      const patientSchema = new mongoose.Schema({
+        name: String,
+        surname: String,
+        phoneNum: String,
+        email: String,
+        doctor: String,
+        clinic: String,
+        date: String,
+        time: String,
+        price: String,
+        more: String
+      });
+    
+      patientList = mongoose.model('patientList', patientSchema);
+  }    
+  //Burada neden try catch yapısı kullandık? Neden direkt dentistSchema'yı tanımlayıp Dentistlit objesi oluşturmadık? Çünkü eğer PersonelList collection'ı yoksa oluşturuyoruz. Eğer PersonelList collection'ı varsa, direkt PersonelList objesini oluşturuyoruz. Bu yüzden try catch kullandık. Eğer PersonelList collection'ı yoksa, try bloğu çalışacak ve PersonelList objesini oluşturacak. Eğer PersonelList collection'ı varsa, catch bloğu çalışacak ve PersonelList objesini oluşturacak.
+  // Ayrıca try catch içinde yazmasaydım garip bir şekilde password invalid hatasından sonra yeni valid doktor eklemesi yapınca hata alıyordum.
+
+  
+  const personel = new patientList({
+      name: name,
+      surname: surname,
+      phoneNum: phoneNum,
+      email: email,
+      doctor: doctor,
+      clinic: clinic,
+      date: date,
+      time: time,
+      price: price,
+      more: more
+      
+  });
+
+  await personel.save();
+  
+  res.render("admin_panel/appointmentRequests.ejs", {addAppointmentSuccessful: 1});
+
+  console.log("\npatientlists collection'una eklendi!");
+
+  const secondApiResponse = await axios.post('http://localhost:3000/admin_panel/delete_appointment_request', { _id:_id });
+
+  console.log("\nappointmentrequests collection'undan silindi!");
+
+  await mongoose.connection.close();
+
+
+});
+
 
 
 router.post('/delete_appointment_request', async (req, res) => {
 
   const { _id } = req.body;
   const id = new ObjectId(_id);  
+  //console.log("\n _id: " + _id);
 
   const dbName = 'clinicDB';
   const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -1579,7 +1647,7 @@ router.post('/delete_appointment_request', async (req, res) => {
     // Delete documents where name, surname, email, and title match the provided values
     const result = await collection.deleteMany({ _id: id });
 
-    console.log(`KALDIRILDI ${result}`);
+    //console.log(`KALDIRILDI ${result}`);
 
     //console.log(`Removed ${result.deletedCount} documents with name ${name}, surname ${surname}, email ${email}, and title ${title}`);
     res.render("admin_panel/appointmentRequests.ejs", {isAppointmentRequestDeleted: 1});

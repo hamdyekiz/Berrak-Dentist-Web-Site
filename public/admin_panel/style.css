@@ -13,6 +13,8 @@ body {
 
 /* rules for desktop or bigger screens here */
 
+
+
 .side-bar {
     position: fixed;
     width: 15rem;
@@ -28,14 +30,18 @@ body {
 }
 .list-container a.disabled,
     .event-buttons button:disabled,
-    .logout-button:disabled {
+    .logout-button:disabled , .tp1:disabled, .tp2:disabled{
       pointer-events: none;
-      cursor: default;
+      cursor: not-allowed;
     }
+
+  
 .side-bar .list-container {
     padding-top: 4rem;
 }
-
+.disabled-link {
+  pointer-events: none;
+}
 .side-bar .list-container ul {
     list-style-type: none;
     padding: 0;
@@ -193,6 +199,10 @@ table {
     left: 0;
   }
 
+  .more {
+    overflow-wrap: anywhere;
+  }
+
   .specialities{
     width: 50rem;
   }
@@ -236,6 +246,7 @@ table {
     right: 28px;
     width: 280px;
   }
+  
 
   #popup{
     background-color: #fff;
@@ -257,6 +268,7 @@ table {
     transform: translate(-50%, -50%);
     border: 3px solid #f1f1f1;
     z-index: 9;
+    border-radius: 10px;
   }
 
   /* Darken the background when the form is open */

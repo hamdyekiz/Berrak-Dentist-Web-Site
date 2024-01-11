@@ -1575,14 +1575,14 @@ router.get('/read_patient_histories', async (req, res) => {
     // Fetch doctors from the database and sort them alphabetically
     let patients = await PatientHistoryList.find().collation({ locale: 'tr', strength: 2, }).sort({ name: 1, surname: 1, });
 
-    if(req.session.user.title == "Doctor"){
-      let doctorName = req.session.user.name + " " + req.session.user.surname;
-      console.log("Doctor name: " + doctorName);
-      patients.forEach(patient => {
-        console.log("Patient doctor: " + patient.records[0].doctor);
-      });
-      patients = patients.filter(patient => patient.records[0].doctor == doctorName);
-    }
+    // if(req.session.user.title == "Doctor"){
+    //   let doctorName = req.session.user.name + " " + req.session.user.surname;
+    //   console.log("Doctor name: " + doctorName);
+    //   patients.forEach(patient => {
+    //     console.log("Patient doctor: " + patient.records[0].doctor);
+    //   });
+    //   patients = patients.filter(patient => patient.records[0].doctor == doctorName);
+    // }
 
     res.json(patients);
   } catch (error) {
@@ -1787,15 +1787,15 @@ router.get('/read_searched_patient/:name/:surname', async (req, res) => {
     //console.log("ARANAN HASTA: \n" + patient);
 
 
-    // if the session is for a doctor, then filter the patients according to the doctor
-    if(req.session.user.title == "Doctor"){
-      let doctorName = req.session.user.name + " " + req.session.user.surname;
-      console.log("Doctor name: " + doctorName);
+    // // if the session is for a doctor, then filter the patients according to the doctor
+    // if(req.session.user.title == "Doctor"){
+    //   let doctorName = req.session.user.name + " " + req.session.user.surname;
+    //   console.log("Doctor name: " + doctorName);
 
-      console.log("Patient's doctor: " + patient[0].records[0].doctor);
+    //   console.log("Patient's doctor: " + patient[0].records[0].doctor);
 
-      patient = patient.filter(patient => patient.records[0].doctor == doctorName);
-    }
+    //   patient = patient.filter(patient => patient.records[0].doctor == doctorName);
+    // }
 
     res.json(patient);
   } catch (error) {

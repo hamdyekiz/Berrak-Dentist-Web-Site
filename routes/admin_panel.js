@@ -1914,9 +1914,17 @@ router.post('/create_patient_appointment2', async (req, res) => {
 
   console.log("\npatientlists collection'una eklendi!");
 
-  const secondApiResponse = await axios.post("https://localhost:3000/admin_panel/delete_appointment_request", { _id:_id });
+  // const secondApiResponse = await axios.post("http://localhost:3000/admin_panel/delete_appointment_request", { _id:_id });
   // const secondApiResponse = await axios.post("https://www.berrakdis.tech/admin_panel/delete_appointment_request", { _id:_id });
 
+  let currentUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+  if(currentUrl.includes("wwww")) {
+    secondApiResponse = await axios.post("https://www.berrakdis.tech/admin_panel/delete_appointment_request", { _id:_id });
+  }
+  else {
+    secondApiResponse = await axios.post("https://berrakdis.tech/admin_panel/delete_appointment_request", { _id:_id });
+  }
 
   console.log("\nappointmentrequests collection'undan silindi!");
 

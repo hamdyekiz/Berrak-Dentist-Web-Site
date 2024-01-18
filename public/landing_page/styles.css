@@ -626,6 +626,14 @@ header {
 
 
 
+.mytemp2{
+  display: flex; 
+  margin-left: 60%;
+  gap:1%
+}
+.mytemp2 p{
+  margin-bottom: 0;
+}
 
 @media (max-width: 430px) {
   html {

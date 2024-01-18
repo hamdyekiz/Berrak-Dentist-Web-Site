@@ -13,6 +13,8 @@ body {
 
 /* rules for desktop or bigger screens here */
 
+
+
 .side-bar {
     position: fixed;
     width: 15rem;
@@ -28,14 +30,18 @@ body {
 }
 .list-container a.disabled,
     .event-buttons button:disabled,
-    .logout-button:disabled {
+    .logout-button:disabled , .tp1:disabled, .tp2:disabled{
       pointer-events: none;
-      cursor: default;
+      cursor: not-allowed;
     }
+
+  
 .side-bar .list-container {
     padding-top: 4rem;
 }
-
+.disabled-link {
+  pointer-events: none;
+}
 .side-bar .list-container ul {
     list-style-type: none;
     padding: 0;
@@ -68,9 +74,9 @@ body {
 }
 
 .logout-button {
-    background-color: #D8EBFA ;
+  background-color:rgba(12, 113, 175, 0.5);
     border: none;
-    color: #1969AA;
+    color: rgba(255, 255, 255, 0.822);
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -85,6 +91,12 @@ body {
 
 }
 
+.logout-button:hover{
+  background-color: rgba(1, 77, 124, 0.5);
+}
+
+
+
 .add-btn {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     width: 120px;
@@ -93,11 +105,14 @@ body {
     background-color: rgba(23, 216, 241, 0.5);
     border: none;
     font-size: 14px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: -4px;
+    padding: 2px;
     font-weight: 700;
     border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: rgba(12, 113, 175, 0.5);
 }
 
 
@@ -184,6 +199,10 @@ table {
     left: 0;
   }
 
+  .more {
+    overflow-wrap: anywhere;
+  }
+
   .specialities{
     width: 50rem;
   }
@@ -227,16 +246,29 @@ table {
     right: 28px;
     width: 280px;
   }
+  
 
+  #popup{
+    background-color: #fff;
+    display: none;
+    border-radius: 5px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #f1f1f1;
+    z-index: 6;
+  }
   /* The popup form - hidden by default */
   .form-popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 3px solid #f1f1f1;
     z-index: 9;
+    border-radius: 10px;
   }
 
   /* Darken the background when the form is open */
@@ -288,9 +320,3 @@ table {
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
-  
-  .navbar-brand {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}

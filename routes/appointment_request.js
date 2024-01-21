@@ -139,7 +139,7 @@ function sendEmail(name, telNo, email, availableHours) {
     console.log(process.env.EMAIL_USER + " " + process.env.EMAIL_PASSWORD);
     const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: "berrakdentist@zohomail.eu",
+        to: "berrakdisclinic@outlook.com",
         subject: 'Yeni Randevu Talebi',
         text: `Aşağıdaki bilgilere sahip hasta randevu talebinde bulunmuştur:
         \nAd Soyad: ${name}

@@ -1059,7 +1059,8 @@ router.get('/read_doctors', async (req, res) => {
 
 
   router.get('/read_appointments', async (req, res) => {
-    const moment = require('moment');
+    const moment = require('moment-timezone');
+    moment.tz.setDefault('Europe/Istanbul');
     
     // getting the filter query from the request for example: "all" or "today"
     const { filter } = req.query;

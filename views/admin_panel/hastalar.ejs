@@ -421,13 +421,13 @@ d_table.style.opacity = "1"; // Set opacity for the table when the form is open
         
                 if (response.ok) {
                     // Alert göster
-                    alert('Hasta historysi başarıyla silindi!');
+                    alert('Hasta geçmişi başarıyla silindi!');
                     // '/admin_panel/doktorlar' sayfasına yönlendir
                     window.location.href = '/admin_panel/hastalar/';
                 } else {
                     console.error('Error deleting patient history:', response.statusText);
                     // Hata işleme
-                    alert('historysi silinemedi: ' + response.statusText);
+                    alert('Hasta geçmişi silinemedi: ' + response.statusText);
                 }
             } catch (error) {
                 console.error('Error deleting patient history:', error.message);

@@ -254,6 +254,11 @@
                 appointmentsContainer.innerHTML = ''; // Clear previous content
         
                 doctors.forEach(patient => {
+                  // if patient.doctor have a name like this Dt. Özgür Kaldırım remove the Dt. 
+                  let doctorName = patient.doctor;
+                  if (doctorName.includes("Dt. ")) {
+                    doctorName = doctorName.replace("Dt. ", "");
+                  }
                   const patientInfo = `
                     <tr>
                       <td>${patient.name}</td>
@@ -265,7 +270,7 @@
                       <td>
                         <div  style="display: flex; gap: 10px;">
 
-                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${patient.doctor}', '${patient.complaint}')">Ekle</button>
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${doctorName}', '${patient.complaint}')">Ekle</button>
                         <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
                           <div>
                         </td>

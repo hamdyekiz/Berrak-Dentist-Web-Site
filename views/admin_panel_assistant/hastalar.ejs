@@ -258,6 +258,7 @@
 
         function openForm() {
             var form = document.getElementById("myForm");
+            var side_bar = document.querySelector(".side-bar-light");
             var body = document.body;
             var addDoctorBtn = document.getElementById("addDoctorBtn");
             
@@ -265,6 +266,7 @@
                 form.style.display = "block";
                 body.classList.add("darken-bg");
                 d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                
                 addDoctorBtn.disabled = true; // Disable the button when the form is open
                 setInteractionsEnabled(false);
                 addDoctorBtn.style.opacity = "0.5"; 
@@ -617,9 +619,10 @@ d_table.style.opacity = "1"; // Set opacity for the table when the form is open
               <td>${patient.phoneNum}</td>
               <td>${patient.email}</td>
               <td>
-                <button onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
-                <button onclick="deletePatient('${patient._id}')">Kaldır</button>
-                <button onclick="showRecordsofPatient('${patient._id}') ">Geçmişi Göster</button>
+                <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.surname}', '${patient.phoneNum}', '${patient.email}')">Güncelle</button>
+                <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
+                <button class="add-btn" onclick="showRecordsofPatient('${patient._id}') ">Geçmişi Göster</button>
+                
                 
               </td>
               

@@ -1082,15 +1082,15 @@ router.get('/read_doctors', async (req, res) => {
             // Filter patients based on the provided filter
             let filteredPatients;
             let currentTime;
-            let currentDate = moment().tz('Europe/Istanbul').startOf('day');
+            let currentDate = moment().startOf('day');
 
             // Only include appointments that are after the current time
-            currentTime = moment().tz('Europe/Istanbul');
+            currentTime = moment();
 
             // Geçmiş randevuları bulma 
             let allpastPatients;
             allpastPatients = allPatients.filter(patient => {
-              let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm").tz('Europe/Istanbul');
+              let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
               return currentTime.isAfter(appointmentTime_);
             });
 
@@ -1117,7 +1117,7 @@ router.get('/read_doctors', async (req, res) => {
 
 
             allPatients = allPatients.filter(patient => {
-                let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm").tz('Europe/Istanbul');
+                let appointmentTime_ = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
                 return appointmentTime_.isAfter(currentTime);
             });
 
@@ -1134,7 +1134,7 @@ router.get('/read_doctors', async (req, res) => {
                 case 'today':
                     // filteredPatients = allPatients.filter(patient => 
                     //     moment(patient.date, "DD.MM.YYYY").isSame(currentDate, 'day'));
-                    currentTime = moment().tz('Europe/Istanbul');
+                    currentTime = moment();
                     filteredPatients = allPatients.filter(patient => {
                       let appointmentTime = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
                       return appointmentTime.isSame(currentTime, 'day') && appointmentTime.isAfter(currentTime);
@@ -1142,7 +1142,7 @@ router.get('/read_doctors', async (req, res) => {
                     break;
                 case 'week':
                     // Next 7 days including today
-                    let weekLater = moment().tz('Europe/Istanbul').add(6, 'days').endOf('day'); // 6 days ahead + today = 7 days
+                    let weekLater = moment().add(6, 'days').endOf('day'); // 6 days ahead + today = 7 days
                     filteredPatients = allPatients.filter(patient => {
                         let patientDate = moment(patient.date, "DD.MM.YYYY");
                         return patientDate.isSameOrAfter(currentDate) && patientDate.isSameOrBefore(weekLater);
@@ -1150,7 +1150,7 @@ router.get('/read_doctors', async (req, res) => {
                     break;
                 case 'month':
                     // Next 30 days including today
-                    let monthLater = moment().tz('Europe/Istanbul').add(29, 'days').endOf('day'); // 29 days ahead + today = 30 days
+                    let monthLater = moment().add(29, 'days').endOf('day'); // 29 days ahead + today = 30 days
                     filteredPatients = allPatients.filter(patient => {
                         let patientDate = moment(patient.date, "DD.MM.YYYY");
                         return patientDate.isSameOrAfter(currentDate) && patientDate.isSameOrBefore(monthLater);
@@ -1158,7 +1158,7 @@ router.get('/read_doctors', async (req, res) => {
                     break;
                 default:
                   // Only include appointments that are after the current time
-                  currentTime = moment().tz('Europe/Istanbul');
+                  currentTime = moment();
                   filteredPatients = allPatients.filter(patient => {
                       let appointmentTime = moment(`${patient.date} ${patient.time}`, "DD.MM.YYYY HH.mm");
                       return appointmentTime.isAfter(currentTime);

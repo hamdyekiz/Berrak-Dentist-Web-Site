@@ -23,21 +23,21 @@ const reviews = [
     img: 'https://lh3.googleusercontent.com/a-/ALV-UjVm_GbsWFTVuiLzmZ-Dh9-UeFA_WyDTCS60F-hsDCxXTQ=w68-h68-p-rp-mo-br100',
     text: "Uzun araştırmalarım sonucunda berrak ağız diş kliniği ve Özlem hocaya geldim .İşinde uzman, hasta kaygılarını en iyi anlayan ve çözüme kavuşturan Özlem hocanın o değerli ellerine bıraktım .Kesinlikle tavsiye ediyorum.",
 
-    star: 4,
+    star: 5,
   },
   {
     id: 2,
     name: 'Sena Güler',
     img: 'https://lh3.googleusercontent.com/a/ACg8ocIJ1rgct8c9ULdKmZR-PE5b2sjOF1heHToyaZ7gwDh4=w68-h68-p-rp-mo-br100',
     text: 'Uzun süredir tedavi için buraya gidiyorum ilgili ve temiz bir klinik.Özlem Hanıma pek  çok işlem yaptırdım.Hepsinde aldığım sonuç kesinlikle tatmin ediciydi.Güleryüzlü ve ilgili bir diş hekimi. Sorduğunuz her soruya anlayabileceğiniz bir dille cevap veriyor.Gözünüz kapalı güvenebileceğiniz bir hekim.',
-    star: 3,
+    star: 5,
   },
   {
     id: 3,
     name: 'RASİM ALBAYRAK',
     img: 'https://lh3.googleusercontent.com/a-/ALV-UjXbS3klJdGBZ_i24C6rpt_b42538ST-lmkacrGXmpxghc0=w68-h68-p-rp-mo-br100',
     text: 'Dünyanın en iyi diş hekimi Özgür Bey bence Allah hayırlı sağlıklı bir ömür nasip etsin İnşallah.',
-    star: 2,
+    star: 5,
   },
   {
     id: 4,

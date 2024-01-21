@@ -34,7 +34,6 @@ let verificationCode;
 let name, telNo, email, availableHours, doctor, complaint;
 
 
-
 router.post('/submit', (req, res) => {
     // Access form inputs using req.body
     ({ name, telNo, email, availableHours, doctor, complaint } = req.body);

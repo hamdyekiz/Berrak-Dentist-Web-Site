@@ -182,7 +182,7 @@
                             <input type="text" placeholder="Doktor" name="doctor" required>
 
                             <label for="clinic"></label>
-                            <input type="text" placeholder="Klinik" name="clinic" required>
+                            <input type="text" placeholder="Klinik" name="clinic" >
 
                             <label for="date"></label>
                             <input type="text" placeholder="Tarih" name="date" required>
@@ -197,7 +197,7 @@
                             <input type="text" placeholder="Daha Fazla" name="more">
 
                             <label for="doctorComment"></label>
-                            <input type="text" placeholder="Doktor Yorumu" name="doctorComment" required>
+                            <input type="text" placeholder="Doktor Yorumu" name="doctorComment" >
 
                       <button type="submit" class="btn">Kaydı Güncelle</button>
                     </form>
@@ -208,7 +208,7 @@
 
 
                   <div id="popup">
-                    <div class="popup-content">
+                    <div class="popup-content" style="max-height: 400px; overflow-y: auto;">
                         <span class="close" onclick="closePopup()">&times;</span>
                         <h2>Hasta Geçmişi</h2>
                         <table id="recordTable">

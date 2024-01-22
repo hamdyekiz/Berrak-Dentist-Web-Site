@@ -150,6 +150,7 @@ main {
   transition: var(--transition);
   height: 250px;
   width: 250px;
+  margin-left: 10px;
 }
 
 .doctorimg:hover {
@@ -219,7 +220,7 @@ nav {
 .links a {
   background-color: hsl(205, 89%, 70%);
   color: hsl(210, 22%, 49%);
-  font-size: 1.1rem;
+  font-size: 0.75rem;
   text-transform: capitalize;
   letter-spacing: 0.25rem;
   display: block;
@@ -232,13 +233,9 @@ nav {
   color: hsl(209, 61%, 16%);
 }
 
-@media screen and (max-width: 800px) {
-  .social-icons-container {
-    display: none;
-  }
-}
 
-@media screen and (min-width: 800px) {
+
+@media (min-width: 936px) {
   nav {
     background-color: hsl(205, 89%, 70%);
   }
@@ -299,9 +296,10 @@ header {
   max-width: 40rem;
   margin-bottom: 1.25rem;
   text-align: left;
+  margin-right: 10px;
 }
 
- /* * {
+/* * {
   outline: 1px solid red !important;
   opacity: 1 !important;
   visibility: visible !important
@@ -313,27 +311,91 @@ header {
   justify-content: center;
 }
 
+.myh5 {
+
+  margin-left: 10px;
+  font-family: Playpen Sans;
+  font-size: 17px;
+  color: #222;
+}
+
+@media(max-width: 936px) {
+  .social-icons-container {
+    display: none;
+  }
+
+  .mydiv {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+}
+
+
+
+@media (min-width: 936px) and (max-width: 950px) {
+  .myh5 {
+    font-size: 13px;
+  }
+
+  .links a {
+    font-size: 0.45rem;
+  }
+}
+
+@media (min-width: 950px) and (max-width: 986px) {
+  .myh5 {
+    font-size: 13px;
+  }
+
+  .links a {
+    font-size: 0.50rem;
+  }
+}
+
+@media (min-width: 986px) and (max-width: 1024px) {
+  .myh5 {
+    font-size: 14px;
+  }
+
+  .links a {
+    font-size: 0.55rem;
+  }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1122px) {
+  .myh5 {
+    font-size: 15px;
+  }
+
+  .links a {
+    font-size: 0.60rem;
+  }
+}
+
+@media screen and (max-width: 1204px) {
+  .social-icons img {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
 
-  .myh5{font-size: 0.5rem;}
 
 
-    .mydiv {
-        display: flex;
-        flex-direction: row;
-       
-      }
 
-      .nav-toggle{
-        margin-left: auto;
-      }
-      .doctor_subcontainer p{
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-      }
+  .doctor_subcontainer p {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 
 
-      
+
   .nav-header {
     gap: 15px;
   }
@@ -357,8 +419,9 @@ header {
   }
 
   .doctor_container h1 {
-    margin-left: 25%;
+    text-align: center;
     margin-bottom: 2rem;
+    margin-left: auto;
 
 
   }

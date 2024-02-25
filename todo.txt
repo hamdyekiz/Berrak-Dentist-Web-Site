@@ -1,0 +1,8 @@
+Verification page iyileştirilecek.
+Onay kodu hataları daha iyi bir görünümle gösterilecek.
+Onay kodu doğruysa uyarı verildikten sonra 5 saniye geri sayılacak ve ana ekrana döndürülecek.
+
+Shitmail kontrolu backend ile yap.
+Email gönderme sistemini daha sağlam bir temele oturt.
+
+Haftalık, aylık, günlük gelecek randevular.

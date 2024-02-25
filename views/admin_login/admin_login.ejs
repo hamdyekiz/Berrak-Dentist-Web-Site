@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Admin Girişi</title>
+	<link rel="stylesheet" type="text/css" href="/admin_login/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div class="container" id="login-container">
+
+		<div class="login-content">
+			<form action="/login/general_login" method="post" class="form" id="form1?">
+				<h2 class="title">Admin Girişi</h2>
+				<p class="email">
+					<input type="email" class="validate[required,custom[email]] feedback-input" id="email" required
+						placeholder="Email" name="email"/>
+				</p>
+				<p class="password">
+					<input type="password" class="feedback-input" placeholder="Şifre" required name="password">
+				</p>
+				<!-- <a href="#" id="signup-link" style="margin-bottom:10px ;">Şifrenizi mi unuttunuz?</a> -->
+				<div class="submit">
+					<input type="submit" value="Giriş" id="button-blue" style="margin-top: 10px;">
+					<div class="ease"></div>
+				</div>
+			</form>
+			<div class="goback">
+				<a href="/landing_page/index.html" ><button id="button-blue"
+						style="margin-top: 15px;">Geri Dön</button></a>
+					</div>
+		</div>
+	</div>
+
+
+	<div class="container" id="signup-container" style="display: none;">
+
+		<div class="login-content">
+			<form action="admin_login.html">
+				<h2 class="title">Şifre Sıfırlama</h2>
+				<p class="email">
+					<input type="email" class="validate[required,custom[email]] feedback-input" id="email" required
+						placeholder="Email" />
+				</p>
+				<p class="tel">
+					<input type="tel" class="validate[required,custom[onlyNumber],length[10,10]] feedback-input"
+						required placeholder="Telefon Numarası (5XX)" id="tel" pattern="5[0-9]{9}" inputmode="numeric" />
+				</p>
+				<a href="#"  id="login-link" style="margin-bottom: 10px;">Geri dön</a>
+				<div class="submit">
+					<input type="submit" value="Giriş" id="button-blue" />
+					<div class="ease"></div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/admin_login/app.js">
+
+	</script>
+</body>
+
+</html>

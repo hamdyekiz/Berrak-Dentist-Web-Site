@@ -1,0 +1,25 @@
+<div id="form-div">
+        <h2 style="margin-bottom: 25px;text-align: center;">Admin Girişi</h2>
+        <form class="form" id="form1">
+            <p class="email">
+                <input type="email" class="validate[required,custom[email]] feedback-input" id="email" required
+                    placeholder="Email" />
+            </p>
+            <p class="password">
+                <input type="password" class="feedback-input" placeholder="Şifre">
+            </p>
+            <div class="submit">
+                <input type="submit" value="Giriş" id="button-blue" />
+                <div class="ease"></div>
+            </div>
+            <div>
+                <a href="#">
+                    <p style="margin-bottom: 0;">Şifrenizi mi unuttunuz?</p>
+                </a>
+            </div>
+
+        </form>
+
+
+
+    </div>

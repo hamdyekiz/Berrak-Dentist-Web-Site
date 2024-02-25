@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Boostrap 4 responsive Sidebar template with slide in/out effect">
+    <meta name="author" content="Simran Singh">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+    <title>Randevu Talepleri</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin_panel/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="side-bar side-bar-light">
+        <nav class="navbar navbar-inverse">
+
+            <div style="text-align: center; display:flex;flex-direction: column;">
+              <a style="color: black;" class="navbar-brand">Admin</a>
+              <a style="color: black;" class="navbar-brand"><%=adminName%></a>
+              <a style="color: gray;" class="navbar-brand"><%=adminEmail%></a>
+
+            </div>
+
+            <a href="/admin_panel/logout">
+              <button class="logout-button">Çıkış Yap</button>
+            </a>
+            
+            <hr />
+            <div class="list-container">
+                <ul>
+                    <li><a href="/admin_panel/doktorlar" ></span>Doktorlar</a></li>
+                    <li><a href="/admin_panel/asistanlar">Asistanlar</a></li>
+                    <li><a href="/admin_panel/gelecek_randevular" >Gelecek Randevular</a></li>
+                    <li><a href="/admin_panel/hastalar">Hastalar</a></li>
+                    <li><a href="/admin_panel/eski_randevular">Geçmiş Randevular</a></li>
+                    <li><a href="/admin_panel/randevu_talepleri" class="active">Randevu Talepleri</a></li>
+                </ul>
+            </div>
+
+            <div style="display: flex;margin-left: 10%; margin-top: 70%;">
+              <a href="/landing_page/index.html" class="tp1" ><p style="color: rgba(0, 0, 0, 0.6);;">Ana Sayfaya Dön</p></a>
+              <a href="/landing_page/index.html" title="Ana Sayfaya Dön" class="tp2">
+              <svg style="width:30px;height:30px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><g><path d="M50,94.3c-14.2,0-27.2-6.5-35.6-17.9c-0.9-1.2-0.6-2.8,0.5-3.7c1.2-0.9,2.8-0.6,3.7,0.5C26.1,83.3,37.5,89,50,89    c21.6,0,39.1-17.5,39.1-39.1S71.6,10.8,50,10.8c-13.9,0-26.4,7.1-33.5,19c-0.8,1.3-2.4,1.7-3.7,0.9c-1.3-0.8-1.7-2.4-0.9-3.7    C20,13.5,34.3,5.5,50,5.5c24.5,0,44.4,19.9,44.4,44.4S74.5,94.3,50,94.3z"/></g></g><g><g><path d="M12.4,35.1c-1.2,0-2.3-0.8-2.7-2c-0.4-1.5,0.4-3,1.9-3.5l16-4.6c1.5-0.4,3,0.4,3.5,1.9c0.4,1.5-0.4,3-1.9,3.5l-16,4.6    C12.9,35.1,12.6,35.1,12.4,35.1z"/></g></g><g><g><path d="M12.4,35.1c-1.2,0-2.3-0.8-2.7-2L5.1,17c-0.4-1.5,0.4-3,1.9-3.5c1.5-0.4,3,0.4,3.5,1.9l4.6,16.1c0.4,1.5-0.4,3-1.9,3.5    C12.9,35.1,12.6,35.1,12.4,35.1z"/></g></g><g><path d="M36.6,55.5c-0.7,0-1.3-0.2-1.9-0.7c-1.2-1-1.3-2.8-0.2-4l14.7-16.7c1-1.2,2.8-1.3,4-0.2c1.2,1,1.3,2.8,0.2,4L38.7,54.6   C38.2,55.2,37.4,55.5,36.6,55.5z"/></g><g><path d="M66,55.5c-0.8,0-1.5-0.3-2.1-0.9L49.2,37.9c-1-1.2-0.9-2.9,0.3-4c1.2-1,2.9-0.9,3.9,0.2l14.7,16.7c1,1.2,0.9,2.9-0.3,4   C67.3,55.3,66.7,55.5,66,55.5z"/></g><g><g><polygon points="51.3,39 41.8,49.8 41.8,49.8 41.8,61 48.8,61 48.8,53.2 54.2,53.1 54.2,61 60.9,61 60.9,50.4 60.9,49.8   "/></g></g></svg>
+              </a>
+              </div>
+        </nav>
+    </div>
+
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <% if (typeof addAppointmentSuccessful !== 'undefined') { %>
+    <% if (addAppointmentSuccessful) { %>
+      <script>alert("Randevu başarıyla eklendi!");</script>
+    <% } else { %>
+      <script>alert("Randevu eklenemedi!");</script>
+    <% } %>
+  <% } %>    
+
+  <!-- eğer ekleme başarısız olduysa alert çıkar. -->
+  <!-- <% if (typeof updateDoctorSuccessful !== 'undefined') { %>
+    <% if (updateDoctorSuccessful) { %>
+      <script>alert("Doktor bilgileri başarıyla güncellendi!");</script>
+    <% } else { %>
+      <script>alert("Doktor bilgileri güncellenemedi!!");</script>
+    <% } %>
+  <% } %>  -->
+
+
+  <!-- delete olduğu zaman uyarı çıkar. -->
+  <% if (typeof isAppointmentRequestDeleted !== 'undefined') { %>
+    <% if (isAppointmentRequestDeleted) { %>
+      <script>alert("Randevu talebi sistemden silindi!");</script>
+    <% } else { %>
+      <script>alert("Randevu talebi sistemden silinemedi!");</script>
+    <% } %>
+  <% } %>
+
+
+    <div class="bodyContent">
+        <div style="padding:2rem">
+            <div class="right-page">
+                <div style="display: flex;">
+                    <div style="flex:10;">
+                        <h2 id="randevuHeader">Doktorlar</h2>
+                    </div>
+
+                </div>
+
+
+
+                <br />
+                <table id="randevuTable">
+                    <thead>
+                      <tr>
+                        <th>Hasta Adı Soyadı</th>
+                        <!-- <th>Doktor Soyadı</th> -->
+                        <th>Telefon</th>
+                        <th>E-posta</th>
+                        <th>Müsait Saatleri</th>
+                        <th>Doktor Tercihi</th>
+                        <th>Şikayeti</th>
+                        <th>Eylemler</th>
+                      </tr>
+                    </thead>
+                    <tbody id="appointmentsContainer">
+                      <!-- Doctors information will be displayed here -->
+                    </tbody>
+                  </table>
+
+                  <div class="form-popup" id="myUpdateForm" style="max-height: 400px; overflow-y: auto;">
+                    <form action="/admin_panel/create_patient_appointment2/" method="post" class="form-container">
+                      <div style="display: flex; gap: 50px;">
+                        <h1>Randevu Ekle</h1>
+                        <a style="cursor: pointer;" onclick="closeUpdateForm()">
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAATxJREFUSEvt1b1KQ0EQhuEnamVn7zUI3oGIoiiihYUoWNpq4QVZqIWIiNjZiIKNot6KP/iDjYxsIASS3ZMDiUW2O5zZeff7dma2YUCrMSCuIbhvzg+t/ldWT+Acu3jOnGwee1jDT7fY3B2P4AlTeMEsHjskXMEZxnCJ+O64cuDYuI0D/nr+FXO4b8u4nFwJ6HeCXtUFt8Pfk/ImvB26iOtcsZQobubYwHFS3oRP4iTZ+4mlEmgkrAKO+E0cpZMEfBxRB19YwE1OafN/VXDsC+WHGE1JQmnc+10ptBfFAwNvJbVxgFarPxBFdVuquorVueKKNiqq6CpWt/Zy39qplwGSVZ6zOlrlAdN4w0zhyLzAat3JFY/EKfbT3O6WL6bYDtbrPhKlRVo5Lmd15YSlG4bgUqdqxw2trm1haYJf26BCH0lwPYsAAAAASUVORK5CYII=" />
+                        </a>
+                      </div>
+
+                            
+
+                            <label for="ID"></label>
+                            <input type="text" placeholder="ID" name="_id" required readonly style="display: none;">
+
+
+                            <label for="Name"></label>
+                            <input type="text" placeholder="Hasta Adı" name="name" required>
+
+                            <label for="surname"></label>
+                            <input type="text" placeholder="Hasta Soyadı" name="surname" required>
+
+                            <label for="phoneNum"></label>
+                            <input type="text" placeholder="Telefon" name="phoneNum" required>
+
+                            <label for="email"></label>
+                            <input type="text" placeholder="Email" name="email">
+
+                            <label for="Doctor"></label>
+                            <input type="text" placeholder="Doktor" name="doctor" required>
+
+                            <label for="Clinic"></label>
+                            <input type="text" placeholder="Klinik" name="clinic">
+
+                            <label for="Date"></label>
+                            <input type="text" placeholder="Tarih" name="date" required>
+
+                            <label for="Time"></label>
+                            <input type="text" placeholder="Saat" name="time" required>
+
+                            <label for="Price"></label>
+                            <input type="text" placeholder="Fiyat" name="price">
+
+                            <label for="More"></label>
+                            <input type="text" placeholder="Daha fazla" name="more">
+          
+                
+                      <button type="submit" class="btn">Ekle</button>
+                    </form>
+                  </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function(){
+            showAppointments();
+        });
+
+        var d_table = document.getElementById("randevuTable");
+
+        // Get the number of rows in the table
+        var d_rowCount = d_table.rows.length - 1;
+
+        // Update the heading dynamically
+        var d_header = document.getElementById("randevuHeader");
+        d_header.innerHTML = "Doktorlar (" + d_rowCount + ")";
+
+        function openForm() {
+            var form = document.getElementById("myForm");
+            var side_bar = document.querySelector(".side-bar-light");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+            
+                side_bar.style.opacity = "0.5";
+                form.style.display = "block";
+                body.classList.add("darken-bg");
+                d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                addDoctorBtn.style.opacity = "0.5"; 
+        }
+
+        function closeForm() {
+            var form = document.getElementById("myForm");
+            var body = document.body;
+            var addDoctorBtn = document.getElementById("addDoctorBtn");
+            var side_bar = document.querySelector(".side-bar-light");
+            side_bar.style.opacity = "1";
+            form.style.display = "none";
+            body.classList.remove("darken-bg");
+            d_table.style.opacity = "1"; // Reset opacity when the form is closed
+            addDoctorBtn.disabled = false; // Enable the button when the form is closed
+            setInteractionsEnabled(true);
+            addDoctorBtn.style.opacity = "1"; 
+        }
+
+        function toggleLink(event) {
+            var form = document.getElementById("myForm");
+            if (form.style.display === "block") {
+                event.preventDefault();
+            }
+        }
+
+        function setInteractionsEnabled(enabled) {
+            // Disable/enable anchor links
+            var links = document.querySelectorAll(".list-container a");
+            links.forEach(function (link) {
+                link.classList.toggle("disabled", !enabled); // Add or remove the disabled class
+            });
+
+            // Disable/enable buttons in the table
+            var buttons = document.querySelectorAll(".add-btn");
+            buttons.forEach(function (button) {
+                button.disabled = !enabled; // Set the disabled property
+            });
+
+            var logbtn = document.querySelector('.logout-button');
+            var tp1 = document.querySelector('.tp1');
+            var tp2 = document.querySelector('.tp2');
+            tp1.classList.toggle("disabled-link",!enabled);
+            tp2.classList.toggle("disabled-link",!enabled);
+            logbtn.classList.toggle("disabled-link",!enabled);
+            
+        }
+
+
+        function showAppointments() {
+            fetch('/admin_panel/read_appointment_requests')
+              .then(response => response.json())
+              .then(doctors => {
+                const appointmentsContainer = document.getElementById('appointmentsContainer');
+                appointmentsContainer.innerHTML = ''; // Clear previous content
+        
+                doctors.forEach(patient => {
+                  // if patient.doctor have a name like this Dt. Özgür Kaldırım remove the Dt. 
+                  let doctorName = patient.doctor;
+                  if (doctorName.includes("Dt. ")) {
+                    doctorName = doctorName.replace("Dt. ", "");
+                  }
+                  // and the doctorName will be like this Özgür Kaldırım
+                  doctorName = doctorName.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ');
+                  const patientInfo = `
+                    <tr>
+                      <td>${patient.name}</td>
+                      <td>${patient.telNo}</td>
+                      <td>${patient.email}</td>
+                      <td>${patient.availableHours}</td>
+                      <td>${patient.doctor}</td>
+                      <td>${patient.complaint}</td>
+                      <td>
+                        <div  style="display: flex; gap: 10px;">
+
+                        <button class="add-btn" onclick="openUpdateForm('${patient._id}', '${patient.name}', '${patient.telNo}', '${patient.email}', '${patient.availableHours}', '${doctorName}', '${patient.complaint}')">Ekle</button>
+                        <button class="add-btn" onclick="deletePatient('${patient._id}')">Kaldır</button>
+                          <div>
+                        </td>
+                      
+                    </tr>
+                  `;
+        
+                  appointmentsContainer.innerHTML += patientInfo;
+                  //console.log("ID in showDoctors(): " + patient._id);
+                });
+
+                updateAppointmentsCount(doctors.length);
+
+              })
+              .catch(error => console.error('Error fetching patients:', error));
+        }
+
+        function updateAppointmentsCount(count) {
+            var d_header = document.getElementById("randevuHeader");
+            d_header.innerHTML = "Randevu Talepleri (" + count + ")";
+        }
+
+        function splitName(name) {
+            const nameArray = name.split(' ');
+
+            if (nameArray.length > 1) {
+                const name_ = nameArray.slice(0, -1).join(' ');
+                const surname_ = nameArray.slice(-1).join(' ');
+                return { name_, surname_ };
+            } else {
+                const name_ = nameArray[0];
+                const surname_ = '';
+                return { name_, surname_ };
+            }
+        }
+
+          function openUpdateForm(id, name, telNo, email, availableHours, doctor, complaint ) {
+            //console.log("open Update'deyim!!!!!!!");
+            //console.log("ID İn openUpdateform: " + id);
+          
+            // Formu seç
+            const form = document.getElementById('myUpdateForm');
+            const body = document.body;
+
+            const { name_, surname_ } = splitName(name);
+
+            body.classList.add("darken-bg");          
+            d_table.style.opacity = "0.5"; // Set opacity for the table when the form is open
+                //addDoctorBtn.disabled = true; // Disable the button when the form is open
+                setInteractionsEnabled(false);
+                //addDoctorBtn.style.opacity = "0.4"
+            // Form alanlarını doldur
+
+            var side_bar = document.querySelector(".side-bar-light");
+            side_bar.style.opacity = "0.5";
+            form.querySelector('input[name="_id"]').value = id;
+            form.querySelector('input[name="name"]').value = name_;
+            form.querySelector('input[name="surname"]').value = surname_;
+            form.querySelector('input[name="phoneNum"]').value = telNo;
+            form.querySelector('input[name="email"]').value = email;
+            //form.querySelector('input[name="availableHours"]').value = availableHours;
+            form.querySelector('input[name="doctor"]').value = doctor;
+            form.querySelector('input[name="more"]').value = complaint;
+          
+            // Formu görünür hale getir
+            form.style.display = 'block';
+          }
+          
+      
+          function closeUpdateForm() {
+            const form = document.getElementById('myUpdateForm');
+            form.style.display = 'none';
+            const body = document.body;
+            var side_bar = document.querySelector(".side-bar-light");
+            side_bar.style.opacity = "1";
+body.classList.remove("darken-bg");          
+d_table.style.opacity = "1"; // Set opacity for the table when the form is open
+    //addDoctorBtn.disabled = false; // Disable the button when the form is open
+    setInteractionsEnabled(true);
+    //addDoctorBtn.style.opacity = "1"
+          }
+
+
+
+          async function deletePatient(id) {
+            var confirmAction = confirm("Randevu talebini kaldırmak istediğinize emin misiniz?");
+    if (!confirmAction) {
+        return;
+    } else {
+            try {
+                const response = await fetch('/admin_panel/delete_appointment_request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        _id: id
+                    }),
+                });
+        
+                if (response.ok) {
+                    // Alert göster
+                    alert('Randevu talebi başarıyla silindi!');
+                    // '/admin_panel/doktorlar' sayfasına yönlendir
+                    window.location.href = '/admin_panel/randevu_talepleri/';
+                } else {
+                    console.error('Error deleting Randevu talebi:', response.statusText);
+                    // Hata işleme
+                    alert('Randevu talebi silinemedi: ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error deleting Randevu talebi:', error.message);
+                // Hata işleme
+                alert('Randevu talebi silinemedi: ' + error.message);
+            }
+        }
+      }
+
+
+            // make the name and email fit in the navbar
+            window.addEventListener('DOMContentLoaded', (event) => {
+        const navbarBrands = document.querySelectorAll('.navbar-brand');
+        navbarBrands.forEach(element => {
+            adjustFontSizeToFit(element);
+        });
+    });
+
+    function adjustFontSizeToFit(element) {
+        const maxWidth = element.offsetWidth; // Get the maximum width of the container
+        let fontSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+        fontSize = parseFloat(fontSize);
+
+        while (element.scrollWidth > maxWidth && fontSize > 10) { // Minimum font size is 10px
+            fontSize -= 1; // Decrease font size
+            element.style.fontSize = fontSize + 'px';
+        }
+    }
+    
+    </script>
+</body>
+
+</html>

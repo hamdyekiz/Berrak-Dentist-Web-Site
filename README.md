@@ -1,6 +1,3 @@
-# Berrak Oral and Dental Health Polyclinic Website Project
-This is a project from CSE343 course at Gebze Technical University, Computer Engineering Department. 
-
 ## Team Members
 | Number | Name | Role
 | --- | --- | --- |

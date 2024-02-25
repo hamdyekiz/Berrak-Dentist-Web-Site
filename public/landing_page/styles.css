@@ -1,0 +1,882 @@
+/*Fonts*/
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Alfa+Slab+One&family=Amatic+SC:wght@700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,600&family=Dancing+Script:wght@700&family=Lobster+Two:ital@1&family=Luckiest+Guy&family=Monoton&family=Pacifico&family=Phudu&family=Playpen+Sans:wght@600&family=Raleway:wght@200&family=Ysabeau+Infant:wght@200&display=swap');
+
+/*Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: hsl(210, 36%, 96%);
+  color: hsl(209, 61%, 16%);
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: 0.25rem;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 0.875rem;
+}
+
+p {
+  margin-bottom: 2rem;
+  color: hsl(210, 22%, 49%);
+}
+
+
+
+@media screen and (min-width: 800px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  body {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1;
+  }
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+/*  global styles */
+
+
+
+
+
+/* section */
+.section {
+  padding-bottom: 5rem;
+}
+
+
+/*CONTACT**/
+.info {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  transition: all 0.3s linear;
+}
+
+.info:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.map {
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s linear;
+  padding: 5px;
+}
+
+.map.map:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+/*CONTACT**/
+
+
+
+/*DOCTORS*/
+.doctorimg {
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 125px;
+  transition: all 0.3s linear;
+  height: 250px;
+  width: 250px;
+}
+
+.doctorimg:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/*DOCTORS*/
+
+
+
+/*GRID*/
+.grid-container {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 275px 275px 275px 275px;
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 100px;
+  margin-top: 75px;
+  row-gap: 10px;
+  column-gap: 10px;
+  /* Only set row-gap to 10px */
+}
+
+.grid-item {
+  height: 150px;
+  width: 270px;
+  padding: 20px;
+  border-radius: 5%;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  object-fit: cover;
+}
+
+#coure-1 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/implant.jpeg)center/cover no-repeat;
+}
+
+#coure-2 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/estetik-dis.jpg)center/cover no-repeat;
+}
+
+#coure-3 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dis-protezi.jpg) center/cover no-repeat;
+}
+
+#coure-4 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dental-spa-smile.jpg)center/cover no-repeat;
+}
+
+#coure-5 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/ortodonti.jpg)center/cover no-repeat;
+}
+
+#coure-6 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/kanal-tedavisi.jpg)center/cover no-repeat;
+}
+
+#coure-7 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/agiz-dis-ve-cene-cerrahisi_20180316104702.jpg)center/cover no-repeat;
+}
+
+#coure-8 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dolgu-tedavisi-5.jpg)center/cover no-repeat;
+}
+
+#coure-9 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dis-eti-hastaliklari.jpg)center/cover no-repeat;
+}
+
+#coure-10 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/cocuk-dis-hekimi_4865-460.jpg)center/cover no-repeat;
+}
+
+#coure-11 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dental-radyoloji.jpg)center/cover no-repeat;
+}
+
+#coure-12 {
+  background: linear-gradient(rgba(187, 217, 218, 0.5), rgba(0, 0, 0, 0.7)), url(../img/dis-tedavi-yontemelri-1-1.webp)center/cover no-repeat;
+}
+
+
+/*GRID*/
+
+
+
+
+/* NAVBAR*/
+nav {
+  padding: 1rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: hsl(205, 89%, 70%);
+  ;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+}
+
+
+.contact-icon {
+  display: flex;
+  gap: 15px;
+}
+
+.links-container .links a:hover {
+  color: #222;
+}
+
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-toggle {
+  font-size: 1.5rem;
+  color: hsl(209, 61%, 16%);
+  background: transparent;
+  border-color: transparent;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.nav-toggle:hover {
+  transform: scale(1.2);
+}
+
+.logo {
+  height: 50px;
+}
+
+.links-container {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s linear;
+}
+
+.show-links {
+  height: 250px;
+}
+
+
+.paragraph p {
+  margin-bottom: 0.4rem;
+}
+
+.links a {
+  background-color: hsl(205, 89%, 70%);
+  ;
+  color: hsl(210, 22%, 49%);
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  letter-spacing: 0.25rem;
+  display: block;
+  transition: all 0.3s linear;
+  font-weight: bold;
+  padding: 0.75rem 0;
+}
+
+.links a:hover {
+  color: hsl(209, 61%, 16%);
+}
+
+@media screen and (max-width: 800px) {
+  .social-icons-container {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  nav {
+    background-color: hsl(205, 89%, 70%);
+  }
+
+  .nav-center {
+    width: 90vw;
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-header {
+    padding: 0;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .links-container {
+    height: auto !important;
+  }
+
+  .links {
+    display: flex;
+  }
+
+  .links a {
+    background: transparent;
+    color: #fff;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+    letter-spacing: 0.25rem;
+    display: block;
+    transition: all 0.3s linear;
+    margin: 0 1rem;
+    font-weight: bold;
+    padding: 0;
+  }
+
+  .links a:hover {
+    color: #fff;
+  }
+}
+
+/* NAVBAR*/
+
+
+/* HEADER */
+header {
+  max-height: 100vh;
+  background: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7)),
+    url(../img/group-of-doctors.jpg) center/cover no-repeat;
+}
+
+/* HEADER */
+
+
+/* BANNER */
+.banner {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.container h1 {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.container p {
+  color: #fff;
+  max-width: 25rem;
+  margin: 0 auto;
+  margin-bottom: 1.25rem;
+}
+
+/* BANNER */
+
+
+.img-container {
+  text-align: center;
+}
+
+.doctor-container {
+  display: inline-block;
+  margin: 0 100px;
+  text-align: center;
+}
+
+@media (max-width: 1280px) {
+  .review__headerDescription {
+    height: 300px;
+    width: 100%;
+  }
+
+  .img-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    /* Adjust the gap as needed */
+  }
+
+  .mydiv {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  .img-container>div {
+    text-align: center;
+  }
+
+  .doctorimg {
+    width: 180px;
+    height: 180px;
+  }
+
+
+  .grid-container {
+    grid-template-columns: auto auto auto;
+  }
+
+  .grid-item {
+    height: 175px;
+    width: 180px;
+    padding: 20px;
+    border-radius: 5%;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    object-fit: cover;
+  }
+
+  .review {
+    flex-direction: column;
+    width: 50%;
+
+  }
+
+  .review__ {
+    width: 350px;
+
+
+  }
+
+  .abc {
+    flex-direction: column;
+    gap: 0px;
+    /* justify-content: ; */
+
+  }
+
+  .map {
+    height: 300px;
+  }
+
+  .mapx {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info {
+    width: 100%;
+    height: auto;
+  }
+
+  .nav-header {
+    gap: 15px;
+  }
+
+  .social-icons {
+    display: none;
+  }
+
+  #services {
+    width: 100%;
+  }
+
+
+}
+
+
+
+
+@media (max-width: 767px) {
+  .review__headerDescription {
+    height: 300px;
+    width: 100%;
+  }
+
+  .img-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Adjust the gap as needed */
+  }
+
+  .mydiv {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  .img-container>div {
+    text-align: center;
+  }
+
+  .doctorimg {
+    width: 180px;
+    height: 180px;
+  }
+
+
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+
+  .grid-item {
+    height: 150px;
+    width: 135px;
+    padding: 20px;
+    border-radius: 5%;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    object-fit: cover;
+  }
+
+  .review {
+    flex-direction: column;
+
+  }
+
+  .review__ {
+    width: 350px;
+
+
+  }
+
+  .abc {
+    flex-direction: column;
+    gap: 0px;
+    /* justify-content: ; */
+
+  }
+
+  .map {
+    height: 300px;
+  }
+
+  .mapx {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info {
+    width: 100%;
+    height: auto;
+  }
+
+  .review {
+    width: 100%;
+  }
+
+  .nav-header {
+    gap: 15px;
+  }
+
+  .social-icons {
+    display: none;
+  }
+
+  #services {
+    width: 100%;
+  }
+
+
+}
+
+
+
+.mytemp2{
+  display: flex; 
+  margin-left: 60%;
+  gap:1%
+}
+.mytemp2 p{
+  margin-bottom: 0;
+}
+
+@media (max-width: 430px) {
+  html {
+    width: 100%;
+  }
+
+
+  .review__avatar {
+    /* Ensure the container is a flex container */
+    display: flex;
+    /* Center the content horizontally */
+    justify-content: center;
+    /* Center the content vertically */
+    align-items: center;
+  }
+
+  .review__text,
+  .review__ {
+    text-align: center;
+  }
+
+  .review {
+    width: 80%;
+  }
+
+  .stars {
+    display: flex;
+    /* Center the content horizontally */
+    justify-content: center;
+    /* Center the content vertically */
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+
+  .review__ {
+    width: 100%;
+  }
+
+
+  .review-footer {
+    margin-left: 10%;
+  }
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+  .container p {
+    max-width: 40rem;
+  }
+}
+
+/* sections and title */
+.title h2 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+
+
+.social-icons img {
+  transition: 0.5s ease;
+  width: 25px;
+  height: 25px;
+}
+
+
+.social-icons img:hover {
+  transform: scale(1.3);
+
+}
+
+#about,
+#services,
+#reviews,
+#cures,
+#contact {
+  height: auto;
+}
+
+/* #contact h2 {
+  margin: 20px;
+} */
+
+
+#services {
+  background-color: #fff;
+  ;
+}
+
+#contact {
+  background-color: hsl(210, 36%, 96%);
+
+
+}
+
+#reviews {
+  background-color: #fff;
+}
+
+#appointment {
+  background-color: #49a6e9;
+  border-radius: 20px;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s linear;
+
+}
+
+#appointment:hover {
+  transform: scale(1.02);
+  background-color: #67b5ec;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+
+.abc {
+  display: flex;
+  /* flex-direction: row; */
+  gap: 100px;
+  justify-content: center;
+}
+
+
+
+footer {
+  background-color: hsl(209, 61%, 16%);
+  padding: 5rem 1rem;
+}
+
+footer p {
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.25rem;
+  margin-bottom: 0;
+}
+
+.mainHeading {
+  color: #1f2023;
+  font-size: 17px;
+  font-weight: 600;
+
+}
+
+hr {
+  border: 1px solid #49a6e9;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.review__avatar img {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+}
+
+.review {
+  width: 40%;
+  min-height: 365px;
+  margin: 20px;
+  display: flex;
+  padding-bottom: 10px;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  position: relative;
+}
+
+@media (max-width: 430px) {
+  .review {
+    width: 80%;
+  }
+}
+
+@media (max-width: 769px) {
+  .review {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  position: absolute !important;
+  bottom: 3%;
+  left: 30%;
+}
+
+
+.prev-btn,
+.next-btn {
+  color: hsl(205, 90%, 76%);
+  font-size: 1.25rem;
+  background: transparent;
+  border-color: transparent;
+  margin: 0 0.5rem;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  transform: scale(1.15);
+}
+
+.review__headerText h3 {
+  font-size: 25px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.review__headerDescription {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.review__body {
+  flex: 1;
+  padding: 10px;
+  position: relative;
+}
+
+.review__avatar {
+  padding: 20px;
+}
+
+.checked {
+  color: orange;
+}
